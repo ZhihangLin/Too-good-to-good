@@ -3,9 +3,10 @@ import './Header.css'
 function Header() {
   return (
     <div className='header'>
-      <img
+       <img
       className='header__logo'
-      src='https://www.tripfiction.com/wp-content/uploads/2016/08/1920x1080-brands-amazon-logo.jpg' />
+      src={require('./Toogoodtogo.png')}
+      alt='Too Good To Go Logo'/>
       
       <div className='header__search'>
         <input className='header__searchInPut' type='text' />
