@@ -6,7 +6,6 @@ function App() {
   return (
     // BEM
     <div className="App">
-      <hi> SMD boys! </hi>
       <Header />
       {/* Home */}
     </div>
