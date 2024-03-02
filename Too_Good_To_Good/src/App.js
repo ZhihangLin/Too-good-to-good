@@ -1,58 +1,22 @@
-import React, { useEffect } from 'react';
+import React from 'react'
 import './App.css';
 import Home from'./Home';
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
-import Login from "./Login";
-import { auth } from "./firebase";
-//import { useStateValue } from "./StateProvider";
+import Header from './Header';
+import Checkout from './Checkout';
+import { Route, Routes } from 'react-router-dom'
+
 
 
 function App() {
-  //const[{}, dispatch] = useStateValue();
-
-
-  useEffect(() =>{
-    //only run once
-    auth.onAuthStateChanged(authUser => {
-      console.log('The USER IS >>> ', authUser);
-      if(authUser)
-      //user logged in
-      {
-        // dispatch({
-        //   type: 'SET_USER',
-        //   user: authUser
-        // })
-
-      }
-      else{
-        // user logged out
-        // dispatch({
-        //   type: 'SET_USER',
-        //   user: null
-
-        // })
-      }
-      
-      
-    })
-  },[])
   return (
     // BEM
-    <Router>
       <div className="App">
-       <Switch>
-        <Route path="/Login">
-          <h1>Login page</h1>
-          <Login />
-
-         </Route>
-      
-      
-      <Home />
-
-      </Switch>
+        <Header/>
+        <Routes>
+          <Route path='' element= {<Home/>} />
+          <Route path='/checkout' element= {<Checkout/>} />
+        </Routes>
       </div>
-    </Router>
   );
 }
 
