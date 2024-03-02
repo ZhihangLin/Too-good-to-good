@@ -18,12 +18,39 @@ function Home() {
             src='https://wp-media.familytoday.com/2013/07/featuredImageId3694.jpg' 
             alt=''/>
 
-            <div className='home__row'>
-                <Box />
+<div className='home__row'>
+                <Box 
+                  type = "Eletronic product"
+                  price = {75.00}
+                  image = ""
+                  location="queens"
+                  />
+                <Box 
+                  type = "Book"
+                  price = {155.00}
+                  image = ""
+                  location = "brooklyn"/>
             </div>
 
             <div className='home__row'>
-                
+                <Box 
+                  type = "Eletronic product"
+                  price = {75.00}
+                  image = ""
+                  location="queens"
+                  />
+                  <Box 
+                  type = "Eletronic product"
+                  price = {75.00}
+                  image = ""
+                  location="queens"
+                  />
+                  <Box 
+                  type = "Eletronic product"
+                  price = {75.00}
+                  image = ""
+                  location="queens"
+                  />
             </div>
 
         </div>
