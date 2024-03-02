@@ -7,7 +7,7 @@ function Box() {
       <div className='box__info'>
         <p>Label of box</p>
         <p className='box__price'>
-            
+
         </p>
 
         <img
