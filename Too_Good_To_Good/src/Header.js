@@ -1,9 +1,21 @@
 import React from 'react'
 import './Header.css'
+import Login from'./Login';
 import SearchIcon from '@mui/icons-material/Search';
 import RedeemIcon from '@mui/icons-material/Redeem';
+import { Link, useHistory } from "react-router-dom";
+import { useStateValue} from "./StateProvider";
 
 function Header() {
+  //const [{ basket, user}, dispatch] = userStateValue();
+  const history=useHistory();
+  const handleClick = () => {
+    // Use history.push to navigate to another page
+    history.push('/login');
+    window.location.reload();
+
+  };
+  
   return (
     <div className='header'>
        <img

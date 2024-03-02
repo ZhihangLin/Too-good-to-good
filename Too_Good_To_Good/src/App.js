@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import Home from'./Home';
+
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Login from "./Login";
 import { auth } from "./firebase";
 //import { useStateValue } from "./StateProvider";
+
 
 
 function App() {
@@ -38,6 +40,7 @@ function App() {
   },[])
   return (
     // BEM
+
     <Router>
       <div className="App">
        <Switch>
@@ -53,6 +56,7 @@ function App() {
       </Switch>
       </div>
     </Router>
+
   );
 }
 
