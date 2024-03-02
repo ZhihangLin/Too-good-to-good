@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import './Login.css';
 import { Link, useHistory } from "react-router-dom";
 import { auth } from "./firebase";
+import Home from "./Home";
+import Header from "./Header";
  
 
 function Login(){
@@ -14,8 +16,19 @@ function Login(){
         auth
         .signInWithEmailAndPassword(email, password)
         .then(auth => {
+            if(auth)
+        {
             history.push('/')
+            console.log('sign in uwadhw')
+            window.location.reload();
+            // const targetElement = document.getElementsByClassName('header__optionLineOne')[0];
+            // targetElement.innerHtml="Welcome User";
+
+            {/* testing if user sign in */}
+        }
+            
         })
+        
         .catch(error => alert(error.message))
 
        
@@ -42,12 +55,13 @@ function Login(){
     }
 
     return(
-        <div className='login'>
+        <div className='login'> 
         <Link to = '/'>
         <img className ="login_logo"
         src={require('./Toogoodtogo.png')} />
         </Link>
         <div className="login_container">
+        
             <h1>Sign-in</h1>
             <form>
                     <h5>E-mail</h5>
@@ -61,6 +75,7 @@ function Login(){
                 <button onClick={register} className='login_registerButton'>Create your Too good to go Account</button>
         </div>
         </div>
+
         
     )
 }

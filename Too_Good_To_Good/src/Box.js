@@ -7,8 +7,7 @@ function Box() {
       <div className='box__info'>
         <p>Label of box</p>
         <p className='box__price'>
-            <small>$</small>
-            <strong>29.99</strong>
+            
         </p>
 
         <img
