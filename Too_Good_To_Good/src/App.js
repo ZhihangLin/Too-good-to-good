@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import Home from'./Home';
-
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Login from "./Login";
 import { auth } from "./firebase";
-//import { useStateValue } from "./StateProvider";
 
+import Header from './Header';
+import Checkout from './Checkout';
+//import { useStateValue } from "./StateProvider";
 
 
 function App() {
@@ -40,23 +41,20 @@ function App() {
   },[])
   return (
     // BEM
-
     <Router>
       <div className="App">
-       <Switch>
-        <Route path="/Login">
-          <h1>Login page</h1>
-          <Login />
-
-         </Route>
-      
-      
-      <Home />
-
-      </Switch>
+        <Header />
+        <Switch>
+          <Route path="/Login">
+            <h1>Login page</h1>
+            <Login />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
       </div>
     </Router>
-
   );
 }
 

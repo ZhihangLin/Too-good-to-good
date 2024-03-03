@@ -15,7 +15,6 @@ function Header() {
     window.location.reload();
 
   };
-  
   return (
     <div className='header'>
        <img
@@ -30,12 +29,18 @@ function Header() {
       </div>
 
       <div className='header__nav'>
+      <Link to='/login' onClick={handleClick}>
+        {/* <button onClick={handleClick}> go to login page</button> */}
+  
         <div className='header__option'>
             <span className='header__optionLineOne'>Hello Guest</span>
             <span className='header__optionLineTwo'>Sign In</span>
-        </div>
+            {/* <span className='header__optionLineTwo'>{user ? 'Sign out': 'Sign In'}Sign In</span> */}
         
+        </div>
+        </Link>
         <div className='header__option'>
+            
             <span className='header__optionLineOne'>Look For</span>
             <span className='header__optionLineTwo'>Boxes</span>
         </div>
@@ -44,6 +49,7 @@ function Header() {
         <   span className='header__optionLineOne'>Your</span>
             <span className='header__optionLineTwo'>Boxes</span>
         </div>
+        
 
         <div className='header__optionBox'>
           <RedeemIcon />
@@ -51,9 +57,14 @@ function Header() {
         </div>
 
       </div>
+      
 
     </div>
+    
+    
   )
+  
 }
+
 
 export default Header
