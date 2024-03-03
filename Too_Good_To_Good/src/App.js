@@ -46,19 +46,23 @@ function App() {
     <Router>
       <div className="App">
        <Switch>
-        <Route path="/Login">
-          <h1>Login page</h1>
-          <Login />
-        </Route>
 
         <Route path='/ConfirmSwitch'>
           <Header />
           <ConfirmSwitch />
         </Route>
 
+        <Route path="/Login">
+          <h1>Login page</h1>
+          <Login />
+        </Route>
+
         <Route path='/'>
+          <Header />
           <Home />
         </Route>
+        
+        
 
       </Switch>
       </div>
