@@ -15,12 +15,15 @@ function Header() {
     window.location.reload();
 
   };
+
   return (
     <div className='header'>
-       <img
+      <Link to= '/'>
+      <img
       className='header__logo'
       src={require('./Toogoodtogo.png')}
       alt='Too Good To Go Logo'/>
+      </Link>
       
       <div className='header__search'>
         <input className='header__searchInPut' type='text' />
@@ -29,18 +32,12 @@ function Header() {
       </div>
 
       <div className='header__nav'>
-      <Link to='/login' onClick={handleClick}>
-        {/* <button onClick={handleClick}> go to login page</button> */}
-  
         <div className='header__option'>
             <span className='header__optionLineOne'>Hello Guest</span>
             <span className='header__optionLineTwo'>Sign In</span>
-            {/* <span className='header__optionLineTwo'>{user ? 'Sign out': 'Sign In'}Sign In</span> */}
-        
         </div>
-        </Link>
+        
         <div className='header__option'>
-            
             <span className='header__optionLineOne'>Look For</span>
             <span className='header__optionLineTwo'>Boxes</span>
         </div>
@@ -49,22 +46,19 @@ function Header() {
         <   span className='header__optionLineOne'>Your</span>
             <span className='header__optionLineTwo'>Boxes</span>
         </div>
+
+        <Link to='/ConfirmSwitch'>
+          <div className='header__optionBox'>
+            <RedeemIcon />
+            <span className='header__optionLineTwo header__boxCount'>0</span>
+          </div>
+        </Link>
         
 
-        <div className='header__optionBox'>
-          <RedeemIcon />
-          <span className='header__optionLineTwo header__boxCount'>0</span>
-        </div>
-
       </div>
-      
 
     </div>
-    
-    
   )
-  
 }
-
 
 export default Header
