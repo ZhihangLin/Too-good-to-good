@@ -6,6 +6,8 @@ function ConfirmSwitch() {
   return (
     <div className='ConfirmSwitch'>
         <div className='ConfirmSwitch__left'>
+            <img className='ConfirmSwitch__img' 
+            src={require('./TGTG_Logo.png')} alt='TGTG image'/>
             <div>
                 <h2 className='ConfirmSwitch__title'>
                     Your Box Basket
