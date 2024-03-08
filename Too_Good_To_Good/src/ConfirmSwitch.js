@@ -10,7 +10,7 @@ function ConfirmSwitch() {
             src={require('./TGTG_Logo.png')} alt='TGTG image'/>
             <div>
                 <h2 className='ConfirmSwitch__title'>
-                    Your Box Basket
+                    Your Box Wish list
 
                     {/* Boxes */}
                     {/* Boxes */}
