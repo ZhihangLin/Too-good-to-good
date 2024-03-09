@@ -1,8 +1,13 @@
 import React from 'react'
 import './ConfirmSwitch.css'
 import Switch from './Switch'
+import { useStateValue } from './StateProvider'
+import BoxesSelected from './BoxesSelected';
+
 
 function ConfirmSwitch() {
+    const [{ basket }, dispatch] = useStateValue();
+
   return (
     <div className='ConfirmSwitch'>
         <div className='ConfirmSwitch__left'>
@@ -11,10 +16,17 @@ function ConfirmSwitch() {
             <div>
                 <h2 className='ConfirmSwitch__title'>
                     Your Box Wish list
-
-                    {/* Boxes */}
-                    {/* Boxes */}
                 </h2>
+                {basket.map(item =>(
+                    <BoxesSelected
+                    type= {item.type}
+                    image= {item.image}
+                    price= {item.typricepe}
+                    location= {item.location}
+                    />
+                ))}
+                {/* BoxesSelected */}
+                {/* BoxesSelected */}
             </div>
         </div>
 
