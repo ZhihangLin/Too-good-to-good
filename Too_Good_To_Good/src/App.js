@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import Home from'./Home';
-
+import Upload from'./Upload';
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Login from "./Login";
 import { auth } from "./firebase";
@@ -56,6 +56,11 @@ function App() {
           <h1>Login page</h1>
           <Login />
         </Route>
+
+        <Route path="/Upload">
+          <h1>Upload page</h1>
+          <Upload />
+         </Route>
 
         <Route path='/'>
           <Header />
