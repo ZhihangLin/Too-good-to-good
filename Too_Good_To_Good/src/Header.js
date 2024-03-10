@@ -7,21 +7,20 @@ import { Link, useHistory } from "react-router-dom";
 import { useStateValue} from "./StateProvider";
 
 function Header() {
-  //const [{ basket, user}, dispatch] = userStateValue();
-  const history=useHistory();
+  const [{ basket }, dispatch] = useStateValue();
+  const history = useHistory();
   const handleClick = () => {
     // Use history.push to navigate to another page
     history.push('/login');
     window.location.reload();
-
   };
+
   return (
     <div className='header'>
-       <img
-      className='header__logo'
-      src={require('./Toogoodtogo.png')}
-      alt='Too Good To Go Logo'/>
-      
+      <Link to='/'>
+        <img className='header__logo' src={require('./Toogoodtogo.png')} alt='Too Good To Go Logo' />
+      </Link>
+
       <div className='header__search'>
         <input className='header__searchInPut' type='text' />
         <SearchIcon className='header__searchIcon' />
@@ -29,42 +28,38 @@ function Header() {
       </div>
 
       <div className='header__nav'>
-      <Link to='/login' onClick={handleClick}>
-        {/* <button onClick={handleClick}> go to login page</button> */}
-  
-        <div className='header__option'>
+        <Link to='/login'>
+          <div className='header__option'>
             <span className='header__optionLineOne'>Hello Guest</span>
             <span className='header__optionLineTwo'>Sign In</span>
-            {/* <span className='header__optionLineTwo'>{user ? 'Sign out': 'Sign In'}Sign In</span> */}
-        
-        </div>
+          </div>
         </Link>
-        <div className='header__option'>
-            
-            <span className='header__optionLineOne'>Look For</span>
-            <span className='header__optionLineTwo'>Boxes</span>
-        </div>
-
-        <div className='header__option'>
-        <   span className='header__optionLineOne'>Your</span>
-            <span className='header__optionLineTwo'>Boxes</span>
-        </div>
         
+        <Link to ='/Upload'>
+          <div className='header__option'>
+            <span className='header__optionLineOne'>Upload</span>
+            <span className='header__optionLineTwo'>Boxes</span>
+          </div>
+        </Link>
 
-        <div className='header__optionBox'>
-          <RedeemIcon />
-          <span className='header__optionLineTwo header__boxCount'>0</span>
-        </div>
+        <Link to ='/ConfirmSwitch'>
+          <div className='header__option'>
+            <span className='header__optionLineOne'>Your</span>
+            <span className='header__optionLineTwo'>Boxes</span>
+          </div>
+        </Link>
 
+        <Link to='/ConfirmSwitch'>
+          <div className='header__optionBox'>
+            <RedeemIcon />
+            <span className='header__optionLineTwo header__boxCount'>
+              {basket?.length}
+            </span>
+          </div>
+        </Link>
       </div>
-      
-
     </div>
-    
-    
-  )
-  
+  );
 }
 
-
-export default Header
+export default Header;

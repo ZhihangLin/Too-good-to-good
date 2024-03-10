@@ -1,0 +1,8 @@
+.BoxesSelected__prices {
+    display: flex;
+    align-items: center;
+  }
+  
+  .BoxesSelected__price {
+    margin-right: 5px;
+  }
