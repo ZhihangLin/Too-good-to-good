@@ -1,104 +1,59 @@
 import React, { useState } from "react";
 import './Upload.css';
 import { Link, useHistory } from "react-router-dom";
-import { auth } from "./firebase";
-import Home from "./Home";
-import Header from "./Header";
-import Login from "./Login";
- 
+import { db } from "./firebase";
 
-function Upload(){
-    // const history = useHistory();
-    // const [email, setEmail] = useState('');
-    // const [password, setPassword] = useState('');
+function Upload() {
+    const history = useHistory();
+    const [type, setType] = useState('');
+    const [productName, setProductName] = useState('');
+    const [originPrice, setOriginPrice] = useState('');
+    const [notes, setNotes] = useState('');
 
-    // const signIn = e => {
-    //     e.preventDefault();
-    //     auth
-    //     .signInWithEmailAndPassword(email, password)
-    //     .then(auth => {
-    //         if(auth)
-    //     {
-    //         history.push('/')
-    //         console.log('sign in uwadhw')
-    //         window.location.reload();
-    //         // const targetElement = document.getElementsByClassName('header__optionLineOne')[0];
-    //         // targetElement.innerHtml="Welcome User";
+    const Upload = (e) => {
+        e.preventDefault();
 
-    //         {/* testing if user sign in */}
-    //     }
-            
-    //     })
-        
-    //     .catch(error => alert(error.message))
+        // Upload data to Firestore
+        db.collection('box').add({
+            type: type,
+            productName: productName,
+            originPrice: originPrice,
+            notes: notes
+        })
+        .then(() => {
+            console.log("Document successfully uploaded!");
+            // Optionally, redirect the user to another page after successful upload
+            history.push('/'); // Redirect to the home page
+        })
+        .catch((error) => {
+            console.error("Error uploading document: ", error);
+            // Handle errors here, such as displaying an error message to the user
+        });
+    }
 
-       
-    // }
-
-    // const register = e => {
-    //     e.preventDefault();
-
-    //     auth
-    //         .createUserWithEmailAndPassword(email, password)
-    //         .then((auth) => {
-    //             // it successfully create a new user with email and password
-    //             console.log(auth);
-    //             if(auth)
-    //             {
-    //                 history.push('/')
-
-    //             }
-                
-    //         })
-    //         .catch(error => alert(error.message));
-
-       
-    // }
-
-    return(
-        <div className='upload'> 
-        <Link to = '/'>
-        <img className ="upload_logo"
-        src={require('./Toogoodtogo.png')} />
-        </Link>
-        <div className="login_container">
-        
-            <h1>Welcome, User</h1>
-            <form>
-                    <br></br>
-                    <h3>Add your box by fill out the information below!</h3>
-                    {/* <input type='text' value={email} onChange={e => setEmail(e.target.value)} /> */}
-                    <br></br>
-
-                    <h4>Upload Picture:</h4>
-                    <input type="file" id="item" name="item" accept="image/png, image/jpeg" />
-
+    return (
+        <div className='upload'>
+            <Link to='/'>
+                <img className="upload_logo" src={require('./Toogoodtogo.png')} />
+            </Link>
+            <div className="login_container">
+                <h1>Welcome, User</h1>
+                <form onSubmit={Upload}>
+                    <br />
+                    <h3>Add your box by filling out the information below!</h3>
                     <h5>Type:</h5>
-                    <input type='text'/>
-
+                    <input type='text' value={type} onChange={e => setType(e.target.value)} />
                     <h5>Product Name:</h5>
-                    <input type='text'/>
-                    
+                    <input type='text' value={productName} onChange={e => setProductName(e.target.value)} />
                     <h5>Origin Price:</h5>
-                    <input type='text'/>
-
+                    <input type='text' value={originPrice} onChange={e => setOriginPrice(e.target.value)} />
                     <h5>Notes:</h5>
-                    <input type='text'/>
-
-                    <button type='submit'  className='login_signInButton'>Upload</button>
-
-
-                    
-                    {/* <input type='password' value={password} onChange={e => setPassword(e.target.value)} /> */}
-
-                    {/* <button type='submit' onClick={signIn} className='login_signInButton'>Sign In</button> */}
+                    <input type='text' value={notes} onChange={e => setNotes(e.target.value)} />
+                    <button type='submit' className='login_signInButton'>Upload</button>
                 </form>
-                {/* <button onClick={register} className='login_registerButton'>Create your Too good to go Account</button> */}
+            </div>
         </div>
-        </div>
-
-        
     )
 }
 
-export default Upload
+export default Upload;
