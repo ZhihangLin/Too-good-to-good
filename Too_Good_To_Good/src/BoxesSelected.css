@@ -1,0 +1,29 @@
+.BoxesSelected {
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.BoxesSelected__info {
+    padding-left: 20px;
+}
+
+.BoxesSelected__info > button {
+    background: rgb(137, 197, 47);
+    border: 1px solid;
+    margin-top: 10px;
+    border-color: rgb(22, 131, 22) rgb(35rgb(22, 77, 22), 35) rgb(16, 78, 16);
+    color: #111;
+}
+
+/*
+.BoxesSelected__image{
+    object-fit: contain;
+    width: 180px;
+    height: 180px;
+}
+*/
+
+.BoxesSelected__type {
+    font-size: 17px;
+    font-weight: 800;
+}

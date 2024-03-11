@@ -22,7 +22,7 @@ export const initialState = {
           basket: []
         }
   
-      case "REMOVE_FROM_BASKET":
+      case "REMOVE_FROM_WISHLISH":
         const index = state.basket.findIndex(
           (basketItem) => basketItem.id === action.id
         );

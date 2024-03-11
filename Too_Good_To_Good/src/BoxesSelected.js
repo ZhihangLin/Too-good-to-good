@@ -1,7 +1,16 @@
 import React from 'react'
 import './BoxesSelected.css'
+import { useStateValue } from './StateProvider'
 
-function BoxesSelected({ type, image, price, location }) {
+function BoxesSelected({ id, type, image, price, location }) {
+  const [{basket}, dispatch] = useStateValue();
+  const removeFromWishList = () => {
+    //Remove the item from WishList
+    dispatch({
+      type: 'REMOVE_FROM_WISHLISH',
+      id: id
+    })
+  }
   return (
     <div className='BoxesSelected'>
       <img
@@ -21,7 +30,7 @@ function BoxesSelected({ type, image, price, location }) {
             <p className='BoxesSelected__location'>
                 <strong>{location}</strong>
             </p>
-            <button>Remove from WishList</button>
+            <button onClick={removeFromWishList}>Remove from WishList</button>
         </div>
     </div>
   )
