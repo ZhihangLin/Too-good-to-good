@@ -9,17 +9,18 @@
 }
 
 .header__logo{
-    width: 135px;
+    width: 150px;
     object-fit: contain;
     margin: 0 20px;
-    margin-top: 8px;
+    margin-left: 80px;
 }
 
 .header__search {
     display: flex;
     flex: 1;
     align-items: center;
-    border-radius: 24px;
+    border-radius: 10px;
+    margin-left: 200px; 
 }
 
 .header__searchInPut {
@@ -27,12 +28,14 @@
     padding: 10px;
     border: none;
     width: 100%;
+    margin-left:-50px ;
 }
 
 .header__searchIcon {
     padding: 5px;
     height: 22px !important;
     background-color: #3dad95;
+    margin-right: 50px;
 }
 
 .header__option {
@@ -46,15 +49,19 @@
 .header__nav {
     display: flex;
     justify-content: space-evenly;
+    margin-right:40px;
+    
 }
 
 .header__optionLineOne {
-    font-size: 10px;
+    font-size: 13px;
+    margin-left: 40px;
 }
 
 .header__optionLineTwo {
     font-size: 13px;
     font-weight: 560;
+    margin-left: 40px;
 }
 
 .header__optionBox {

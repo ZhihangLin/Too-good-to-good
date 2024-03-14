@@ -1,0 +1,93 @@
+[debug] [2024-03-09T16:39:32.286Z] ----------------------------------------------------------------------
+[debug] [2024-03-09T16:39:32.287Z] Command:       /usr/local/bin/node /usr/local/bin/firebase init
+[debug] [2024-03-09T16:39:32.287Z] CLI Version:   13.4.0
+[debug] [2024-03-09T16:39:32.287Z] Platform:      darwin
+[debug] [2024-03-09T16:39:32.287Z] Node Version:  v18.14.0
+[debug] [2024-03-09T16:39:32.287Z] Time:          Sat Mar 09 2024 11:39:32 GMT-0500 (Eastern Standard Time)
+[debug] [2024-03-09T16:39:32.287Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-03-09T16:39:32.289Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2024-03-09T16:39:32.309Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-03-09T16:39:32.310Z] > authorizing via signed-in user (guangyangsun0621@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/guangyangsun/Documents/cs499/Too-good-to-good
+
+[debug] [2024-03-09T16:39:32.492Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2024-03-09T16:39:32.492Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2024-03-10T01:51:48.014Z] ----------------------------------------------------------------------
+[debug] [2024-03-10T01:51:48.015Z] Command:       /usr/local/bin/node /usr/local/bin/firebase init
+[debug] [2024-03-10T01:51:48.015Z] CLI Version:   13.4.0
+[debug] [2024-03-10T01:51:48.015Z] Platform:      darwin
+[debug] [2024-03-10T01:51:48.016Z] Node Version:  v18.14.0
+[debug] [2024-03-10T01:51:48.019Z] Time:          Sat Mar 09 2024 20:51:48 GMT-0500 (Eastern Standard Time)
+[debug] [2024-03-10T01:51:48.019Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-03-10T01:51:48.021Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-03-10T01:51:48.022Z] > authorizing via signed-in user (guangyangsun0621@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/guangyangsun/Documents/cs499/Too-good-to-good
+
+[debug] [2024-03-11T00:17:17.598Z] ----------------------------------------------------------------------
+[debug] [2024-03-11T00:17:17.599Z] Command:       /usr/local/bin/node /usr/local/bin/firebase init
+[debug] [2024-03-11T00:17:17.599Z] CLI Version:   13.4.0
+[debug] [2024-03-11T00:17:17.599Z] Platform:      darwin
+[debug] [2024-03-11T00:17:17.599Z] Node Version:  v18.14.0
+[debug] [2024-03-11T00:17:17.600Z] Time:          Sun Mar 10 2024 20:17:17 GMT-0400 (Eastern Daylight Time)
+[debug] [2024-03-11T00:17:17.600Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-03-11T00:17:17.601Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2024-03-11T00:17:17.622Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-03-11T00:17:17.622Z] > authorizing via signed-in user (guangyangsun0621@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/guangyangsun/Documents/cs499/Too-good-to-good
+
+[debug] [2024-03-11T00:17:17.858Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2024-03-11T00:17:17.859Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2024-03-13T23:36:11.439Z] ----------------------------------------------------------------------
+[debug] [2024-03-13T23:36:11.440Z] Command:       /usr/local/bin/node /usr/local/bin/firebase init
+[debug] [2024-03-13T23:36:11.440Z] CLI Version:   13.4.0
+[debug] [2024-03-13T23:36:11.440Z] Platform:      darwin
+[debug] [2024-03-13T23:36:11.440Z] Node Version:  v18.14.0
+[debug] [2024-03-13T23:36:11.443Z] Time:          Wed Mar 13 2024 19:36:11 GMT-0400 (Eastern Daylight Time)
+[debug] [2024-03-13T23:36:11.443Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-03-13T23:36:11.445Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2024-03-13T23:36:11.466Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-03-13T23:36:11.466Z] > authorizing via signed-in user (guangyangsun0621@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/guangyangsun/Documents/cs499/Too-good-to-good
+
+[debug] [2024-03-13T23:36:12.288Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2024-03-13T23:36:12.289Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}

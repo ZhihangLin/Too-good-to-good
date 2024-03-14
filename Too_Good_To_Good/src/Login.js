@@ -11,6 +11,11 @@ function Login(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const handleClicktohome = () => {
+        // Use history.push to home page
+        history.push('/');
+        window.location.reload();
+      };
     const signIn = e => {
         e.preventDefault();
         auth
@@ -45,6 +50,7 @@ function Login(){
                 if(auth)
                 {
                     history.push('/')
+                    window.location.reload();
 
                 }
                 
@@ -56,10 +62,10 @@ function Login(){
 
     return(
         <div className='login'> 
-        <Link to = '/'>
-        <img className ="login_logo"
+        
+        <img className ="login_logo" onClick={handleClicktohome}
         src={require('./Toogoodtogo.png')} />
-        </Link>
+        
         <div className="login_container">
         
             <h1>Sign-in</h1>

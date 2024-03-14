@@ -7,12 +7,12 @@ import Login from "./Login";
 import { auth } from "./firebase";
 import ConfirmSwitch from "./ConfirmSwitch"
 import Header from './Header';
-//import { useStateValue } from "./StateProvider";
+import { useStateValue } from "./StateProvider";
 
 
 
 function App() {
-  //const[{}, dispatch] = useStateValue();
+  const[{}, dispatch] = useStateValue();
 
 
   useEffect(() =>{
@@ -22,19 +22,19 @@ function App() {
       if(authUser)
       //user logged in
       {
-        // dispatch({
-        //   type: 'SET_USER',
-        //   user: authUser
-        // })
+        dispatch({
+          type: 'SET_USER',
+          user: authUser
+        })
 
       }
       else{
         // user logged out
-        // dispatch({
-        //   type: 'SET_USER',
-        //   user: null
+        dispatch({
+          type: 'SET_USER',
+          user: null
 
-        // })
+        })
       }
       
       
@@ -53,7 +53,7 @@ function App() {
         </Route>
 
         <Route path="/Login">
-          <h1>Login page</h1>
+          {/* <h1>Login page</h1> */}
           <Login />
         </Route>
 
