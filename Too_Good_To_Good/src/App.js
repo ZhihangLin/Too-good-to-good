@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import Home from'./Home';
-import Upload from'./Upload';
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Login from "./Login";
 import { auth } from "./firebase";
-import ConfirmSwitch from "./ConfirmSwitch"
-import Header from './Header';
-//import { useStateValue } from "./StateProvider";
 
+import Header from './Header';
+import Checkout from './Checkout';
+//import { useStateValue } from "./StateProvider";
 
 
 function App() {
@@ -42,37 +41,25 @@ function App() {
   },[])
   return (
     // BEM
-
     <Router>
       <div className="App">
-       <Switch>
-
-        <Route path='/ConfirmSwitch'>
-          <Header />
-          <ConfirmSwitch />
-        </Route>
-
-        <Route path="/Login">
-          <h1>Login page</h1>
-          <Login />
-        </Route>
-
-        <Route path="/Upload">
-          <h1>Upload page</h1>
-          <Upload />
-         </Route>
-
-        <Route path='/'>
-          <Header />
-          <Home />
-        </Route>
-        
-        
-
-      </Switch>
+        <Switch>
+          <Route path="/Login" render={() => null} />
+          <Route>
+            <Header />
+          </Route>
+        </Switch>
+        <Switch>
+          <Route path="/Login">
+            <h1>Login page</h1>
+            <Login />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
       </div>
     </Router>
-
   );
 }
 

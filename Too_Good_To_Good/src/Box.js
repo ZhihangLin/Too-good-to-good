@@ -1,29 +1,7 @@
 import React from 'react'
 import "./Box.css"
-import { useStateValue } from './StateProvider'
 
-
-
-function Box({id, type, image, minprice, maxprice, location }) {
-  const [{ basket }, dispatch] = useStateValue();
-
-  console.log("This is your Box >>")
-
-  const addToWishList = () => {
-    // add the item into data layer
-    dispatch({
-      type: 'ADD_TO_WISHLIST',
-      item: {
-        id: id,
-        type: type,
-        image: image,
-        minprice: minprice,
-        maxprice: maxprice,
-        location: location,
-      },
-    });
-  };
-
+function Box({type, image, price, location}) {
   return (
     <div className='box'>
       <div className='box__info'>
@@ -31,21 +9,15 @@ function Box({id, type, image, minprice, maxprice, location }) {
         <p className= 'box__location'>
             <strong>{location}</strong>
             </p>
-        <p className='box__minprice'>
+        <p className='box__price'>
             <strong>$</strong>
-            <strong>{minprice}</strong>
-            <strong>---</strong>
+            <strong>{price}</strong>
         </p>
-        <p className='box__maxprice'>
-            <strong>$</strong>
-            <strong>{maxprice}</strong>
-        </p>
-      </div>
+        </div>
         <img
         src='https://tse4.explicit.bing.net/th?id=OIP.iqldYf72fpKKy0NYd9wVkAHaJH&pid=Api&P=0&h=180'
         alt=''
         />
-        <button onClick={addToWishList}>Add to WishList</button>
     </div>
   )
 }

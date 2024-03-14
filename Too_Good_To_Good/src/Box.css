@@ -13,14 +13,6 @@
 
 }
 
-.box > botton{
-    background-color: rgb(217, 232, 203);
-    border: 1px solid;
-    margin-top: 10px;
-    border-color: rgb(122, 147, 98);
-    color: black;
-}
-
 .box > img {
     max-height: 200px;
     width: 100%;
@@ -33,12 +25,8 @@
     margin-bottom: px;
 }
 
-.box__minprice,
-.box__maxprice {
-    display: inline-block;
-}
-.box__maxprice{
-    margin-left: 0px;
+.box__price {
+    margin-top: 5px;
 }
 
 .box_location {
