@@ -24,7 +24,7 @@ function Box({ type, image, price, location }) {
 
   return (
     <div className='box'>
-      <div className='box__info'>
+      <div className='box__type'>
         <strong>{type}</strong>
         <p className= 'box__location'>
             <strong>{location}</strong>

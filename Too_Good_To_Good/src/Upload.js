@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import './Upload.css';
 import { Link, useHistory } from "react-router-dom";
+
 import { db, storage } from "./firebase";
 import { ref, uploadBytes } from "firebase/storage";
+
 
 function Upload() {
     const history = useHistory();
@@ -10,6 +12,7 @@ function Upload() {
     const [productName, setProductName] = useState('');
     const [originPrice, setOriginPrice] = useState('');
     const [notes, setNotes] = useState('');
+
     const [uploadPicture, setUploadPicture] = useState(null);
 
     const handleFileChange = (event) => {
@@ -61,6 +64,8 @@ function Upload() {
                     <h3>Add your box by filling out the information below!</h3>
                     <h4>Upload Picture:</h4>
                     <input type="file" onChange={handleFileChange} />
+
+   
                     <h5>Type:</h5>
                     <input type='text' value={type} onChange={e => setType(e.target.value)} />
                     <h5>Product Name:</h5>
@@ -73,8 +78,10 @@ function Upload() {
                 </form>
             </div>
         </div>
+
     );
 }
 
 export default Upload;
+
 
