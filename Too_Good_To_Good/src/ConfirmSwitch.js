@@ -21,7 +21,7 @@ function ConfirmSwitch() {
                     <BoxesSelected
                     type= {item.type}
                     image= {item.image}
-                    price= {item.typricepe}
+                    price= {item.price}
                     location= {item.location}
                     />
                 ))}
