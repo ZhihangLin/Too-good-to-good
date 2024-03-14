@@ -3,9 +3,12 @@ import './Upload.css';
 import { Link, useHistory } from "react-router-dom";
 import { db, storage } from "./firebase";
 import { ref, uploadBytes } from "firebase/storage";
+import { useStateValue} from "./StateProvider";
+
 
 function Upload() {
     const history = useHistory();
+    const [{user}, dispatch] = useStateValue();
     const [type, setType] = useState('');
     const [productName, setProductName] = useState('');
     const [originPrice, setOriginPrice] = useState('');
@@ -55,10 +58,11 @@ function Upload() {
                 <img className="upload_logo" src={require('./Toogoodtogo.png')} alt="Logo" />
             </Link>
             <div className="login_container">
-                <h1>Welcome, User</h1>
+                <h1 className="email_">Welcome, {!user ? 'Guest' : user.email}</h1>
                 <form onSubmit={handleSubmit}>
-                    <br />
+                    
                     <h3>Add your box by filling out the information below!</h3>
+                    <br></br>
                     <h4>Upload Picture:</h4>
                     <input type="file" onChange={handleFileChange} />
                     <h5>Type:</h5>
