@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './Upload.css';
 import { Link, useHistory } from "react-router-dom";
-import { collection, addDoc } from "firebase/firestore"; // 为了使用新的Firestore v9+ 推荐语法
+import { collection, addDoc } from "firebase/firestore";
 
 import { db, storage } from "./firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -32,25 +32,25 @@ function Upload() {
             return;
         }
 
-        // 上传图片到Firebase Storage
+    
         const imageRef = ref(storage, `images/${uploadPicture.name}`);
         uploadBytes(imageRef, uploadPicture).then((snapshot) => {
             console.log('Image uploaded successfully!');
 
-            // 获取上传的图片的下载URL
+           
             getDownloadURL(snapshot.ref).then((downloadURL) => {
                 console.log('File available at', downloadURL);
                 
-                // 现在将图片的下载URL和其他表单数据保存到Firestore
-                addDoc(collection(db, "boxes"), { // Ensure this is the correct collection name
+                
+                addDoc(collection(db, "boxes"), { 
                     type: type,
                     productName: productName,
                     originPrice: originPrice,
                     notes: notes,
-                    imageUrl: downloadURL, // Saving the image's download URL
+                    imageUrl: downloadURL,
                 }).then(() => {
                     console.log("Document successfully uploaded with image URL!");
-                    history.push('/'); // Redirect to the home page or other page on success
+                    history.push('/');
                 }).catch((error) => {
                     console.error("Error uploading document: ", error);
                 });

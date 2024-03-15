@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { db, storage } from './firebase'; // 确保路径正确
+import { db, storage } from './firebase';
 import { ref, getDownloadURL } from 'firebase/storage';
-import './BoxesDisplay.css'; // 根据需要创建和引用CSS文件
+import './BoxesDisplay.css';
 
 function BoxesDisplay() {
     const [boxes, setBoxes] = useState([]);
@@ -13,7 +13,6 @@ function BoxesDisplay() {
                 const data = doc.data();
                 let imageUrl = '';
                 if (data.imageRef) {
-                    // 使用图片的引用路径从Storage获取图片的下载URL
                     imageUrl = await getDownloadURL(ref(storage, data.imageRef));
                 }
                 return { id: doc.id, imageUrl, ...data };
