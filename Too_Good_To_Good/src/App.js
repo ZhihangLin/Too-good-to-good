@@ -8,7 +8,9 @@ import { auth } from "./firebase";
 import ConfirmSwitch from "./ConfirmSwitch"
 import Header from './Header';
 import { useStateValue } from "./StateProvider";
-
+import CreateLogin from './CreateLogin';
+import BoxesDisplay from './BoxesDisplay';
+import ResetPasscode from './ResetPasscode';
 
 
 function App() {
@@ -61,6 +63,22 @@ function App() {
           <h1>Upload page</h1>
           <Upload />
          </Route>
+
+         <Route path="/CreateLogin">
+          <h1>Create Login page</h1>
+          <CreateLogin />
+         </Route>
+
+         <Route path="/BoxesDisplay">
+          <h1>Create BoxesDisplay</h1>
+          <BoxesDisplay />
+         </Route>
+
+         <Route path="/ResetPasscode">
+          <h1> ResetPasscode</h1>
+          <ResetPasscode />
+         </Route>
+
 
         <Route path='/'>
           <Header />

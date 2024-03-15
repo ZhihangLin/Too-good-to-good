@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import './Upload.css';
 import { Link, useHistory } from "react-router-dom";
+import { collection, addDoc } from "firebase/firestore";
+
 import { db, storage } from "./firebase";
-import { ref, uploadBytes } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useStateValue} from "./StateProvider";
 
 
 function Upload() {
     const history = useHistory();
-    const [{user}, dispatch] = useStateValue();
+    const [{ user }, dispatch] = useStateValue();
+
     const [type, setType] = useState('');
     const [productName, setProductName] = useState('');
     const [originPrice, setOriginPrice] = useState('');
@@ -16,40 +19,45 @@ function Upload() {
     const [uploadPicture, setUploadPicture] = useState(null);
 
     const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        setUploadPicture(file);
+        if (event.target.files[0]) {
+            setUploadPicture(event.target.files[0]);
+        }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Check if all required fields are filled
         if (!type || !productName || !originPrice || !uploadPicture) {
             alert("Please fill out all required fields.");
             return;
         }
 
-        // Upload the image
+    
         const imageRef = ref(storage, `images/${uploadPicture.name}`);
-        uploadBytes(imageRef, uploadPicture)
-            .then(() => {
-                // Image uploaded successfully, now upload data to Firestore
-                return db.collection('box').add({
+        uploadBytes(imageRef, uploadPicture).then((snapshot) => {
+            console.log('Image uploaded successfully!');
+
+           
+            getDownloadURL(snapshot.ref).then((downloadURL) => {
+                console.log('File available at', downloadURL);
+                
+                
+                addDoc(collection(db, "boxes"), { 
                     type: type,
                     productName: productName,
                     originPrice: originPrice,
-                    notes: notes
+                    notes: notes,
+                    imageUrl: downloadURL,
+                }).then(() => {
+                    console.log("Document successfully uploaded with image URL!");
+                    history.push('/');
+                }).catch((error) => {
+                    console.error("Error uploading document: ", error);
                 });
-            })
-            .then(() => {
-                console.log("Document successfully uploaded!");
-                // Optionally, redirect the user to another page after successful upload
-                history.push('/'); // Redirect to the home page
-            })
-            .catch((error) => {
-                console.error("Error uploading document: ", error);
-                // Handle errors here, such as displaying an error message to the user
             });
+        }).catch((error) => {
+            console.error("Error uploading image: ", error);
+        });
     };
 
     return (
@@ -65,6 +73,7 @@ function Upload() {
                     <br></br>
                     <h4>Upload Picture:</h4>
                     <input type="file" onChange={handleFileChange} />
+
                     <h5>Type:</h5>
                     <input type='text' value={type} onChange={e => setType(e.target.value)} />
                     <h5>Product Name:</h5>
@@ -77,8 +86,8 @@ function Upload() {
                 </form>
             </div>
         </div>
+
     );
 }
 
 export default Upload;
-

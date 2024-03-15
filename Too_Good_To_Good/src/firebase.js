@@ -2,6 +2,8 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import {getStorage } from "firebase/storage";
+import { getAuth } from "firebase/auth";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBjs8-deIJ5iZ50ekGxzG371oCgp8o5BOo",
@@ -23,7 +25,8 @@ const auth = firebase.auth();
 
  const storage = getStorage(firebaseApp);
 
+ 
+ //auth.tenantId = "myTenantId1";
 
 
-
-export { db, auth, storage };
+export { db, auth, storage};
