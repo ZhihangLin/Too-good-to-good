@@ -8,6 +8,7 @@ import { auth } from "./firebase";
 import ConfirmSwitch from "./ConfirmSwitch"
 import Header from './Header';
 import { useStateValue } from "./StateProvider";
+import BoxesDisplay from './BoxesDisplay';
 
 
 
@@ -22,19 +23,19 @@ function App() {
       if(authUser)
       //user logged in
       {
-        dispatch({
+         dispatch({
           type: 'SET_USER',
           user: authUser
-        })
+         })
 
       }
       else{
-        // user logged out
-        dispatch({
-          type: 'SET_USER',
-          user: null
+         //user logged out
+         dispatch({
+           type: 'SET_USER',
+           user: null
 
-        })
+         })
       }
       
       
@@ -53,14 +54,20 @@ function App() {
         </Route>
 
         <Route path="/Login">
-          {/* <h1>Login page</h1> */}
+          <h1>Login page</h1>
           <Login />
         </Route>
 
         <Route path="/Upload">
+          <Header />
           <h1>Upload page</h1>
           <Upload />
          </Route>
+
+        <Route path="/boxes">
+          <Header />
+          <BoxesDisplay />
+        </Route>
 
         <Route path='/'>
           <Header />
