@@ -1,58 +1,63 @@
 import React, { useState } from "react";
 import './Upload.css';
 import { Link, useHistory } from "react-router-dom";
+import { collection, addDoc } from "firebase/firestore"; // 为了使用新的Firestore v9+ 推荐语法
 
 import { db, storage } from "./firebase";
-import { ref, uploadBytes } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useStateValue} from "./StateProvider";
 
 
 function Upload() {
     const history = useHistory();
-    const [{user}, dispatch] = useStateValue();
+    const [{ user }, dispatch] = useStateValue();
 
     const [type, setType] = useState('');
     const [productName, setProductName] = useState('');
     const [originPrice, setOriginPrice] = useState('');
     const [notes, setNotes] = useState('');
-
     const [uploadPicture, setUploadPicture] = useState(null);
 
     const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        setUploadPicture(file);
+        if (event.target.files[0]) {
+            setUploadPicture(event.target.files[0]);
+        }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Check if all required fields are filled
         if (!type || !productName || !originPrice || !uploadPicture) {
             alert("Please fill out all required fields.");
             return;
         }
 
-        // Upload the image
+        // 上传图片到Firebase Storage
         const imageRef = ref(storage, `images/${uploadPicture.name}`);
-        uploadBytes(imageRef, uploadPicture)
-            .then(() => {
-                // Image uploaded successfully, now upload data to Firestore
-                return db.collection('box').add({
+        uploadBytes(imageRef, uploadPicture).then((snapshot) => {
+            console.log('Image uploaded successfully!');
+
+            // 获取上传的图片的下载URL
+            getDownloadURL(snapshot.ref).then((downloadURL) => {
+                console.log('File available at', downloadURL);
+                
+                // 现在将图片的下载URL和其他表单数据保存到Firestore
+                addDoc(collection(db, "boxes"), { // Ensure this is the correct collection name
                     type: type,
                     productName: productName,
                     originPrice: originPrice,
-                    notes: notes
+                    notes: notes,
+                    imageUrl: downloadURL, // Saving the image's download URL
+                }).then(() => {
+                    console.log("Document successfully uploaded with image URL!");
+                    history.push('/'); // Redirect to the home page or other page on success
+                }).catch((error) => {
+                    console.error("Error uploading document: ", error);
                 });
-            })
-            .then(() => {
-                console.log("Document successfully uploaded!");
-                // Optionally, redirect the user to another page after successful upload
-                history.push('/'); // Redirect to the home page
-            })
-            .catch((error) => {
-                console.error("Error uploading document: ", error);
-                // Handle errors here, such as displaying an error message to the user
             });
+        }).catch((error) => {
+            console.error("Error uploading image: ", error);
+        });
     };
 
     return (
@@ -86,5 +91,3 @@ function Upload() {
 }
 
 export default Upload;
-
-
