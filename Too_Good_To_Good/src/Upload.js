@@ -1,104 +1,93 @@
 import React, { useState } from "react";
 import './Upload.css';
 import { Link, useHistory } from "react-router-dom";
-import { auth } from "./firebase";
-import Home from "./Home";
-import Header from "./Header";
-import Login from "./Login";
- 
+import { collection, addDoc } from "firebase/firestore";
 
-function Upload(){
-    // const history = useHistory();
-    // const [email, setEmail] = useState('');
-    // const [password, setPassword] = useState('');
+import { db, storage } from "./firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { useStateValue} from "./StateProvider";
 
-    // const signIn = e => {
-    //     e.preventDefault();
-    //     auth
-    //     .signInWithEmailAndPassword(email, password)
-    //     .then(auth => {
-    //         if(auth)
-    //     {
-    //         history.push('/')
-    //         console.log('sign in uwadhw')
-    //         window.location.reload();
-    //         // const targetElement = document.getElementsByClassName('header__optionLineOne')[0];
-    //         // targetElement.innerHtml="Welcome User";
 
-    //         {/* testing if user sign in */}
-    //     }
-            
-    //     })
-        
-    //     .catch(error => alert(error.message))
+function Upload() {
+    const history = useHistory();
+    const [{ user }, dispatch] = useStateValue();
 
-       
-    // }
+    const [type, setType] = useState('');
+    const [productName, setProductName] = useState('');
+    const [originPrice, setOriginPrice] = useState('');
+    const [notes, setNotes] = useState('');
+    const [uploadPicture, setUploadPicture] = useState(null);
 
-    // const register = e => {
-    //     e.preventDefault();
+    const handleFileChange = (event) => {
+        if (event.target.files[0]) {
+            setUploadPicture(event.target.files[0]);
+        }
+    };
 
-    //     auth
-    //         .createUserWithEmailAndPassword(email, password)
-    //         .then((auth) => {
-    //             // it successfully create a new user with email and password
-    //             console.log(auth);
-    //             if(auth)
-    //             {
-    //                 history.push('/')
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-    //             }
+        if (!type || !productName || !originPrice || !uploadPicture) {
+            alert("Please fill out all required fields.");
+            return;
+        }
+
+    
+        const imageRef = ref(storage, `images/${uploadPicture.name}`);
+        uploadBytes(imageRef, uploadPicture).then((snapshot) => {
+            console.log('Image uploaded successfully!');
+
+           
+            getDownloadURL(snapshot.ref).then((downloadURL) => {
+                console.log('File available at', downloadURL);
                 
-    //         })
-    //         .catch(error => alert(error.message));
+                
+                addDoc(collection(db, "boxes"), { 
+                    type: type,
+                    productName: productName,
+                    originPrice: originPrice,
+                    notes: notes,
+                    imageUrl: downloadURL,
+                }).then(() => {
+                    console.log("Document successfully uploaded with image URL!");
+                    history.push('/');
+                }).catch((error) => {
+                    console.error("Error uploading document: ", error);
+                });
+            });
+        }).catch((error) => {
+            console.error("Error uploading image: ", error);
+        });
+    };
 
-       
-    // }
-
-    return(
-        <div className='upload'> 
-        <Link to = '/'>
-        <img className ="upload_logo"
-        src={require('./Toogoodtogo.png')} />
-        </Link>
-        <div className="login_container">
-        
-            <h1>Welcome, User</h1>
-            <form>
+    return (
+        <div className="upload">
+            <Link to='/'>
+                <img className="upload_logo" src={require('./Toogoodtogo.png')} alt="Logo" />
+            </Link>
+            <div className="login_container">
+                <h1 className="email_">Welcome, {!user ? 'Guest' : user.email}</h1>
+                <form onSubmit={handleSubmit}>
+                    
+                    <h3>Add your box by filling out the information below!</h3>
                     <br></br>
-                    <h3>Add your box by fill out the information below!</h3>
-                    {/* <input type='text' value={email} onChange={e => setEmail(e.target.value)} /> */}
-                    <br></br>
-
                     <h4>Upload Picture:</h4>
-                    <input type="file" id="item" name="item" accept="image/png, image/jpeg" />
+                    <input type="file" onChange={handleFileChange} />
 
                     <h5>Type:</h5>
-                    <input type='text'/>
-
+                    <input type='text' value={type} onChange={e => setType(e.target.value)} />
                     <h5>Product Name:</h5>
-                    <input type='text'/>
-                    
+                    <input type='text' value={productName} onChange={e => setProductName(e.target.value)} />
                     <h5>Origin Price:</h5>
-                    <input type='text'/>
-
+                    <input type='text' value={originPrice} onChange={e => setOriginPrice(e.target.value)} />
                     <h5>Notes:</h5>
-                    <input type='text'/>
-
-                    <button type='submit'  className='login_signInButton'>Upload</button>
-
-
-                    
-                    {/* <input type='password' value={password} onChange={e => setPassword(e.target.value)} /> */}
-
-                    {/* <button type='submit' onClick={signIn} className='login_signInButton'>Sign In</button> */}
+                    <input type='text' value={notes} onChange={e => setNotes(e.target.value)} />
+                    <button type='submit' className='login_signInButton'>Upload</button>
                 </form>
-                {/* <button onClick={register} className='login_registerButton'>Create your Too good to go Account</button> */}
-        </div>
+            </div>
         </div>
 
-        
-    )
+    );
 }
 
-export default Upload
+export default Upload;

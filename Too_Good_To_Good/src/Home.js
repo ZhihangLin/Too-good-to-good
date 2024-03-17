@@ -13,34 +13,44 @@ function Home() {
 
             <div className='home__row'>
                 <Box 
+                  id = "123123"
                   type = "Eletronic product"
-                  price = {75.00}
+                  minprice = {75}
+                  maxprice = {100}
                   image = ""
                   location="queens"
                   />
                 <Box 
+                  id = "98374897"
                   type = "Book"
-                  price = {155.00}
+                  minprice = {150}
+                  maxprice = {180}
                   image = ""
                   location = "brooklyn"/>
             </div>
 
             <div className='home__row'>
                 <Box 
+                  id = "123679124"
                   type = "Eletronic product"
-                  price = {75.00}
+                  minprice = {50}
+                  maxprice = {80}
                   image = ""
                   location="queens"
                   />
                   <Box 
+                  id = "76583746"
                   type = "Eletronic product"
-                  price = {75.00}
+                  minprice = {10}
+                  maxprice = {20}
                   image = ""
                   location="queens"
                   />
                   <Box 
+                  id = "23752364"
                   type = "Eletronic product"
-                  price = {75.00}
+                  minprice={25}
+                  maxprice={35}
                   image = ""
                   location="queens"
                   />
