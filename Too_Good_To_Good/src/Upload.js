@@ -17,6 +17,7 @@ function Upload() {
     const [originPrice, setOriginPrice] = useState('');
     const [notes, setNotes] = useState('');
     const [uploadPicture, setUploadPicture] = useState(null);
+    const [location, setLocation] = useState(null);
 
     const handleFileChange = (event) => {
         if (event.target.files[0]) {
@@ -27,7 +28,7 @@ function Upload() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!type || !productName || !originPrice || !uploadPicture) {
+        if (!type || !productName || !originPrice || !uploadPicture || !location) {
             alert("Please fill out all required fields.");
             return;
         }
@@ -46,6 +47,7 @@ function Upload() {
                     type: type,
                     productName: productName,
                     originPrice: originPrice,
+                    location: location,
                     notes: notes,
                     imageUrl: downloadURL,
                 }).then(() => {
@@ -80,6 +82,8 @@ function Upload() {
                     <input type='text' value={productName} onChange={e => setProductName(e.target.value)} />
                     <h5>Origin Price:</h5>
                     <input type='text' value={originPrice} onChange={e => setOriginPrice(e.target.value)} />
+                    <h5>Location:</h5>
+                    <input type='text' value={location} onChange={e => setLocation(e.target.value)} />
                     <h5>Notes:</h5>
                     <input type='text' value={notes} onChange={e => setNotes(e.target.value)} />
                     <button type='submit' className='login_signInButton'>Upload</button>
