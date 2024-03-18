@@ -56,6 +56,7 @@ function BoxesDisplay() {
                         <p>Origin Price: 
                             <input type="number" value={box.originPrice} onChange={(e) => handleValueChange(box.id, 'originPrice', e.target.value)} />
                         </p>
+                        <p>Location: {box.location}</p>
                         <p>Notes: 
                             <input type="text" value={box.notes} onChange={(e) => handleValueChange(box.id, 'notes', e.target.value)} />
                         </p>
@@ -71,3 +72,4 @@ function BoxesDisplay() {
 }
 
 export default BoxesDisplay;
+
