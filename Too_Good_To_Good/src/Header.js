@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react';
 import './Header.css'
 import Login from'./Login';
 import SearchIcon from '@mui/icons-material/Search';
@@ -10,6 +10,9 @@ import { auth } from "./firebase";
 function Header() {
   const [{ basket, user }, dispatch] = useStateValue();
   const history = useHistory();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+
   const handleClick = () => {
     // Use history.push to navigate to another page
     history.push('/login');
@@ -19,8 +22,25 @@ function Header() {
   const handleAuthenticaton = () => {
     if (user) {
       auth.signOut();
-    }
+    }   
   }
+
+  const handleSearchInputChange = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+
+    // Example data for demonstration
+    const data = [
+      { id: 1, name: 'Item 1' },
+      { id: 2, name: 'Item 2' },
+      // Add more items as needed
+    ];
+
+    const filteredResults = data.filter(item =>
+      item.name.toLowerCase().includes(query.toLowerCase())
+    );
+    setSearchResults(filteredResults);
+  };
 
   return (
     <div className='header'>
@@ -29,10 +49,28 @@ function Header() {
       </Link>
 
       <div className='header__search'>
-        <input className='header__searchInPut' type='text' />
+        <input
+          className='header__searchInPut'
+          type='text'
+          value={searchQuery}
+          onChange={handleSearchInputChange}
+        />
         <SearchIcon className='header__searchIcon' />
-        {/* Logo */}
       </div>
+
+      {searchQuery && (
+        <div className='header__searchResults'>
+          {searchResults.length > 0 ? (
+            <ul>
+              {searchResults.map(item => (
+                <li key={item.id}>{item.name}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>No results found</p>
+          )}
+        </div>
+      )}
 
       <div className='header__nav'>
         <Link to={!user && '/login'}>
