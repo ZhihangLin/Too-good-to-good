@@ -32,6 +32,7 @@ function ConfirmSwitch() {
 
         <div className='ConfirmSwitch__right'>
             <Switch />
+        
         </div>
       
     </div>

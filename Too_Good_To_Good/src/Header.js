@@ -42,6 +42,11 @@ function Header() {
     setSearchResults(filteredResults);
   };
 
+  const ConfirmSwitchPage = () => {
+    history.push('/ConfirmSwitch');//go to ConfirmSwitchPage page
+    window.location.reload();
+}
+
   return (
     <div className='header'>
       <Link to='/'>
@@ -91,7 +96,7 @@ function Header() {
           <span className='header__optionLineTwo'>Boxes</span>
         </div>
 
-        <Link to='/ConfirmSwitch'>
+        <Link onClick={ConfirmSwitchPage}>
           <div className='header__optionBox'>
             <RedeemIcon />
             <span className='header__optionLineTwo header__boxCount'>
