@@ -91,3 +91,27 @@ You're about to initialize a Firebase project in this directory:
 
 [debug] [2024-03-13T23:36:12.288Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
 [debug] [2024-03-13T23:36:12.289Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2024-03-23T17:08:34.464Z] ----------------------------------------------------------------------
+[debug] [2024-03-23T17:08:34.464Z] Command:       /usr/local/bin/node /usr/local/bin/firebase init
+[debug] [2024-03-23T17:08:34.465Z] CLI Version:   13.4.0
+[debug] [2024-03-23T17:08:34.465Z] Platform:      darwin
+[debug] [2024-03-23T17:08:34.465Z] Node Version:  v18.14.0
+[debug] [2024-03-23T17:08:34.468Z] Time:          Sat Mar 23 2024 13:08:34 GMT-0400 (Eastern Daylight Time)
+[debug] [2024-03-23T17:08:34.468Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-03-23T17:08:34.470Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2024-03-23T17:08:34.491Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-03-23T17:08:34.491Z] > authorizing via signed-in user (guangyangsun0621@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/guangyangsun/Documents/dele/Too-good-to-good
+
+[debug] [2024-03-23T17:08:34.690Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2024-03-23T17:08:34.691Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}

@@ -9,7 +9,7 @@ import ConfirmSwitch from "./ConfirmSwitch"
 import Header from './Header';
 import { useStateValue } from "./StateProvider";
 import BoxesDisplay from './BoxesDisplay';
-
+import ResetPasscode from './ResetPasscode';
 
 
 function App() {
@@ -68,6 +68,11 @@ function App() {
           <Header />
           <BoxesDisplay />
         </Route>
+
+        <Route path="/ResetPasscode">
+          <h1> ResetPasscode</h1>
+          <ResetPasscode />
+         </Route>
 
         <Route path='/'>
           <Header />
