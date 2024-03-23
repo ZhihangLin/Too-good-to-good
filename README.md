@@ -13,7 +13,7 @@ To run our project:
 type these command in VS code terminal: 
  ```bash
 npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
-npm install react-router-dom@5
+npm install react-router-dom@5    // This is to allow you download react-router-dom version 5, if you have download before please make sure it's the same version.
 npm install react-currency-format --force
 npm install react-scripts --save-dev --force
 ```
