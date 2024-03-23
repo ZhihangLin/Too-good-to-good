@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
-import './Header.css'
-import Login from'./Login';
+import React, { useState, useEffect } from 'react';
+import './Header.css';
+import { Link, useHistory } from 'react-router-dom';
+import { useStateValue } from './StateProvider';
 import SearchIcon from '@mui/icons-material/Search';
 import RedeemIcon from '@mui/icons-material/Redeem';
-import { Link, useHistory } from "react-router-dom";
-import { useStateValue} from "./StateProvider";
-import { auth } from "./firebase";
+import { auth } from './firebase';
 
 function Header() {
   const [{ basket, user }, dispatch] = useStateValue();
   const history = useHistory();
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+
+  useEffect(() => {
+    setSearchResults([]); // Clear search results when searchQuery changes
+  }, [searchQuery]);
 
   const handleClick = () => {
     // Use history.push to navigate to another page
@@ -22,8 +25,9 @@ function Header() {
   const handleAuthenticaton = () => {
     if (user) {
       auth.signOut();
-    }   
-  }
+    } 
+   
+  };
 
   const handleSearchInputChange = (e) => {
     const query = e.target.value;
@@ -49,45 +53,45 @@ function Header() {
 
   return (
     <div className='header'>
-      <Link to='/'>
-        <img className='header__logo' src={require('./Toogoodtogo.png')} alt='Too Good To Go Logo' />
-      </Link>
+    <Link to='/'>
+      <img className='header__logo' src={require('./Toogoodtogo.png')} alt='Too Good To Go Logo' />
+    </Link>
 
-      <div className='header__search'>
-        <input
-          className='header__searchInPut'
-          type='text'
-          value={searchQuery}
-          onChange={handleSearchInputChange}
-        />
-        <SearchIcon className='header__searchIcon' />
+    <div className='header__search'>
+      <input
+        className='header__searchInPut'
+        type='text'
+        value={searchQuery}
+        onChange={handleSearchInputChange}
+      />
+      <SearchIcon className='header__searchIcon' />
+    </div>
+
+    {searchQuery && (
+      <div className='header__searchResults'>
+        {searchResults.length > 0 ? (
+          <ul>
+            {searchResults.map(item => (
+              <li key={item.id}>{item.name}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>No results found</p>
+        )}
       </div>
+    )}
 
-      {searchQuery && (
-        <div className='header__searchResults'>
-          {searchResults.length > 0 ? (
-            <ul>
-              {searchResults.map(item => (
-                <li key={item.id}>{item.name}</li>
-              ))}
-            </ul>
-          ) : (
-            <p>No results found</p>
-          )}
-        </div>
-      )}
 
       <div className='header__nav'>
-        <Link to={!user && '/login'}>
-          
-          <div onClick={handleAuthenticaton} className="header__option">
-            <span className="header__optionLineOne" onClick={handleClick}>Hello {!user ? 'Guest' : user.email}</span>
-            <span className="header__optionLineTwo" onClick={handleClick}>{user ? 'Sign Out' : 'Sign In'}</span>
-          </div>
+      <Link to='/login'>
+        <div onClick={handleAuthenticaton} className='header__option'>
+          <span className='header__optionLineOne' onClick={handleClick}>Hello, {user ? user.displayName : 'Guest'}</span>
+          <span className='header__optionLineTwo' onClick={handleClick}>{user ? 'Sign Out' : 'Sign In'}</span>
+        </div>
         </Link>
 
         <div className='header__option'>
-          <span className='header__optionLineOne'>Look For </span>
+          <span className='header__optionLineOne'>Look For</span>
           <span className='header__optionLineTwo'>Boxes</span>
         </div>
 
@@ -96,12 +100,10 @@ function Header() {
           <span className='header__optionLineTwo'>Boxes</span>
         </div>
 
-        <Link onClick={ConfirmSwitchPage}>
-          <div className='header__optionBox'>
+        <Link to='/ConfirmSwitch'>
+          <div className='header__optionBox' onClick={ConfirmSwitchPage}>
             <RedeemIcon />
-            <span className='header__optionLineTwo header__boxCount'>
-              {basket?.length}
-            </span>
+            <span className='header__optionLineTwo header__boxCount'>{basket?.length}</span>
           </div>
         </Link>
       </div>

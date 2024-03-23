@@ -10,6 +10,7 @@ import Header from './Header';
 import { useStateValue } from "./StateProvider";
 import BoxesDisplay from './BoxesDisplay';
 import ResetPasscode from './ResetPasscode';
+import CreateLogin from './CreateLogin';
 
 
 function App() {
@@ -72,6 +73,11 @@ function App() {
         <Route path="/ResetPasscode">
           <h1> ResetPasscode</h1>
           <ResetPasscode />
+         </Route>
+
+         <Route path="/CreateLogin">
+          <h1>Create Login page</h1>
+          <CreateLogin />
          </Route>
 
         <Route path='/'>
