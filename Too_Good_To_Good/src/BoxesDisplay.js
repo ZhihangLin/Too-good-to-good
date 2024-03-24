@@ -63,7 +63,7 @@ function BoxesDisplay() {
                             <input type="text" value={box.notes} onChange={(e) => handleValueChange(box.id, 'notes', e.target.value)} />
                         </p>
                         <p>Evaluation Price : 
-                            <input type="text"  onChange={(e) => handleValueChange(box.id, 'Evaluation Price', e.target.value)} />
+                            <input type="text" value={box.EvaluationPrice} onChange={(e) => handleValueChange(box.id, 'EvaluationPrice', e.target.value)} />
                         </p>
                         <button onClick={() => handleButtonClick(box.id)}>Update</button>
                     </div>
