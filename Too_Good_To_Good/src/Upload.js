@@ -51,6 +51,7 @@ function Upload() {
                     originPrice: originPrice,
                     notes: notes,
                     imageUrl: downloadURL,
+                    EvaluationPrice: "not decide",
                 }).then(() => {
                     console.log("Document successfully uploaded with image URL!");
                     history.push('/');
