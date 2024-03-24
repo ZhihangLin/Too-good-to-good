@@ -14,6 +14,8 @@ function Upload() {
 
     const [type, setType] = useState('');
     const [productName, setProductName] = useState('');
+    const [location, setLocation] = useState('');
+
     const [originPrice, setOriginPrice] = useState('');
     const [notes, setNotes] = useState('');
     const [uploadPicture, setUploadPicture] = useState(null);
@@ -27,7 +29,7 @@ function Upload() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!type || !productName || !originPrice || !uploadPicture) {
+        if (!type || !productName || !originPrice || !uploadPicture || !location) {
             alert("Please fill out all required fields.");
             return;
         }
@@ -45,6 +47,7 @@ function Upload() {
                 addDoc(collection(db, "boxes"), { 
                     type: type,
                     productName: productName,
+                    location: location,
                     originPrice: originPrice,
                     notes: notes,
                     imageUrl: downloadURL,
@@ -73,11 +76,12 @@ function Upload() {
                     <br></br>
                     <h4>Upload Picture:</h4>
                     <input type="file" onChange={handleFileChange} />
-
                     <h5>Type:</h5>
                     <input type='text' value={type} onChange={e => setType(e.target.value)} />
                     <h5>Product Name:</h5>
                     <input type='text' value={productName} onChange={e => setProductName(e.target.value)} />
+                    <h5>Location:</h5>
+                    <input type='text' value={location} onChange={e => setLocation(e.target.value)} />
                     <h5>Origin Price:</h5>
                     <input type='text' value={originPrice} onChange={e => setOriginPrice(e.target.value)} />
                     <h5>Notes:</h5>
