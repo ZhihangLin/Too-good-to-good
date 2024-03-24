@@ -17,3 +17,9 @@ npm install react-router-dom@5    // This is to allow you download react-router-
 npm install react-currency-format --force
 npm install react-scripts --save-dev --force
 ```
+
+5. After download
+  type these command in VS code terminal:
+   ```bash
+  cd Too_Good_To_Good
+  npm start
