@@ -5,6 +5,8 @@ import { useStateValue } from './StateProvider';
 import SearchIcon from '@mui/icons-material/Search';
 import RedeemIcon from '@mui/icons-material/Redeem';
 import { auth } from './firebase';
+import { collection, query, where, getDocs } from 'firebase/firestore';
+import { db } from './firebase';
 
 function Header() {
   const [{ basket, user }, dispatch] = useStateValue();
@@ -29,21 +31,32 @@ function Header() {
    
   };
 
-  const handleSearchInputChange = (e) => {
-    const query = e.target.value;
-    setSearchQuery(query);
-
-    // Example data for demonstration
-    const data = [
-      { id: 1, name: 'Item 1' },
-      { id: 2, name: 'Item 2' },
-      // Add more items as needed
-    ];
-
-    const filteredResults = data.filter(item =>
-      item.name.toLowerCase().includes(query.toLowerCase())
-    );
-    setSearchResults(filteredResults);
+  const handleSearchInputChange = async (e) => {
+    const queryText = e.target.value.trim().toLowerCase(); // Convert to lowercase for case-insensitive search
+    setSearchQuery(queryText);
+  
+    if (!queryText) {
+      setSearchResults([]);
+      return;
+    }
+  
+    try {
+      // Fetch all the documents in the collection (only feasible for small collections)
+      const allDocsSnapshot = await getDocs(collection(db, 'boxes'));
+      const results = [];
+      allDocsSnapshot.forEach((doc) => {
+        const data = doc.data();
+        // Check if productName contains the queryText
+        if (data.productName.toLowerCase().includes(queryText)) {
+          results.push({ id: doc.id, ...data });
+        }
+      });
+  
+      console.log(results); // Log the results to the console for debugging
+      setSearchResults(results);
+    } catch (error) {
+      console.error('Error searching for items:', error);
+    }
   };
 
   const ConfirmSwitchPage = () => {
@@ -68,18 +81,19 @@ function Header() {
     </div>
 
     {searchQuery && (
-      <div className='header__searchResults'>
-        {searchResults.length > 0 ? (
-          <ul>
-            {searchResults.map(item => (
-              <li key={item.id}>{item.name}</li>
-            ))}
-          </ul>
-        ) : (
-          <p>No results found</p>
-        )}
-      </div>
+  <div className='header__searchResults'>
+    {searchResults.length > 0 ? (
+      <ul>
+        {searchResults.map((item, index) => (
+          // Ensure that each item has a unique key; in this case, the index is used as a fallback
+          <li key={item.id || index}>{item.productName}</li>
+        ))}
+      </ul>
+    ) : (
+      <p>No results found</p>
     )}
+  </div>
+)}
 
 
       <div className='header__nav'>
