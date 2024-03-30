@@ -31,33 +31,44 @@ function Header() {
    
   };
 
-  const handleSearchInputChange = async (e) => {
-    const queryText = e.target.value.trim().toLowerCase(); // Convert to lowercase for case-insensitive search
-    setSearchQuery(queryText);
+
+
   
-    if (!queryText) {
-      setSearchResults([]);
-      return;
-    }
-  
-    try {
-      // Fetch all the documents in the collection (only feasible for small collections)
-      const allDocsSnapshot = await getDocs(collection(db, 'boxes'));
-      const results = [];
-      allDocsSnapshot.forEach((doc) => {
-        const data = doc.data();
-        // Check if productName contains the queryText
-        if (data.productName.toLowerCase().includes(queryText)) {
-          results.push({ id: doc.id, ...data });
-        }
-      });
-  
-      console.log(results); // Log the results to the console for debugging
-      setSearchResults(results);
-    } catch (error) {
-      console.error('Error searching for items:', error);
-    }
-  };
+
+
+
+const handleSearchInputChange = async (e) => {
+  const queryText = e.target.value.trim().toLowerCase();
+  setSearchQuery(queryText);
+
+  if (!queryText) {
+    setSearchResults([]);
+    return;
+  }
+
+  try {
+    const allDocsSnapshot = await getDocs(collection(db, 'boxes'));
+    const results = allDocsSnapshot.docs
+      .map(doc => ({ id: doc.id, ...doc.data() }))
+      .filter(data => 
+        data.productName.toLowerCase().includes(queryText) ||
+        data.location.toLowerCase().includes(queryText) ||
+        data.type.toLowerCase().includes(queryText)
+      );
+
+    console.log(results); // Log the results to the console for debugging
+    setSearchResults(results);
+  } catch (error) {
+    console.error('Error searching for items:', error);
+  }
+};
+
+
+
+
+
+
+
 
   const ConfirmSwitchPage = () => {
     history.push('/ConfirmSwitch');//go to ConfirmSwitchPage page
@@ -80,13 +91,19 @@ function Header() {
       <SearchIcon className='header__searchIcon' />
     </div>
 
+
+
+
     {searchQuery && (
   <div className='header__searchResults'>
     {searchResults.length > 0 ? (
       <ul>
         {searchResults.map((item, index) => (
-          // Ensure that each item has a unique key; in this case, the index is used as a fallback
-          <li key={item.id || index}>{item.productName}</li>
+          <li key={item.id || index} className="searchResultItem">
+            <div className="searchResultProductName">{item.productName}</div>
+            <div className="searchResultLocation">{item.location}</div>
+            <div className="searchResultType">{item.type}</div>
+          </li>
         ))}
       </ul>
     ) : (
@@ -94,6 +111,9 @@ function Header() {
     )}
   </div>
 )}
+
+
+
 
 
       <div className='header__nav'>
