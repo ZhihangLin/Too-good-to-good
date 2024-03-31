@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import './Login.css';
+// import './Login.css';
 import { Link, useHistory } from "react-router-dom";
 import { auth } from "./firebase";
-import Home from "./Home";
-import Header from "./Header";
+
 
 function Login(){
     const history = useHistory();
@@ -40,7 +39,7 @@ function Login(){
 
     return(
         <div className='login'> 
-            <img className ="login_logo" onClick={handleClicktohome} src={require('./Toogoodtogo.png')} />
+            <img className ="login_logo" onClick={handleClicktohome} src={require('./Logo.png')} />
             <div className="login_container">
                 <h1>Sign-in</h1>
                 <form>
