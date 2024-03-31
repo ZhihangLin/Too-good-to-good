@@ -11,6 +11,7 @@ import { useStateValue } from "./StateProvider";
 import BoxesDisplay from './BoxesDisplay';
 import ResetPasscode from './ResetPasscode';
 import CreateLogin from './CreateLogin';
+import UserBoxes from './UserBoxes';
 
 
 function App() {
@@ -70,6 +71,12 @@ function App() {
           <BoxesDisplay />
         </Route>
 
+    <Route path="/userboxes">
+          <Header />
+          <UserBoxes />
+         </Route>
+
+    
         <Route path="/ResetPasscode">
           <h1> ResetPasscode</h1>
           <ResetPasscode />
