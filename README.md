@@ -17,6 +17,7 @@ npm install react-router-dom@5
 npm install react-currency-format --force
 npm install react-scripts --save-dev --force
 npm install firebase
+npm install --force
 ```
 
 5. After download
