@@ -50,6 +50,7 @@ function Upload() {
                 originPrice: originPrice,
                 notes: notes,
                 imageUrl: downloadURL,
+                userId: user.uid,
                 EvaluationPrice: "not decide",
             });
             console.log("Box document successfully uploaded!");
