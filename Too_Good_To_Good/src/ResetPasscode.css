@@ -1,4 +1,4 @@
-.login {
+.reset {
     background-color: white;
     height: 100vh;
     display: flex;
@@ -6,21 +6,26 @@
     align-items: center;
   }
   
-  .login_logo {
+  .reset_logo {
     margin-top: 10px;
     margin-bottom: 10px;
     object-fit: contain;
-    width: 300px;
+    height: 250px;
+    
     margin-right: auto;
     margin-left: auto;
-  }
-  
-  .login_container {
-    width: 300px;
-    height: fit-content;
-    display: flex;
-    flex-direction: column;
-    border-radius: 5px;
-    border: 1px solid lightgray;
-    padding: 20px;
-  }
+    
+}
+.resetPasswordButton{
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #f8f8f8;
+  color: #4CAF50;
+
+}
+

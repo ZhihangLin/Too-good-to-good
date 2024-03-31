@@ -72,7 +72,7 @@ function Upload() {
     return (
         <div className="upload">
             <Link to='/'>
-                <img className="upload_logo" src={require('./Toogoodtogo.png')} alt="Logo" />
+                <img className="upload_logo" src={require('./Logo.png')} alt="Logo" />
             </Link>
             <div className="login_container">
                 <h1 className="email_">Welcome, {user ? user.email : 'Guest'}</h1>

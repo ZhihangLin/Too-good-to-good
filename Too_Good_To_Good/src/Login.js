@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import './Login.css';
+import './Login.css';
 import { Link, useHistory } from "react-router-dom";
 import { auth } from "./firebase";
 
@@ -26,6 +26,8 @@ function Login(){
             .catch(error => alert(error.message))
     }
 
+   
+
     const register = () => {
         history.push('/createlogin');
         window.location.reload();
@@ -40,6 +42,7 @@ function Login(){
     return(
         <div className='login'> 
             <img className ="login_logo" onClick={handleClicktohome} src={require('./Logo.png')} />
+            <div>
             <div className="login_container">
                 <h1>Sign-in</h1>
                 <form>
@@ -52,8 +55,9 @@ function Login(){
                 <button onClick={register} className='login_registerButton'>Create your Too good to go Account</button>
                 
             </div>
-            <br></br>
-            <button onClick={resetPasswordPage} className='resetPasswordButton'>Click here If You Forgot Your Password</button>
+            <button onClick={resetPasswordPage} className='resetButton'>Forgot Your Password</button>
+            </div>
+            
         </div>
     )
 }

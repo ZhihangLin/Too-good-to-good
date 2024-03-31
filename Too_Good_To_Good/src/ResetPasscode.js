@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import './ResetPasscode.css';
 import { useHistory } from "react-router-dom";
 import { auth } from "./firebase";
+
 
 function ResetPasscode() {
     const [email, setEmail] = useState('');
@@ -22,12 +24,13 @@ function ResetPasscode() {
     }
 
     return (
-        <div className='login'> 
-            <img className ="login_logo"  src={require('./Toogoodtogo.png')} />
+        <div className='reset'> 
+            <img className ="reset_logo"  src={require('./Logo.png')} />
             <div className="login_container">
-                <h1>Reset Password</h1>
+                <h2>Reset Password</h2>
+                <br></br>
                 <form>
-                    <h5>E-mail</h5>
+                    <h4>E-mail</h4>
                     <input type='text' value={email} onChange={e => setEmail(e.target.value)} />
                 </form>
                 <button onClick={resetPassword} className='resetPasswordButton'>Reset Password</button>
