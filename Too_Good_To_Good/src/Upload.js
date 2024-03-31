@@ -4,21 +4,21 @@ import { Link, useHistory } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 
 import { db, storage } from "./firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useStateValue} from "./StateProvider";
-
 
 function Upload() {
     const history = useHistory();
-    const [{ user }, dispatch] = useStateValue();
+    const [{ user }] = useStateValue();
 
     const [type, setType] = useState('');
     const [productName, setProductName] = useState('');
     const [location, setLocation] = useState('');
-
     const [originPrice, setOriginPrice] = useState('');
     const [notes, setNotes] = useState('');
     const [uploadPicture, setUploadPicture] = useState(null);
+    const [userEmail, setUserEmail] = useState('');
+    const [userId, setUserId] = useState('');
 
     const handleFileChange = (event) => {
         if (event.target.files[0]) {
@@ -28,40 +28,45 @@ function Upload() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
         if (!type || !productName || !originPrice || !uploadPicture || !location) {
             alert("Please fill out all required fields.");
             return;
         }
-
     
-        const imageRef = ref(storage, `images/${uploadPicture.name}`);
-        uploadBytes(imageRef, uploadPicture).then((snapshot) => {
+        try {
+            const imageRef = `images/${uploadPicture.name}`;
+            await uploadBytes(ref(storage, imageRef), uploadPicture);
             console.log('Image uploaded successfully!');
-
-           
-            getDownloadURL(snapshot.ref).then((downloadURL) => {
-                console.log('File available at', downloadURL);
-                
-                
-                addDoc(collection(db, "boxes"), { 
-                    type: type,
-                    productName: productName,
-                    location: location,
-                    originPrice: originPrice,
-                    notes: notes,
-                    imageUrl: downloadURL,
-                    EvaluationPrice: "not decide",
-                }).then(() => {
-                    console.log("Document successfully uploaded with image URL!");
-                    history.push('/');
-                }).catch((error) => {
-                    console.error("Error uploading document: ", error);
-                });
+    
+            const downloadURL = await getDownloadURL(ref(storage, imageRef));
+            console.log('File available at', downloadURL);
+    
+            // Add box document
+            const boxDocRef = await addDoc(collection(db, "boxes"), {
+                type: type,
+                productName: productName,
+                location: location,
+                originPrice: originPrice,
+                notes: notes,
+                imageUrl: downloadURL,
+                EvaluationPrice: "not decide",
             });
-        }).catch((error) => {
-            console.error("Error uploading image: ", error);
-        });
+            console.log("Box document successfully uploaded!");
+    
+            // Add user information to subcollection
+            const userInformationRef = collection(db, "boxes", boxDocRef.id, "userInformation");
+            await addDoc(userInformationRef, {
+                userId: user.uid, // Assuming user.uid is available from your user object
+                email: user.email,
+                // Add any other user information you want to store
+            });
+            console.log("User information added to the box document!");
+    
+            history.push('/');
+        } catch (error) {
+            console.error("Error uploading document: ", error);
+        }
     };
 
     return (
@@ -70,11 +75,10 @@ function Upload() {
                 <img className="upload_logo" src={require('./Toogoodtogo.png')} alt="Logo" />
             </Link>
             <div className="login_container">
-                <h1 className="email_">Welcome, {user ? user.displayName : 'Guest'}</h1>
+                <h1 className="email_">Welcome, {user ? user.email : 'Guest'}</h1>
                 <form onSubmit={handleSubmit}>
-                    
                     <h3>Add your box by filling out the information below!</h3>
-                    <br></br>
+                    <br />
                     <h4>Upload Picture:</h4>
                     <input type="file" onChange={handleFileChange} />
                     <h5>Type:</h5>
@@ -91,7 +95,6 @@ function Upload() {
                 </form>
             </div>
         </div>
-
     );
 }
 
