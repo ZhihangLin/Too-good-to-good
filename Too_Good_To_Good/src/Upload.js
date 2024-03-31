@@ -57,9 +57,8 @@ function Upload() {
             // Add user information to subcollection
             const userInformationRef = collection(db, "boxes", boxDocRef.id, "userInformation");
             await addDoc(userInformationRef, {
-                userId: user.uid, // Assuming user.uid is available from your user object
+                userId: user.uid, 
                 email: user.email,
-                // Add any other user information you want to store
             });
             console.log("User information added to the box document!");
     
