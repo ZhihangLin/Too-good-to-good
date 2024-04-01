@@ -51,6 +51,7 @@ function Upload() {
                 notes: notes,
                 imageUrl: downloadURL,
                 userId: user.uid,
+                username: user.displayName,
                 EvaluationPrice: "not decide",
             });
             console.log("Box document successfully uploaded!");
