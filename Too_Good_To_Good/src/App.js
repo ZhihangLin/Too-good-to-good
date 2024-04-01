@@ -12,6 +12,7 @@ import BoxesDisplay from './BoxesDisplay';
 import ResetPasscode from './ResetPasscode';
 import CreateLogin from './CreateLogin';
 import UserBoxes from './UserBoxes';
+import SearchResult from './SearchResult';
 
 
 function App() {
@@ -86,6 +87,11 @@ function App() {
           {/* <h1>Create Login page</h1> */}
           <CreateLogin />
          </Route>
+
+         <Route path='/search'>
+            <Header />
+            <SearchResult />
+          </Route>
 
         <Route path='/'>
           <Header />
