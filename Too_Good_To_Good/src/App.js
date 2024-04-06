@@ -55,6 +55,7 @@ function App() {
         <Route path='/ConfirmSwitch'>
           <Header />
           <ConfirmSwitch />
+          <UserBoxes />
         </Route>
 
         <Route path="/Login">

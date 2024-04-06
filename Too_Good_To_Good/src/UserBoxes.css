@@ -5,6 +5,10 @@
     justify-content: center;
     padding: 20px;
 }
+.load{
+    align-items: center;
+    margin-left: 100px
+}
 
 .box1 {
     border: 1px solid #ccc;

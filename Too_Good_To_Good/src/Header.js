@@ -25,16 +25,30 @@ function Header() {
     window.location.reload();
   };
 
+  const handleLogo = () => {
+    // Use history.push to navigate to another page
+    history.push('/');
+    window.location.reload();
+  };
+
+  const handleUserboxes = () => {
+    // Use history.push to navigate to another page
+    history.push('/userboxes');
+    window.location.reload();
+  };
+
+  const ConfirmSwitchPage = () => {
+    history.push('/ConfirmSwitch');//go to ConfirmSwitchPage page
+    window.location.reload();
+}
+
+
   const handleAuthenticaton = () => {
     if (user) {
       auth.signOut();
     } 
    
   };
-
-
-
-  
 
 
 
@@ -84,14 +98,11 @@ const handleSearch  = (e) => {
 
 
 
-  const ConfirmSwitchPage = () => {
-    history.push('/ConfirmSwitch');//go to ConfirmSwitchPage page
-    window.location.reload();
-}
+
 
   return (
     <div className='header'>
-    <Link to='/'>
+    <Link to='/' onClick={handleLogo}>
       <img className='header__logo' src={require('./Toogoodtogo.png')} alt='Too Good To Go Logo' />
     </Link>
 
@@ -140,18 +151,20 @@ const handleSearch  = (e) => {
         </div>
         </Link>
 
+        <Link to='/ConfirmSwitch' onClick={ConfirmSwitchPage}>
         <div className='header__option'>
           <span className='header__optionLineOne'>Look For</span>
           <span className='header__optionLineTwo'>Boxes</span>
         </div>
+        </Link>
 
         <div className='header__option'>
           <span className='header__optionLineOne'>Your</span>
           <span className='header__optionLineTwo'>Boxes</span>
         </div>
 
-        <Link to='/ConfirmSwitch'>
-          <div className='header__optionBox' onClick={ConfirmSwitchPage}>
+        <Link to='/userboxes'>
+          <div className='header__optionBox' onClick={handleUserboxes}>
             <RedeemIcon />
             <span className='header__optionLineTwo header__boxCount'>{basket?.length}</span>
           </div>

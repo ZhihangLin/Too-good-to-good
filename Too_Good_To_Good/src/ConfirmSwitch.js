@@ -1,12 +1,13 @@
-import React from 'react'
-import './ConfirmSwitch.css'
-import Switch from './Switch'
-import { useStateValue } from './StateProvider'
+import React from 'react';
+import { useHistory } from 'react-router-dom'; // Import useHistory from React Router
+import './ConfirmSwitch.css';
+import Switch from './Switch';
+import { useStateValue } from './StateProvider';
 import BoxesSelected from './BoxesSelected';
-
 
 function ConfirmSwitch() {
     const [{ basket }, dispatch] = useStateValue();
+    
 
   return (
     <div className='ConfirmSwitch'>
@@ -15,7 +16,7 @@ function ConfirmSwitch() {
             src={require('./TGTG_Logo.png')} alt='TGTG image'/>
             <div>
                 <h2 className='ConfirmSwitch__title'>
-                    Your Box Wish list
+                    Your Box list
                 </h2>
                 {basket.map(item =>(
                     <BoxesSelected
