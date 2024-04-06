@@ -14,6 +14,7 @@ function Header() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
+
   useEffect(() => {
     setSearchResults([]); // Clear search results when searchQuery changes
   }, [searchQuery]);
@@ -71,6 +72,11 @@ const handleSearchInputChange = async (e) => {
       );
 
     console.log(results); // Log the results to the console for debugging
+    dispatch({
+      type: 'SET_SEARCH_RESULTS',
+      searchResults: results, // payload should contain the search results
+    });
+    
     setSearchResults(results);
   } catch (error) {
     console.error('Error searching for items:', error);
@@ -78,6 +84,14 @@ const handleSearchInputChange = async (e) => {
 };
 
 
+
+
+
+
+const handleSearch  = (e) => {
+  e.preventDefault(); 
+  history.push('/search');
+};
 
 
 
@@ -92,15 +106,17 @@ const handleSearchInputChange = async (e) => {
       <img className='header__logo' src={require('./Toogoodtogo.png')} alt='Too Good To Go Logo' />
     </Link>
 
-    <div className='header__search'>
-      <input
-        className='header__searchInPut'
-        type='text'
-        value={searchQuery}
-        onChange={handleSearchInputChange}
-      />
-      <SearchIcon className='header__searchIcon' />
-    </div>
+    <form onSubmit={handleSearch}>
+      <div className='header__search'>
+        <input
+          className='header__searchInPut'
+          type='text'
+          value={searchQuery}
+          onChange={handleSearchInputChange}
+        />
+        <SearchIcon className='header__searchIcon' />
+      </div>
+    </form>
 
 
 

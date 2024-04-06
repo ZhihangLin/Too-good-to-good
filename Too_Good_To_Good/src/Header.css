@@ -10,6 +10,12 @@
     z-index: 100;
 }
 
+.header form {
+  display: flex;
+  flex-grow: 1; /* Allow the form to fill the space within the header__search */
+  margin: 0; /* Override any default form margins */
+}
+
 .header__logo {
     width: 150px;
     object-fit: contain;
@@ -17,6 +23,7 @@
     margin-left: 80px;
     height: 85px;
 }
+
 
 .header__search {
     display: flex;

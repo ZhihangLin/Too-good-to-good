@@ -51,6 +51,7 @@ function Upload() {
                 notes: notes,
                 imageUrl: downloadURL,
                 userId: user.uid,
+                username: user.displayName,
                 EvaluationPrice: "not decide",
             });
             console.log("Box document successfully uploaded!");
@@ -72,7 +73,7 @@ function Upload() {
     return (
         <div className="upload">
             <Link to='/'>
-                <img className="upload_logo" src={require('./Toogoodtogo.png')} alt="Logo" />
+                <img className="upload_logo" src={require('./Logo.png')} alt="Logo" />
             </Link>
             <div className="login_container">
                 <h1 className="email_">Welcome, {user ? user.displayName : 'Guest'}</h1>
