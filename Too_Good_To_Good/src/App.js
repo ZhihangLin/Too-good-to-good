@@ -13,6 +13,7 @@ import ResetPasscode from './ResetPasscode';
 import CreateLogin from './CreateLogin';
 import UserBoxes from './UserBoxes';
 import SearchResult from './SearchResult';
+import SingleResult from './SingleResult';
 
 
 function App() {
@@ -92,6 +93,13 @@ function App() {
             <Header />
             <SearchResult />
           </Route>
+
+
+          <Route path="/result/:boxId">
+            <Header />
+           <SingleResult />
+          </Route>
+
 
         <Route path='/'>
           <Header />
