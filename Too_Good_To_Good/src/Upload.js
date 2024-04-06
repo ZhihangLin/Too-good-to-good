@@ -75,7 +75,7 @@ function Upload() {
                 <img className="upload_logo" src={require('./Toogoodtogo.png')} alt="Logo" />
             </Link>
             <div className="login_container">
-                <h1 className="email_">Welcome, {user ? user.email : 'Guest'}</h1>
+                <h1 className="email_">Welcome, {user ? user.displayName : 'Guest'}</h1>
                 <form onSubmit={handleSubmit}>
                     <h3>Add your box by filling out the information below!</h3>
                     <br />

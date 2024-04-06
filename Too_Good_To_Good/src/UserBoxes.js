@@ -53,7 +53,11 @@ function UserBoxes() {
     };
 
     return (
+        // <div>
+        //     <h1 className="load">Upload box</h1>
+
         <div className="boxesDisplay">
+            
             {userBoxes.map((box) => (
                 <div key={box.id} className="box1">
                     <img src={box.imageUrl || 'https://firebasestorage.googleapis.com/v0/b/tgtg-af1a6.appspot.com/o/images%2Ftransparency_demonstration_1.png?alt=media&token=dde7538e-df6d-47f8-ae0b-4c0df81c4b8d'} alt={box.type} />
@@ -79,6 +83,7 @@ function UserBoxes() {
                 </div>
             ))}
         </div>
+        // </div>
     );
 }
 
