@@ -42,20 +42,7 @@ function BoxesDisplay() {
     }, []);
 
     const handleValueChange = async (boxId, field, newValue) => {
-        if (isNaN(originPrice) || originPrice === '') {
-            setPriceError("Price must be a number.");
-            return;
-        } else {
-            setPriceError("");
-        }
-
-        if (!validLocations.includes(location.toLowerCase())) {
-            setLocationError("Location must be one of: Queens, Brooklyn, Manhattan, Bronx, Staten Island.");
-            return;
-        } else {
-            setLocationError("");
-        }
-
+        
 
         try {
             await db.collection('boxes').doc(boxId).update({ [field]: newValue });
@@ -71,8 +58,27 @@ function BoxesDisplay() {
     };
 
     const handleButtonClick = async (boxId) => {
-        console.log("Button clicked for box:", boxId);
+        const boxToUpdate = boxes.find(box => box.id === boxId);
+        if (!boxToUpdate) {
+            console.log("Box not found!");
+            return;
+        }
 
+        
+
+        try {
+            // Only update fields that might have changed
+            await db.collection('boxes').doc(boxId).update({
+                originPrice: boxToUpdate.originPrice,
+                location: boxToUpdate.location,
+                type: boxToUpdate.type,
+                notes: boxToUpdate.notes,
+                EvaluationPrice: boxToUpdate.EvaluationPrice
+            });
+            console.log("Box updated successfully!");
+        } catch (error) {
+            console.error(`Error updating box: ${error}`);
+        }
     };
 
     return (
@@ -85,56 +91,60 @@ function BoxesDisplay() {
                         <p>User's Username: {box.username}</p>
                         
                         <TextField
-                        sx={{ mb: 2, width: '100%', backgroundColor: 'white'}}
-                        label= "Type"
-                        value={box.type}
-                        onChange={e => handleValueChange(e.target.value)}
-                        multiline
+                            sx={{ mb: 2, width: '100%', backgroundColor: 'white'}}
+                            label="Type"
+                            value={box.type}
+                            onChange={e => handleValueChange(box.id, 'type', e.target.value)}
+                            multiline
                         />
 
+                        {/* Origin Price Field */}
                         <TextField
-                        sx={{ mb: 2, width: '100%', backgroundColor: 'white' }}
-                        label="Origin Price"
-                        value={box.originPrice}
-                        onChange={e => handleValueChange(e.target.value)}
-                        error={!!priceError}
-                        helperText={priceError}
-                        multiline
-                        
+                            sx={{ mb: 2, width: '100%', backgroundColor: 'white' }}
+                            label="Origin Price"
+                            value={box.originPrice}
+                            onChange={e => handleValueChange(box.id, 'originPrice', e.target.value)}
+                            error={!!priceError}
+                            helperText={priceError}
+                            multiline
                         />
 
-                        
-
+                        {/* Location Field */}
                         <TextField
-                        sx={{ mb: 2, width: '100%', backgroundColor: 'white'}}
-                        label="Location"
-                        value={box.location}
-                        onChange={e => handleValueChange(e.target.value)}
-                        error={!!locationError}
-                        helperText={locationError}
-                        multiline
+                            sx={{ mb: 2, width: '100%', backgroundColor: 'white'}}
+                            label="Location"
+                            value={box.location}
+                            onChange={e => handleValueChange(box.id, 'location', e.target.value)}
+                            error={!!locationError}
+                            helperText={locationError}
+                            multiline
                         />
 
-                        
-
+                        {/* Notes Field */}
                         <TextField
-                        sx={{ mb: 2, width: '100%', backgroundColor: 'white'}}
-                        label="Notes"
-                        value={box.notes}
-                        onChange={e => handleValueChange(e.target.value)}
-                        multiline
+                            sx={{ mb: 2, width: '100%', backgroundColor: 'white'}}
+                            label="Notes"
+                            value={box.notes}
+                            onChange={e => handleValueChange(box.id, 'notes', e.target.value)}
+                            multiline
                         />
 
-
+                        {/* Evaluation Price Field */}
                         <TextField
-                        sx={{ mb: 2, width: '100%', backgroundColor: 'white'}}
-                        label="Evaluation Price"
-                        value={box.EvaluationPrice}
-                        onChange={e => handleValueChange(e.target.value)}
-                        multiline
+                            sx={{ mb: 2, width: '100%', backgroundColor: 'white'}}
+                            label="Evaluation Price"
+                            value={box.EvaluationPrice}
+                            onChange={e => handleValueChange(box.id, 'EvaluationPrice', e.target.value)}
+                            multiline
                         />
 
-                        <button onClick={() => handleButtonClick(box.id)}>Update</button>
+                        {/* Update Button */}
+                        <Button
+                            sx={{ backgroundColor: '#007bff', color: 'white', '&:hover': { backgroundColor: '#0056b3' } }}
+                            onClick={() => handleButtonClick(box.id)}
+                        >
+                        Update
+                        </Button>
                     </div>
                 </div>
             ))}
