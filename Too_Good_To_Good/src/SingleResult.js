@@ -30,7 +30,7 @@ function SingleResult() {
                 setBoxDetails(foundBox);
                 setImageUrl(foundBox.imageUrl);
             } else {
-                console.log('No such document!');
+                console.log('No such box!');
             }
         };
 
