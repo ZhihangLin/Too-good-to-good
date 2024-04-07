@@ -4,10 +4,11 @@ import { Link, useHistory } from 'react-router-dom';
 import { useStateValue } from './StateProvider';
 import SearchIcon from '@mui/icons-material/Search';
 import RedeemIcon from '@mui/icons-material/Redeem';
+import BackupIcon from '@mui/icons-material/Backup';
+import InboxIcon from '@mui/icons-material/Inbox';
 import { auth } from './firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from './firebase';
-
 
 function Header() {
   const [{ basket, user }, dispatch] = useStateValue();
@@ -48,6 +49,11 @@ function Header() {
     history.push('/ConfirmSwitch');//go to ConfirmSwitchPage page
     window.location.reload();
 }
+
+  const UploadPage = ()=> {
+    history.push('/Upload');
+    window.location.reload();
+  }
 
 
 
@@ -105,27 +111,29 @@ function Header() {
   };
 
 
+
+
+
   return (
     <div className='header'>
-      <Link to='/' onClick={handleLogo}>
-        <img className='header__logo' src={require('./Toogoodtogo.png')} alt='Too Good To Go Logo' />
-      </Link>
+    <Link to='/' onClick={handleLogo}>
+      <img className='header__logo' src={require('./Toogoodtogo.png')} alt='Too Good To Go Logo' />
+    </Link>
+
+    <form onSubmit={handleSearch}>
+      <div className='header__search'>
+        <input
+          className='header__searchInPut'
+          type='text'
+          value={searchQuery}
+          onChange={handleSearchInputChange}
+        />
+        <SearchIcon className='header__searchIcon' onClick={(e) => handleSearch(e)} />
+      </div>
+    </form>
 
 
-      <form onSubmit={handleSearch}>
-        <div className='header__search'>
-          <input
-            className='header__searchInPut'
-            type='text'
-            value={searchQuery}
-            onChange={handleSearchInputChange}
-          />
-          <SearchIcon className='header__searchIcon' onClick={(e) => handleSearch(e)} />
-        </div>
-      </form>
-
-
-      {searchQuery && (
+    {searchQuery && (
         <div className='header__searchResults'>
           {searchResults.length > 0 ? (
             <ul>
@@ -145,10 +153,7 @@ function Header() {
         </div>
       )}
 
-
-
-
-
+    
 
 
 
@@ -162,13 +167,28 @@ function Header() {
         </div>
         </Link>
 
-
         <Link to='/ConfirmSwitch' onClick={ConfirmSwitchPage}>
-        <div className='header__option'>
-          <span className='header__optionLineOne'>Look For</span>
-          <span className='header__optionLineTwo'>Boxes</span>
-        </div>
+          <div className='header__option'>
+            <span className='header__optionLineOne'>Look For</span>
+            <span className='header__optionLineTwo'>Boxes</span>
+          </div>
         </Link>
+
+        <div className='header__option' onClick={ConfirmSwitchPage}>
+          <InboxIcon style={{ color: 'white', marginLeft: '-15px' }}/>
+        </div>
+
+
+        <Link to='/upload'>
+          <div className='header__option' onClick={UploadPage}>
+            <span className='header__optionLineOne'>Upload</span>
+            <span className='header__optionLineTwo'>Boxes</span>
+          </div>
+        </Link>
+
+          <div className='headder__option' onClick={UploadPage}>
+            <BackupIcon style={{ color: 'white' }}/>
+          </div>
 
 
         <div className='header__option'>
@@ -187,6 +207,5 @@ function Header() {
     </div>
   );
 }
-
 
 export default Header;

@@ -10,7 +10,7 @@
     margin-left: 100px
 }
 
-.box1 {
+.box2 {
     border: 1px solid #ccc;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     border-radius: 8px;
@@ -21,27 +21,27 @@
 
 }
 
-.box1 img {
+.box2 img {
     width: 100%;
     object-fit: contain;
     border-bottom: 1px solid #ccc;
     margin-top: 0;
 }
 
-.boxDetails {
+.boxDetails2 {
     padding: 15px;
 }
 
-.boxDetails h3 {
+.boxDetails2 h3 {
     margin-top: 0;
 }
 
-.boxDetails p {
+.boxDetails2 p {
     margin: 10px 0;
 }
 
-.boxDetails input[type="text"],
-.boxDetails input[type="number"] {
+.boxDetails2 input[type="text"],
+.boxDetails2 input[type="number"] {
     width: calc(100% - 20px);
     padding: 5px 10px;
     margin-top: 5px;
@@ -49,8 +49,7 @@
     border-radius: 4px;
 }
 
-.boxDetails button {
-    background-color: #007bff;
+.boxDetails2 button {
     color: white;
     padding: 10px 15px;
     border: none;
@@ -60,11 +59,9 @@
     margin-top: 10px;
 }
 
-.boxDetails button:hover {
-    background-color: #0056b3;
-}
 
-.box img {
+
+.box2 img {
     width: 100%;
     object-fit: contain;
     border-bottom: 1px solid #ccc;
