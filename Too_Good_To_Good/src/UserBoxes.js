@@ -84,44 +84,42 @@ function UserBoxes() {
                     <div className="boxDetails2">
                         <h3 style={{ textAlign: 'center' }}>{box.productName}</h3>
                         <TextField
-                        sx={{ mb: 2, width: '100%', backgroundColor: 'white'}}
-                        label= "Type"
-                        value={box.type}
-                        onChange={e => handleValueChange(e.target.value)}
-                        multiline
+                            sx={{ mb: 2, width: '100%', backgroundColor: 'white'}}
+                            label="Type"
+                            value={box.type}
+                            onChange={e => handleValueChange(box.id, 'type', e.target.value)}
+                            multiline
                         />
 
+                        {/* Origin Price Field */}
                         <TextField
-                        sx={{ mb: 2, width: '100%', backgroundColor: 'white' }}
-                        label="Origin Price"
-                        value={box.originPrice}
-                        onChange={e => handleValueChange(e.target.value)}
-                        error={!!priceError}
-                        helperText={priceError}
-                        multiline
-                        
+                            sx={{ mb: 2, width: '100%', backgroundColor: 'white' }}
+                            label="Origin Price"
+                            value={box.originPrice}
+                            onChange={e => handleValueChange(box.id, 'originPrice', e.target.value)}
+                            error={!!priceError}
+                            helperText={priceError}
+                            multiline
                         />
 
-                        
-
+                        {/* Location Field */}
                         <TextField
-                        sx={{ mb: 2, width: '100%', backgroundColor: 'white'}}
-                        label="Location"
-                        value={box.location}
-                        onChange={e => handleValueChange(e.target.value)}
-                        error={!!locationError}
-                        helperText={locationError}
-                        multiline
+                            sx={{ mb: 2, width: '100%', backgroundColor: 'white'}}
+                            label="Location"
+                            value={box.location}
+                            onChange={e => handleValueChange(box.id, 'location', e.target.value)}
+                            error={!!locationError}
+                            helperText={locationError}
+                            multiline
                         />
 
-                        
-
+                        {/* Notes Field */}
                         <TextField
-                        sx={{ mb: 2, width: '100%', backgroundColor: 'white'}}
-                        label="Notes"
-                        value={box.notes}
-                        onChange={e => handleValueChange(e.target.value)}
-                        multiline
+                            sx={{ mb: 2, width: '100%', backgroundColor: 'white'}}
+                            label="Notes"
+                            value={box.notes}
+                            onChange={e => handleValueChange(box.id, 'notes', e.target.value)}
+                            multiline
                         />
                         
                     
