@@ -1,0 +1,30 @@
+/* ParentComponent.css */
+.parentComponent {
+  display: flex;
+}
+
+.leftSide, .rightSide {
+  padding: 20px;
+}
+
+.leftSide {
+  flex: 1;
+}
+
+.rightSide {
+  flex: 1;
+}
+
+.boxContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.box {
+  width: 300px;
+  height: auto;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ccc;
+}
+

@@ -5,15 +5,13 @@ import Upload from'./Upload';
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Login from "./Login";
 import { auth } from "./firebase";
-import ConfirmSwitch from "./ConfirmSwitch"
 import Header from './Header';
 import { useStateValue } from "./StateProvider";
 import BoxesDisplay from './BoxesDisplay';
 import ResetPasscode from './ResetPasscode';
 import CreateLogin from './CreateLogin';
 import UserBoxes from './UserBoxes';
-import SearchResult from './SearchResult';
-import SingleResult from './SingleResult';
+import CompareBoxes from './CompareBoxes';
 
 
 function App() {
@@ -52,14 +50,9 @@ function App() {
       <div className="App">
        <Switch>
 
-        <Route path='/ConfirmSwitch'>
-          <Header />
-          <ConfirmSwitch />
-          <UserBoxes />
-        </Route>
 
         <Route path="/Login">
-          {/* <h1>Login page</h1> */}
+          <h1>Login page</h1>
           <Login />
         </Route>
 
@@ -74,34 +67,25 @@ function App() {
           <BoxesDisplay />
         </Route>
 
-    <Route path="/userboxes">
+        <Route path="/userboxes">
           <Header />
           <UserBoxes />
          </Route>
 
-    
         <Route path="/ResetPasscode">
-          {/* <h1> ResetPasscode</h1> */}
+          <h1> ResetPasscode</h1>
           <ResetPasscode />
          </Route>
 
          <Route path="/CreateLogin">
-          {/* <h1>Create Login page</h1> */}
+          <h1>Create Login page</h1>
           <CreateLogin />
          </Route>
-
-         <Route path='/search'>
-            <Header />
-            <SearchResult />
-          </Route>
-
-
-          <Route path="/result/:boxId">
-            <Header />
-           <SingleResult />
-          </Route>
-
-
+         
+         <Route path="/Compare">
+          <Header />
+          <CompareBoxes />
+         </Route>
         <Route path='/'>
           <Header />
           <Home />
