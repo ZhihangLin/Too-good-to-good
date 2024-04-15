@@ -12,6 +12,8 @@ import BoxesDisplay from './BoxesDisplay';
 import ResetPasscode from './ResetPasscode';
 import CreateLogin from './CreateLogin';
 import UserBoxes from './UserBoxes';
+import Userbd from './Userbd';
+
 
 
 function App() {
@@ -53,17 +55,27 @@ function App() {
         <Route path='/ConfirmSwitch'>
           <Header />
           <ConfirmSwitch />
-          <UserBoxes />
+          <div>
+            <div>
+            <UserBoxes />
+            </div>
+            <div>
+            <h1>all box</h1>
+              <Userbd />
+            </div>
+          </div>
+         
+
         </Route>
 
         <Route path="/Login">
-          <h1>Login page</h1>
+          {/* <h1>Login page</h1> */}
           <Login />
         </Route>
 
         <Route path="/Upload">
           <Header />
-          <h1>Upload page</h1>
+          {/* <h1>Upload page</h1> */}
           <Upload />
          </Route>
 
@@ -79,12 +91,12 @@ function App() {
 
     
         <Route path="/ResetPasscode">
-          <h1> ResetPasscode</h1>
+          {/* <h1> ResetPasscode</h1> */}
           <ResetPasscode />
          </Route>
 
          <Route path="/CreateLogin">
-          <h1>Create Login page</h1>
+          {/* <h1>Create Login page</h1> */}
           <CreateLogin />
          </Route>
 

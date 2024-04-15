@@ -10,7 +10,10 @@ function UserBoxes() {
 
     useEffect(() => {
         const fetchUserBoxes = async () => {
-            if (!user) return; // If user is not logged in, return
+            if (!user) {
+
+                return; // If user is not logged in, return
+        };
 
             try {
                 const userBoxesRef = db.collection('boxes').where('userId', '==', user.uid);
@@ -27,6 +30,7 @@ function UserBoxes() {
             } catch (error) {
                 console.error('Error fetching user boxes:', error);
             }
+            
         };
 
         fetchUserBoxes();
