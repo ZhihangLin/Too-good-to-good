@@ -7,7 +7,7 @@
     "@mui/material": "^5.15.14",
     "firebase": "^10.10.0",
     "react-currency-format": "^1.1.0",
-    "react-router-dom": "^5.3.4"
+    "react-router-dom": "^6.22.3"
   },
   "devDependencies": {
     "react-scripts": "^5.0.1"

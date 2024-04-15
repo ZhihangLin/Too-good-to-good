@@ -12,6 +12,8 @@ import BoxesDisplay from './BoxesDisplay';
 import ResetPasscode from './ResetPasscode';
 import CreateLogin from './CreateLogin';
 import UserBoxes from './UserBoxes';
+import SearchResult from './SearchResult';
+import SingleResult from './SingleResult';
 
 
 function App() {
@@ -53,6 +55,7 @@ function App() {
         <Route path='/ConfirmSwitch'>
           <Header />
           <ConfirmSwitch />
+          <UserBoxes />
         </Route>
 
         <Route path="/Login">
@@ -86,6 +89,18 @@ function App() {
           {/* <h1>Create Login page</h1> */}
           <CreateLogin />
          </Route>
+
+         <Route path='/search'>
+            <Header />
+            <SearchResult />
+          </Route>
+
+
+          <Route path="/result/:boxId">
+            <Header />
+           <SingleResult />
+          </Route>
+
 
         <Route path='/'>
           <Header />

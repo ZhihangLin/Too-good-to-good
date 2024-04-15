@@ -3,10 +3,18 @@ import { db, storage } from './firebase';
 import { ref, getDownloadURL } from 'firebase/storage';
 import './UserBoxes.css';
 import { useStateValue } from './StateProvider';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 function UserBoxes() {
     const [{ user }] = useStateValue();
     const [userBoxes, setUserBoxes] = useState([]);
+    const [priceError, setPriceError] = useState('');
+    const [locationError, setLocationError] = useState('');
+    const [originPrice, setOriginPrice] = useState('');
+    const [location, setLocation] = useState('');
 
     useEffect(() => {
         const fetchUserBoxes = async () => {
@@ -52,33 +60,104 @@ function UserBoxes() {
         // You can add your custom logic here
     };
 
+    const handleDeleteBox = async (boxId) => {
+        try {
+            await db.collection('boxes').doc(boxId).delete();
+            
+            setUserBoxes(userBoxes.filter(box => box.id !== boxId));
+            
+            console.log(`Box ${boxId} deleted successfully.`);
+        } catch (error) {
+            console.error(`Error deleting box ${boxId}:`, error);
+        }
+    };
+
     return (
+        // <div>
+        //     <h1 className="load">Upload box</h1>
+
         <div className="boxesDisplay">
+            
             {userBoxes.map((box) => (
-                <div key={box.id} className="box1">
+                <div key={box.id} className="box2">
                     <img src={box.imageUrl || 'https://firebasestorage.googleapis.com/v0/b/tgtg-af1a6.appspot.com/o/images%2Ftransparency_demonstration_1.png?alt=media&token=dde7538e-df6d-47f8-ae0b-4c0df81c4b8d'} alt={box.type} />
-                    <div className="boxDetails">
-                        <h3>{box.productName}</h3>
-                        <p>Type: 
-                            <input type="text" value={box.type} onChange={(e) => handleValueChange(box.id, 'type', e.target.value)} />
-                        </p>
-                        <p>Origin Price: 
-                            <input type="number" value={box.originPrice} onChange={(e) => handleValueChange(box.id, 'originPrice', e.target.value)} />
-                        </p>
-                        <p>Location: 
-                            <input type="text" value={box.location} onChange={(e) => handleValueChange(box.id, 'location', e.target.value)} />
-                        </p>
-                        <p>Notes: 
-                            <input type="text" value={box.notes} onChange={(e) => handleValueChange(box.id, 'notes', e.target.value)} />
-                        </p>
-                        <p>Evaluation Price : 
-                            <input type="text" value={box.EvaluationPrice} onChange={(e) => handleValueChange(box.id, 'EvaluationPrice', e.target.value)} />
-                        </p>
-                        <button onClick={() => handleButtonClick(box.id)}>Update</button>
+                    <div className="boxDetails2">
+                        <h3 style={{ textAlign: 'center' }}>{box.productName}</h3>
+                        <TextField
+                            sx={{ mb: 2, width: '100%', backgroundColor: 'white'}}
+                            label="Type"
+                            value={box.type}
+                            onChange={e => handleValueChange(box.id, 'type', e.target.value)}
+                            multiline
+                        />
+
+                        {/* Origin Price Field */}
+                        <TextField
+                            sx={{ mb: 2, width: '100%', backgroundColor: 'white' }}
+                            label="Origin Price"
+                            value={box.originPrice}
+                            onChange={e => handleValueChange(box.id, 'originPrice', e.target.value)}
+                            error={!!priceError}
+                            helperText={priceError}
+                            multiline
+                        />
+
+                        {/* Location Field */}
+                        <TextField
+                            sx={{ mb: 2, width: '100%', backgroundColor: 'white'}}
+                            label="Location"
+                            value={box.location}
+                            onChange={e => handleValueChange(box.id, 'location', e.target.value)}
+                            error={!!locationError}
+                            helperText={locationError}
+                            multiline
+                        />
+
+                        {/* Notes Field */}
+                        <TextField
+                            sx={{ mb: 2, width: '100%', backgroundColor: 'white'}}
+                            label="Notes"
+                            value={box.notes}
+                            onChange={e => handleValueChange(box.id, 'notes', e.target.value)}
+                            multiline
+                        />
+                        
+                    
+
+                        <Button
+                            sx={{ backgroundColor: '#007bff', color: 'white',
+                            '&:hover': {
+                                backgroundColor: '#0056b3',
+                            },
+                            '& .MuiButton-startIcon': {
+                                marginRight: '8px',
+                            },
+                            }}
+                            startIcon={<CloudUploadIcon/>}
+                            onClick={() => handleButtonClick(box.id)}
+                        >
+                        Update
+                        </Button>
+
+                        <Button
+                            sx={{ backgroundColor: 'red', color: 'white',
+                            '&:hover': {
+                                backgroundColor: 'darkred',
+                            },
+                            '& .MuiButton-startIcon': {
+                                marginRight: '8px',
+                            },
+                            }}
+                            startIcon={<DeleteIcon />}
+                            onClick={() => handleDeleteBox(box.id)}
+                        >
+                        Delete
+                        </Button>
                     </div>
                 </div>
             ))}
         </div>
+        // </div>
     );
 }
 
