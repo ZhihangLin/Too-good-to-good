@@ -23,6 +23,12 @@ const reducer = (state, action) => {
         basket: []
       }
 
+      case 'SET_SEARCH_RESULTS':
+      return {
+        ...state,
+        searchResults: action.searchResults,
+      };
+
     case "REMOVE_FROM_WISHLISH":
       const index = state.basket.findIndex(
         (basketItem) => basketItem.id === action.id

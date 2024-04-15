@@ -13,6 +13,8 @@ import ResetPasscode from './ResetPasscode';
 import CreateLogin from './CreateLogin';
 import UserBoxes from './UserBoxes';
 import Userbd from './Userbd';
+import SearchResult from './SearchResult';
+import SingleResult from './SingleResult';
 
 
 
@@ -99,6 +101,18 @@ function App() {
           {/* <h1>Create Login page</h1> */}
           <CreateLogin />
          </Route>
+
+         <Route path='/search'>
+            <Header />
+            <SearchResult />
+          </Route>
+
+
+          <Route path="/result/:boxId">
+            <Header />
+           <SingleResult />
+          </Route>
+
 
         <Route path='/'>
           <Header />

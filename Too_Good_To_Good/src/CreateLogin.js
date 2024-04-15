@@ -16,7 +16,7 @@ function CreateLogin(){
 
     const register = e => {
         e.preventDefault();
-
+    
         auth.createUserWithEmailAndPassword(email, password)
             .then((userCredential) => {
                 // Successfully created a new user with email and password
@@ -31,7 +31,7 @@ function CreateLogin(){
                     .catch((error) => {
                         console.log("Error sending email verification:", error);
                     });
-                
+
                 // Set username in user profile
                 user.updateProfile({
                     displayName: username
@@ -46,6 +46,7 @@ function CreateLogin(){
             })
             .catch(error => alert(error.message));
     };
+    
 
     return(
         <div className='login'> 
