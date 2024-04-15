@@ -32,7 +32,7 @@ function Home() {
               src='https://wp-media.familytoday.com/2013/07/featuredImageId3694.jpg' 
               alt=''/> */}
             <div className='home__content'>
-              <h1>Experience a unique journey at Too Good Too Good</h1>
+              <h1>Experience a unique journey at Too Good To Good</h1>
               <p>Advance your unique experience with cost-free mystery to unlock new possibilities and elevate your journey.</p>
               <button onClick={SignUPage}>Sign up</button>
             </div>
