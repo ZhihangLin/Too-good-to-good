@@ -21,7 +21,7 @@ function CreateLogin(){
             .then((userCredential) => {
                 // Successfully created a new user with email and password
                 const user = userCredential.user;
-    
+
                 // Send email verification
                 user.sendEmailVerification()
                     .then(() => {
@@ -31,7 +31,7 @@ function CreateLogin(){
                     .catch((error) => {
                         console.log("Error sending email verification:", error);
                     });
-    
+
                 // Set username in user profile
                 user.updateProfile({
                     displayName: username
