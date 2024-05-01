@@ -107,8 +107,14 @@ function Header() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    history.push('/search');
+    history.push(`/search?query=${encodeURIComponent(searchQuery)}`);
+    window.location.reload();
   };
+
+  const handleResultClick = (id) => {
+    history.push(`/result/${id}`);
+    window.location.reload();
+};
 
 
 
@@ -134,24 +140,22 @@ function Header() {
 
 
     {searchQuery && (
-        <div className='header__searchResults'>
-          {searchResults.length > 0 ? (
-            <ul>
-              {searchResults.map((item, index) => (
-                <Link to={`/result/${item.id}`} key={item.id} style={{ textDecoration: 'none' }}>
-                  <li className="searchResultItem">
-                    <div className="searchResultProductName">{item.productName}</div>
-                    <div className="searchResultLocation">{item.location}</div>
-                    <div className="searchResultType">{item.type}</div>
-                  </li>
-                </Link>
-              ))}
-            </ul>
-          ) : (
-            <p>No results found</p>
-          )}
-        </div>
+    <div className='header__searchResults'>
+      {searchResults.length > 0 ? (
+        <ul>
+          {searchResults.map((item, index) => (
+            <li key={item.id} className="searchResultItem" onClick={() => handleResultClick(item.id)} style={{ textDecoration: 'none' }}>
+              <div className="searchResultProductName">{item.productName}</div>
+              <div className="searchResultLocation">{item.location}</div>
+              <div className="searchResultType">{item.type}</div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No results found</p>
       )}
+    </div>
+  )}
 
     
 
