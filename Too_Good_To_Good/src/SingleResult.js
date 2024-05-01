@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, withRouter } from 'react-router-dom';
 import { db, storage } from './firebase';
 import { ref, getDownloadURL } from 'firebase/storage';
 import './SingleResult.css';
 
-function SingleResult() {
+
+
+
+function SingleResult(props) {
     const { boxId } = useParams();
     const [boxDetails, setBoxDetails] = useState({});
     const [imageUrl, setImageUrl] = useState('');
+
 
     useEffect(() => {
         const fetchBoxDetails = async () => {
@@ -34,20 +38,51 @@ function SingleResult() {
             }
         };
 
+
         fetchBoxDetails();
     }, [boxId]);
 
+
+
+
+    const handleFindPlacesClick = () => {
+        // Use the history.push method to navigate
+        props.history.push({
+            pathname: '/save-place-results',
+            state: { boxLocation: boxDetails.location }
+        });
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     return (
         <div className="singleResult">
-            <img src={imageUrl || 'https://firebasestorage.googleapis.com/v0/b/tgtg-af1a6.appspot.com/o/images%2Ftransparency_demonstration_1.png?alt=media&token=dde7538e-df6d-47f8-ae0b-4c0df81c4b8d'} alt={boxDetails.type} />
+            <img src={imageUrl || 'https://example.com/default-image.png'} alt={boxDetails.type} />
             <h2>{boxDetails.productName}</h2>
             <p><strong>Type:</strong> {boxDetails.type}</p>
             <p><strong>Origin Price:</strong> {boxDetails.originPrice}</p>
             <p><strong>Location:</strong> {boxDetails.location}</p>
             <p><strong>Notes:</strong> {boxDetails.notes}</p>
             <p><strong>Evaluation Price:</strong> {boxDetails.EvaluationPrice}</p>
+            <button onClick={handleFindPlacesClick} disabled={!boxDetails.location}>
+                    Find Safe Exchange Places
+            </button>
+
+
         </div>
     );
 }
 
-export default SingleResult;
+
+export default withRouter(SingleResult);
