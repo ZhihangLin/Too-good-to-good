@@ -18,6 +18,7 @@ npm install react-currency-format --force
 npm install react-scripts --save-dev --force
 npm install firebase
 npm install --force
+npm install @googlemaps/google-maps-services-js
 ```
 
 5. After download
