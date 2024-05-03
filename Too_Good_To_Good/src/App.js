@@ -113,6 +113,11 @@ function App() {
            <SingleResult />
           </Route>
 
+     <Route path="/Compare">
+          <Header />
+          <CompareBoxes />
+         </Route>
+
 
         <Route path='/'>
           <Header />
