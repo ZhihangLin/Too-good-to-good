@@ -12,6 +12,7 @@ function CreateLogin(){
     const handleClicktohome = () => {
         // Use history.push to home page
         history.push('/');
+        window.location.reload();
     };
 
     const register = e => {

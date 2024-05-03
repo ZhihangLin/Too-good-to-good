@@ -15,11 +15,11 @@ margin: 0; /* Override any default form margins */
 }
 
 .header__logo {
-  width: 150px;
+  width: 150px; /* Set a fixed width */
+  height: 90px; /* Set a fixed height */
   object-fit: contain;
-  margin: 0 20px;
-  margin-left: 80px;
-  height: 85px;
+  margin-left: 125px;
+  
 }
 
 
@@ -29,12 +29,11 @@ margin: 0; /* Override any default form margins */
   align-items: center;
   justify-content: center; 
   border-radius: 10px; 
-  margin-left: 20px; 
   width: 40px;
 }
 
 .header__searchInPut {
-  margin-left: 200px;
+  margin-left: 175px;
   height: 20px; 
   padding: 10px;
   border: none;
@@ -43,7 +42,7 @@ margin: 0; /* Override any default form margins */
 }
 
 .header__searchIcon {
-  margin-right: 100px;
+  margin-right: 50px;
   padding: 10px;
   height: 20px !important;
   background-color: #3dad95;

@@ -3,7 +3,8 @@
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
-    padding: 20px;
+    padding: 15px;
+    
 }
 
 .box2 {
@@ -14,6 +15,7 @@
     width: 250px;
     min-height: 200px;
     background-color: rgb(201, 241, 201);
+    margin-right:50px ;
 
 }
 
@@ -65,3 +67,12 @@
     object-fit: contain;
     border-bottom: 1px solid #ccc;
 }
+.userbd__image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; /* Full width of the viewport */
+    height: 100vh; /* Full height of the viewport */
+    object-fit: cover; /* Ensure the image covers the entire container */
+    z-index: -1;
+  }

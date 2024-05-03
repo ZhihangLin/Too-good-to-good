@@ -17,8 +17,12 @@ function UserBoxes() {
     const [location, setLocation] = useState('');
 
     useEffect(() => {
+        
         const fetchUserBoxes = async () => {
-            if (!user) return; // If user is not logged in, return
+            if (!user)  // If user is not logged in, return
+            {
+                return; // If user is not logged in, return
+            }
 
             try {
                 const userBoxesRef = db.collection('boxes').where('userId', '==', user.uid);

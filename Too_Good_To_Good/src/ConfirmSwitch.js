@@ -11,30 +11,11 @@ function ConfirmSwitch() {
 
   return (
     <div className='ConfirmSwitch'>
-        <div className='ConfirmSwitch__left'>
-            <img className='ConfirmSwitch__img' 
-            src={require('./TGTG_Logo.png')} alt='TGTG image'/>
-            <div>
-                <h2 className='ConfirmSwitch__title'>
-                    Your Box list
-                </h2>
-                {basket.map(item =>(
-                    <BoxesSelected
-                    type= {item.type}
-                    image= {item.image}
-                    price= {item.price}
-                    location= {item.location}
-                    />
-                ))}
-                {/* BoxesSelected */}
-                {/* BoxesSelected */}
-            </div>
-        </div>
+       
+            
+       
 
-        <div className='ConfirmSwitch__right'>
-            <Switch />
         
-        </div>
       
     </div>
   )

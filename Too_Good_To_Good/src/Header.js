@@ -45,8 +45,8 @@ function Header() {
   };
 
 
-  const ConfirmSwitchPage = () => {
-    history.push('/ConfirmSwitch');//go to ConfirmSwitchPage page
+  const UserdbPage = () => {
+    history.push('/userbd');//go to userdb page
     window.location.reload();
 }
 
@@ -123,7 +123,7 @@ function Header() {
   return (
     <div className='header'>
     <Link to='/' onClick={handleLogo}>
-      <img className='header__logo' src={require('./Toogoodtogo.png')} alt='Too Good To Go Logo' />
+      <img className='header__logo' src={require('./headerlogo.png')} alt='Too Good To Go Logo' />
     </Link>
 
     <form onSubmit={handleSearch}>
@@ -171,14 +171,14 @@ function Header() {
         </div>
         </Link>
 
-        <Link to='/ConfirmSwitch' onClick={ConfirmSwitchPage}>
+        <Link to='/userdb' onClick={UserdbPage}>
           <div className='header__option'>
             <span className='header__optionLineOne'>Look For</span>
             <span className='header__optionLineTwo'>Boxes</span>
           </div>
         </Link>
 
-        <div className='header__option' onClick={ConfirmSwitchPage}>
+        <div className='header__option' onClick={UserdbPage}>
           <InboxIcon style={{ color: 'white', marginLeft: '-15px' }}/>
         </div>
 
