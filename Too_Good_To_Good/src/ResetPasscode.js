@@ -8,6 +8,11 @@ function ResetPasscode() {
     const [email, setEmail] = useState('');
     const history = useHistory();
 
+    const ClicktoHome = ()=> {
+        history.push('/');
+        window.location.reload();
+      };
+
     const resetPassword = () => {
         auth.sendPasswordResetEmail(email)
             .then(() => {
@@ -25,7 +30,7 @@ function ResetPasscode() {
 
     return (
         <div className='reset'> 
-            <img className ="reset_logo"  src={require('./Logo.png')} />
+            <img className ="reset_logo" onClick={ClicktoHome} src={require('./Logo.png') } />
             <div className="login_container">
                 <h2>Reset Password</h2>
                 <br></br>

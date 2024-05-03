@@ -55,17 +55,12 @@ function App() {
       <div className="App">
        <Switch>
 
-        <Route path='/ConfirmSwitch'>
+        <Route path='/Userbd'>
           <Header />
-          <ConfirmSwitch />
-          <div>
+          
             <div>
-            <UserBoxes />
-            </div>
-            <div>
-            <h1>all box</h1>
+            <h1 className='box_title'>Mystery</h1>
               <Userbd />
-            </div>
           </div>
          
 

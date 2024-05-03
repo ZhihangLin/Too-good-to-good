@@ -26,6 +26,10 @@ function Upload() {
     const [locationError, setLocationError] = useState('');
     
 
+    const handleClickToUserboxes = () => {
+        history.push('/userboxes');
+        window.location.reload();
+    };
     const validLocations = [
         "queens", "brooklyn", "manhattan", "bronx", "staten island"
     ];
@@ -155,7 +159,7 @@ function Upload() {
                         multiline
                     />
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <Button variant="contained"
+                        <Button onClick={handleClickToUserboxes} variant="contained"
                             sx={{ backgroundColor: '#4CAF50', '&:hover': { backgroundColor: '#43a047' } }}
                             type="submit">
                             Upload
