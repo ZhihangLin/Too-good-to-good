@@ -15,6 +15,7 @@ import UserBoxes from './UserBoxes';
 import Userbd from './Userbd';
 import SearchResult from './SearchResult';
 import SingleResult from './SingleResult';
+import CompareBoxes from './CompareBoxes';
 
 
 
