@@ -15,6 +15,7 @@ import UserBoxes from './UserBoxes';
 import Userbd from './Userbd';
 import SearchResult from './SearchResult';
 import SingleResult from './SingleResult';
+import SavePlace from './SavePlace';
 
 
 
@@ -111,6 +112,11 @@ function App() {
           <Route path="/result/:boxId">
             <Header />
            <SingleResult />
+          </Route>
+
+          <Route path="/save-place/:location">
+            <Header />
+            <SavePlace />
           </Route>
 
 
