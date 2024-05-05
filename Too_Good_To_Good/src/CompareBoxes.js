@@ -64,6 +64,7 @@ function CompareBoxes() {
 
     fetchAdditionalBoxes();
   }, [user]);
+  
 
   const removeFromWishlist = async (boxId) => {
     if (!user) {
@@ -120,27 +121,26 @@ function CompareBoxes() {
       console.log("User not authenticated.");
       return;
     }
-
+  
     try {
       const batch = db.batch();
-
+  
       selectedAdditionalBoxes.forEach(async (boxId) => {
-        const switchRequestsRef = db.collection('boxes').doc(boxId).collection('switchRequests');
-        await switchRequestsRef.add({ userId: user.uid, boxId: Array.from(selectedUserBoxes) });
+        const switchRequestsRef = db.collection('boxes').doc(boxId).collection('SwitchBoxes');
+        await switchRequestsRef.add({ userId: user.uid, boxId: Array.from(selectedUserBoxes)[0].toString() }); // Convert to string here
       });
-
+  
       selectedUserBoxes.forEach(async (boxId) => {
-        const switchRequestsRef = db.collection('boxes').doc(boxId).collection('switchRequests');
-        await switchRequestsRef.add({ userId: user.uid, boxId: Array.from(selectedAdditionalBoxes) });
+        const switchRequestsRef = db.collection('boxes').doc(boxId).collection('SwitchBoxes');
+        await switchRequestsRef.add({ userId: user.uid, boxId: Array.from(selectedAdditionalBoxes)[0].toString() }); // Convert to string here
       });
-
+  
       await batch.commit();
       console.log("Boxes added to switched boxes.");
     } catch (error) {
       console.error("Error adding boxes to switched boxes:", error);
     }
   };
-
   return (
     <div className="parentComponent">
       <div className="leftSide">
@@ -184,4 +184,5 @@ function CompareBoxes() {
 }
 
 export default CompareBoxes;
+
 
