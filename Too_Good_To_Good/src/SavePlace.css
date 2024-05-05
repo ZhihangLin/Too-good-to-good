@@ -1,0 +1,30 @@
+.save-place-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.save-place-list li {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    margin-bottom: 10px; 
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.12); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    flex-direction: column; 
+    height: 100px; 
+}
+
+.save-place-list strong {
+    font-size: 18px; 
+    color: #333; 
+    margin-bottom: 5px; 
+}
+
+.save-place-list p {
+    font-size: 16px; 
+    color: #666; 
+}

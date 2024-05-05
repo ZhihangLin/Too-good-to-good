@@ -16,6 +16,7 @@ import Userbd from './Userbd';
 import SearchResult from './SearchResult';
 import SingleResult from './SingleResult';
 import CompareBoxes from './CompareBoxes';
+import SavePlace from './SavePlace';
 
 
 
@@ -109,7 +110,12 @@ function App() {
            <SingleResult />
           </Route>
 
-     <Route path="/Compare">
+          <Route path="/save-place/:location">
+            <Header />
+            <SavePlace />
+          </Route>
+
+        <Route path="/Compare">
           <Header />
           <CompareBoxes />
          </Route>

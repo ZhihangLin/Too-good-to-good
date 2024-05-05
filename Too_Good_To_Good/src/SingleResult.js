@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { db, storage } from './firebase';
 import { ref, getDownloadURL } from 'firebase/storage';
 import './SingleResult.css';
@@ -8,6 +8,7 @@ function SingleResult() {
     const { boxId } = useParams();
     const [boxDetails, setBoxDetails] = useState({});
     const [imageUrl, setImageUrl] = useState('');
+    const history = useHistory();
 
     useEffect(() => {
         const fetchBoxDetails = async () => {
@@ -37,6 +38,16 @@ function SingleResult() {
         fetchBoxDetails();
     }, [boxId]);
 
+
+
+    const handleFindPlacesClick = () => {
+        history.push(`/save-place/${boxDetails.location}`);
+        window.location.reload();
+    };
+
+
+
+
     return (
         <div className="singleResult">
             <img src={imageUrl || 'https://firebasestorage.googleapis.com/v0/b/tgtg-af1a6.appspot.com/o/images%2Ftransparency_demonstration_1.png?alt=media&token=dde7538e-df6d-47f8-ae0b-4c0df81c4b8d'} alt={boxDetails.type} />
@@ -46,6 +57,7 @@ function SingleResult() {
             <p><strong>Location:</strong> {boxDetails.location}</p>
             <p><strong>Notes:</strong> {boxDetails.notes}</p>
             <p><strong>Evaluation Price:</strong> {boxDetails.EvaluationPrice}</p>
+            <button onClick={handleFindPlacesClick}>Find Safe Meeting Places</button>
         </div>
     );
 }
