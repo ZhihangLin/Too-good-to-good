@@ -1,0 +1,30 @@
+.save-place-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.save-place-list li {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    margin-bottom: 10px; /* Space between items */
+    padding: 10px 20px; /* Vertical and horizontal padding */
+    border-radius: 5px; /* Rounded corners for aesthetics */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.12); /* Subtle shadow for depth */
+    display: flex; /* Flexbox to align items */
+    align-items: center; /* Center alignment vertically */
+    justify-content: center; /* Center alignment horizontally */
+    flex-direction: column; /* Stack children vertically */
+    height: 100px; /* Fixed height for uniformity */
+}
+
+.save-place-list strong {
+    font-size: 18px; /* Larger text for the place name */
+    color: #333; /* Darker text color for better readability */
+    margin-bottom: 5px; /* Space between name and address */
+}
+
+.save-place-list p {
+    font-size: 16px; /* Comfortable reading size */
+    color: #666; /* Subtle text color for addresses */
+}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import './SavePlace.css';
 
 function SavePlace() {
     const { location } = useParams();
@@ -53,7 +54,7 @@ function SavePlace() {
     return (
         <div>
             <h1>Safe Meeting Places near {location}</h1>
-            <ul>
+            <ul className="save-place-list">
                 {places.map((place, index) => (
                     <li key={index}>
                         <strong>{place.name}</strong>
