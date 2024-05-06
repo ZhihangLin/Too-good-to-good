@@ -51,8 +51,8 @@ h5 {
 }
 
 .login_signInButton,
-.login_registerButton,
-.resetButton {
+.login_registerButton
+ {
   width: 100%;
   padding: 10px;
   border: none;
@@ -80,8 +80,19 @@ h5 {
 .login_registerButton:hover {
   background-color: #f1f1f1;
 }
+
 .resetButton {
-  color: #4CAF50;
+  font-size: 13px;
+  color: #0066FF;
   
 }
+
+
+.login_or {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+
 

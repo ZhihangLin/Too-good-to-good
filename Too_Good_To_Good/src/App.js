@@ -57,7 +57,6 @@ function App() {
 
         <Route path='/Userbd'>
           <Header />
-          
             <div>
             <h1 className='box_title'>Mystery</h1>
               <Userbd />
