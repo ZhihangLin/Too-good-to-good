@@ -81,6 +81,10 @@ function App() {
           <Header />
           <BoxesDisplay />
         </Route>
+           <Route path="/confirm">
+          <Header />
+          <ConfirmSwitch />
+         </Route>
 
     <Route path="/userboxes">
           <Header />
