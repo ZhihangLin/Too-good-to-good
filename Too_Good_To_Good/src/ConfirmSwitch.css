@@ -1,18 +1,30 @@
-
-.ConfirmSwitch {
-    display: flex;
-    padding: 20px;
-    background-color: white;
-    height: max-content;
+.parentComponent {
+  display: flex;
+  flex-wrap: wrap; 
 }
 
-.ConfirmSwitch__title {
-    margin-right: 10px;
-    padding: 10px;
-    border-bottom: 1px solid lightgray;
+.userBoxContainer {
+  width: 50%; 
+  padding: 10px;
+  box-sizing: border-box;
 }
 
-.ConfirmSwitch__img{
-    width: 100%;
-    margin-bottom: 10px;
+.userBox {
+  width: 100%; 
+  margin-bottom: 10px; 
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.subBoxesContainer {
+  width: 50%; 
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.subBox {
+  width: 100%; 
+  margin-bottom: 10px; 
+  border: 1px solid #ccc;
+  box-sizing: border-box;
 }
