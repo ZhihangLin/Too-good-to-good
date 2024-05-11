@@ -14,7 +14,7 @@ function Home() {
    
   };
   const SeeMore =() =>{
-    history.push('/ConfirmSwitch');
+    history.push('/userbd');
     window.location.reload();
       
   };
