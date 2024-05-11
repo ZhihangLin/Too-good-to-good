@@ -125,14 +125,30 @@ function CompareBoxes() {
     try {
       const batch = db.batch();
   
-      selectedAdditionalBoxes.forEach(async (boxId) => {
-        const switchRequestsRef = db.collection('boxes').doc(boxId).collection('SwitchBoxes');
-        await switchRequestsRef.add({ userId: user.uid, boxId: Array.from(selectedUserBoxes)[0].toString() }); // Convert to string here
+      selectedAdditionalBoxes.forEach(async (additionalBoxId) => {
+        // Check if the additional box is already in the subcollection of selected user box
+        const userBoxId = Array.from(selectedUserBoxes)[0];
+        const switchRequestsRef = db.collection('boxes').doc(userBoxId).collection('SwitchBoxes');
+        const existingSwitchRequest = await switchRequestsRef.where('boxId', '==', additionalBoxId).get();
+        
+        if (existingSwitchRequest.empty) {
+          await switchRequestsRef.add({ userId: user.uid, boxId: additionalBoxId });
+        } else {
+          console.log("Sending switch request already.");
+        }
       });
   
-      selectedUserBoxes.forEach(async (boxId) => {
-        const switchRequestsRef = db.collection('boxes').doc(boxId).collection('SwitchBoxes');
-        await switchRequestsRef.add({ userId: user.uid, boxId: Array.from(selectedAdditionalBoxes)[0].toString() }); // Convert to string here
+      selectedUserBoxes.forEach(async (userBoxId) => {
+        // Check if the user box is already in the subcollection of selected additional boxes
+        const additionalBoxId = Array.from(selectedAdditionalBoxes)[0];
+        const switchRequestsRef = db.collection('boxes').doc(additionalBoxId).collection('SwitchBoxes');
+        const existingSwitchRequest = await switchRequestsRef.where('boxId', '==', userBoxId).get();
+        
+        if (existingSwitchRequest.empty) {
+          await switchRequestsRef.add({ userId: user.uid, boxId: userBoxId });
+        } else {
+          console.log("Sending switch request already.");
+        }
       });
   
       await batch.commit();
