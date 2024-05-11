@@ -3,13 +3,17 @@ import { useParams, useHistory } from 'react-router-dom';
 import { db, storage } from './firebase';
 import { ref, getDownloadURL } from 'firebase/storage';
 import './SingleResult.css';
+import { useStateValue } from './StateProvider'; // Import useStateValue
+import { auth } from './firebase'; // Import auth
 
 function SingleResult() {
     const { boxId } = useParams();
     const [boxDetails, setBoxDetails] = useState({});
     const [imageUrl, setImageUrl] = useState('');
     const history = useHistory();
-
+    const [{ basket }, dispatch] = useStateValue();
+    const [user, setUser] = useState(null); // State to store current user
+    const [boxes, setBoxes] = useState([]); // State to store boxes data
     useEffect(() => {
         const fetchBoxDetails = async () => {
             const snapshot = await db.collection('boxes').get();
@@ -45,6 +49,52 @@ function SingleResult() {
         window.location.reload();
     };
 
+   useEffect(() => {
+      const unsubscribe = auth.onAuthStateChanged((user) => {
+        setUser(user);
+      });
+      return () => unsubscribe();
+    }, []);
+  
+  
+    const wantToSwitch = async () => {
+      if (!user) {
+        // If user is not authenticated, handle it accordingly (e.g., redirect to login)
+        console.log("User not authenticated.");
+        return;
+      }
+  
+      try {
+        // Check if the user ID already exists in the subcollection
+        const switchRequestsRef = db.collection('boxes').doc(boxId).collection('switchRequests');
+        const existingRequests = await switchRequestsRef.where('userId', '==', user.uid).get();
+  
+        if (existingRequests.empty) {
+          // If user ID doesn't exist, add it to the subcollection
+          await switchRequestsRef.add({
+            userId: user.uid
+          });
+  
+          console.log("User added to box:", boxId);
+        } else {
+          console.log("User already added to box:", boxId);
+        }
+  
+        // Dispatch action to add the item into data layer
+        dispatch({
+          type: 'ADD_TO_WISHLIST',
+          item: {
+            type: boxDetails.type,
+            image: boxDetails.image, // Assuming boxDetails has an image field
+            price: boxDetails.price, // Assuming boxDetails has a price field
+            location: boxDetails.location
+          },
+        });
+  
+      } catch (error) {
+        console.error("Error adding user to box:", error);
+      }
+    };
 
 
 
@@ -58,6 +108,7 @@ function SingleResult() {
             <p><strong>Notes:</strong> {boxDetails.notes}</p>
             <p><strong>Evaluation Price:</strong> {boxDetails.EvaluationPrice}</p>
             <button onClick={handleFindPlacesClick}>Find Safe Meeting Places</button>
+            <button onClick={wantToSwitch}>Want to Switch</button>
         </div>
     );
 }
