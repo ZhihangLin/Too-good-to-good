@@ -7,8 +7,7 @@ import Button from '@mui/material/Button';
 
 import { db, storage } from "./firebase";
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { useStateValue} from "./StateProvider";
-
+import { useStateValue } from "./StateProvider";
 
 function Upload() {
     const history = useHistory();
@@ -21,18 +20,7 @@ function Upload() {
     const [priceError, setPriceError] = useState('');
     const [notes, setNotes] = useState('');
     const [uploadPicture, setUploadPicture] = useState(null);
-    const [userEmail, setUserEmail] = useState('');
-    const [userId, setUserId] = useState('');
     const [locationError, setLocationError] = useState('');
-    
-
-    const handleClickToUserboxes = () => {
-        history.push('/userboxes');
-        window.location.reload();
-    };
-    const validLocations = [
-        "queens", "brooklyn", "manhattan", "bronx", "staten island"
-    ];
 
     const handleFileChange = (event) => {
         if (event.target.files[0]) {
@@ -43,8 +31,11 @@ function Upload() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!validLocations.includes(location.toLowerCase())) {
-            setLocationError("Location must be one of: Queens, Brooklyn, Manhattan, Bronx, Staten Island.");
+        // Regex to match the pattern 'City, Zipcode'
+        const locationRegex = /^[a-zA-Z\s]+,\s*\d{5}$/;
+
+        if (!locationRegex.test(location)) {
+            setLocationError("Location must be in the format 'City, Zip Code' (e.g., 'Brooklyn, 11220').");
             return;
         } else {
             setLocationError("");
@@ -56,21 +47,17 @@ function Upload() {
         } else {
             setPriceError("");
         }
-    
+
         if (!type || !productName || !originPrice || !uploadPicture || !location) {
             alert("Please fill out all required fields.");
             return;
         }
-    
+
         try {
             const imageRef = `images/${uploadPicture.name}`;
             await uploadBytes(ref(storage, imageRef), uploadPicture);
-            console.log('Image uploaded successfully!');
-    
             const downloadURL = await getDownloadURL(ref(storage, imageRef));
-            console.log('File available at', downloadURL);
-    
-            // Add box document
+
             const boxDocRef = await addDoc(collection(db, "boxes"), {
                 type: type,
                 productName: productName,
@@ -82,17 +69,15 @@ function Upload() {
                 username: user.displayName,
                 EvaluationPrice: "not decide",
             });
-            console.log("Box document successfully uploaded!");
-    
-            // Add user information to subcollection
+
             const userInformationRef = collection(db, "boxes", boxDocRef.id, "userInformation");
             await addDoc(userInformationRef, {
-                userId: user.uid, 
+                userId: user.uid,
                 email: user.email,
             });
-            console.log("User information added to the box document!");
-    
+
             history.push('/');
+            window.location.reload();
         } catch (error) {
             console.error("Error uploading document: ", error);
         }
@@ -159,7 +144,7 @@ function Upload() {
                         multiline
                     />
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <Button onClick={handleClickToUserboxes} variant="contained"
+                        <Button onClick={handleSubmit} variant="contained"
                             sx={{ backgroundColor: '#4CAF50', '&:hover': { backgroundColor: '#43a047' } }}
                             type="submit">
                             Upload
