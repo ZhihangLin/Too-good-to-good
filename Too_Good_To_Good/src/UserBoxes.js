@@ -15,6 +15,8 @@ function UserBoxes() {
     const [locationError, setLocationError] = useState('');
     const [originPrice, setOriginPrice] = useState('');
     const [location, setLocation] = useState('');
+    const [switchLocation, setSwitchLocation] = useState('');
+    const [switchDate, setSwitchDate] = useState('');
 
     useEffect(() => {
         
@@ -33,7 +35,11 @@ function UserBoxes() {
                     if (data.imageRef) {
                         imageUrl = await getDownloadURL(ref(storage, data.imageRef));
                     }
-                    return { id: doc.id, imageUrl, ...data };
+                    if (data.switchLocation) {
+                        setSwitchLocation(data.switchLocation);
+                    }
+                    const switchDateFormatted = data.switchDate ? new Date(data.switchDate.seconds * 1000).toLocaleDateString("en-US") : 'No date set';
+                    return { id: doc.id, imageUrl, switchDateFormatted, ...data };
                 }));
                 setUserBoxes(userBoxesData);
             } catch (error) {
@@ -59,9 +65,7 @@ function UserBoxes() {
     };
 
     const handleButtonClick = async (boxId) => {
-        // Perform action when the button is clicked
         console.log("Button clicked for box:", boxId);
-        // You can add your custom logic here
     };
 
     const handleDeleteBox = async (boxId) => {
@@ -77,8 +81,7 @@ function UserBoxes() {
     };
 
     return (
-        // <div>
-        //     <h1 className="load">Upload box</h1>
+
 
         <div className="boxesDisplay">
             
@@ -126,7 +129,22 @@ function UserBoxes() {
                             multiline
                         />
                         
-                    
+                        <TextField
+                        sx={{ mb: 2, width: '100%', backgroundColor: 'white'}}
+                        label="Switch Location"
+                        value={box.switchLocation}
+                        disabled
+                        multiline
+                        />
+
+                        <TextField
+                            sx={{ mb: 2, width: '100%', backgroundColor: 'white'}}
+                            label="Switch Date"
+                            value={box.switchDateFormatted}
+                            disabled
+                            multiline
+                        />
+                        
 
                         <Button
                             sx={{ backgroundColor: '#007bff', color: 'white',

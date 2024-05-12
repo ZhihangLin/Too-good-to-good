@@ -3,6 +3,10 @@ import './CompareBoxes.css';
 import { useStateValue } from './StateProvider';
 import { db, storage } from './firebase';
 import { getDownloadURL, ref } from 'firebase/storage';
+import CheckBox from '@mui/icons-material/CheckBox';
+import Checkbox from '@mui/material/Checkbox';
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function CompareBoxes() {
   const [{ user }] = useStateValue();
@@ -157,6 +161,27 @@ function CompareBoxes() {
       console.error("Error adding boxes to switched boxes:", error);
     }
   };
+
+  const handleSelectUserBox = (box) => {
+    const updatedSelectedUserBoxes = new Set(selectedUserBoxes);
+    if (updatedSelectedUserBoxes.has(box.id)) {
+      updatedSelectedUserBoxes.delete(box.id);
+    } else {
+      updatedSelectedUserBoxes.add(box.id);
+    }
+    setSelectedUserBoxes(updatedSelectedUserBoxes);
+  };
+
+  const handleSelectAdditionalBox = (box) => {
+    const updatedSelectedAdditionalBoxes = new Set(selectedAdditionalBoxes);
+    if (updatedSelectedAdditionalBoxes.has(box.id)) {
+      updatedSelectedAdditionalBoxes.delete(box.id);
+    } else {
+      updatedSelectedAdditionalBoxes.add(box.id);
+    }
+    setSelectedAdditionalBoxes(updatedSelectedAdditionalBoxes);
+  };
+
   return (
     <div className="parentComponent">
       <div className="leftSide">
@@ -170,7 +195,14 @@ function CompareBoxes() {
                 <p>Type: {box.type}</p>
                 <p>Location: {box.location}</p>
                 <p>Evaluation Price: {box.EvaluationPrice}</p>
-                <input type="checkbox" checked={selectedUserBoxes.has(box.id)} readOnly />
+                <div className="checkboxContainer">
+                <Checkbox
+                  icon={<CheckBox />}
+                  checkedIcon={<CheckBox />}
+                  checked={selectedUserBoxes.has(box.id)}
+                  onChange={() => handleSelectUserBox(box)}
+                />
+                </div>
               </div>
             </div>
           ))}
@@ -187,18 +219,54 @@ function CompareBoxes() {
                 <p>Type: {box.type}</p>
                 <p>Location: {box.location}</p>
                 <p>Evaluation Price: {box.EvaluationPrice}</p>
-                <input type="checkbox" checked={selectedAdditionalBoxes.has(box.id)} readOnly />
-                <button className='remove_button' onClick={() => removeFromWishlist(box.id)}>Remove from Wishlist</button>
+                <div className="checkboxContainer1">
+                <Checkbox
+                  icon={<CheckBox />}
+                  checkedIcon={<CheckBox />}
+                  checked={selectedAdditionalBoxes.has(box.id)}
+                  onChange={() => handleSelectAdditionalBox(box)}
+                />
+                </div>
+                
+                <div className='buttonContainer'>
+                  <Button
+                    sx={{ backgroundColor: '#8bc34a', color: 'white',
+                    '&:hover': {
+                     backgroundColor: '#79a43a',
+                    },
+                    '& .MuiButton-startIcon': {
+                      marginRight: '8px',
+                    },
+                    }}
+                    startIcon={<DeleteIcon />}
+                    onClick={() => removeFromWishlist(box.id)}
+                    >
+                    Remove
+                  </Button>
+                </div>
+
               </div>
             </div>
           ))}
         </div>
-        <button className='switch_button' onClick={confirmSwitch}>Confirm Switch</button>
+        <div className='switchButtonContainer'>
+                  <Button
+                    sx={{ backgroundColor: '#007bff', color: 'white',
+                    '&:hover': {
+                        backgroundColor: '#0056b3',
+                    },
+                    '& .MuiButton-startIcon': {
+                        marginRight: '8px',
+                    },
+                    }}
+                    onClick={confirmSwitch}
+                    >
+                    Confirm Switch
+                  </Button>
+        </div>
       </div>
     </div>
   );
 }
 
 export default CompareBoxes;
-
-

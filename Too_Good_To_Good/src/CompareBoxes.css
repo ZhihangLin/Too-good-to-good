@@ -1,78 +1,67 @@
 /* ParentComponent.css */
 .parentComponent {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between; /* Distribute items along the main axis */
-}
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Distribute items along the main axis */
+  }
 
-.leftSide, .rightSide {
-  padding: 20px;
-}
-
-.leftSide {
-  flex: 1; /* Take up remaining space */
-}
-
-.rightSide {
-  flex: 1; /* Take up remaining space */
-}
-
-.boxContainer {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.box {
-  width: 300px;
-  height: auto;
-  padding: 10px;
-  margin: 10px;
-  border: 1px solid #ccc;
-}
-
-.footer {
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-}
-
-.switch_button
- {
-  margin-left: 10px;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
+  body, input, button {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern and clean font */
+    color: #333; /* Dark grey for better readability */
+  }
   
-  margin-bottom: 5px;
-}
-
-.switch_button {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.switch_button:hover {
-  background-color: #45a049;
-}
-
-.remove_button
-  {
-    margin-left: 5px;
+  
+  .leftSide, .rightSide {
+    padding: 20px;
+    flex: 1;
+  }
+  
+  
+  
+  .boxContainer {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .box {
+    width: 300px;
+    height: auto;
     padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
+    margin: 10px;
+    border: 1px solid #ccc;
   }
   
-  .remove_button {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  .remove_button:hover {
-    background-color: #45a049;
+  h2 {
+    font-size: 24px;
+    color: #4a7c59;
   }
 
+  .boxDetails h3 {
+    text-align: center;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .checkboxContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .checkboxContainer1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+  }
+
+  
+  
