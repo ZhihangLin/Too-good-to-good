@@ -19,6 +19,7 @@ npm install react-scripts --save-dev --force
 npm install firebase
 npm install --force
 npm install axios --save --legacy-peer-deps
+npm install react-datepicker
 ```
 
 5. After download
