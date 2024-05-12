@@ -63,7 +63,7 @@ function Login() {
 
     return (
         <div className='login'>
-            <img className="login_logo" onClick={handleClicktohome} src={require('./Logo.png')} alt="logo" />
+            <img className="login_logo" onClick={handleClicktohome} src={require('./newlogo_login.png')} alt="logo" />
             <div>
                 <div className="login_container">
                     <h1>Sign-in</h1>

@@ -92,7 +92,7 @@ function SavePlace() {
 
     return (
         <div>
-            <h1>Safe Meeting Places near {location}</h1>
+            <h1 className='h1_padding'>Safe Meeting Places near {location}</h1>
             <ul className="save-place-list">
                 {places.map((place, index) => (
                     <li key={index} onClick={() => handleSelectPlace(place)}>

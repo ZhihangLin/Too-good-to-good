@@ -28,6 +28,12 @@ function Upload() {
         }
     };
 
+    const handleClick = () => {
+        // Use history.push to navigate to another page
+        history.push('/');
+        window.location.reload();
+      };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -86,7 +92,7 @@ function Upload() {
     return (
         <div className="upload">
             <Link to='/'>
-                <img className="upload_logo" src={require('./Logo.png')} alt="Logo" />
+                <img onClick={handleClick}className="upload_logo" src={require('./newlogo_login.png')} alt="Logo" />
             </Link>
             <div className="login_container">
                 <h1 className="email_">Welcome, {user ? user.displayName : 'Guest'}</h1>

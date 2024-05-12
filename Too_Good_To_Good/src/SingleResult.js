@@ -94,6 +94,7 @@ function SingleResult() {
 
     return (
         <div className="singleResult">
+          <h2 className='h2_padding'>Your search result:</h2>
             <img src={imageUrl || 'https://firebasestorage.googleapis.com/v0/b/tgtg-af1a6.appspot.com/o/images%2Ftransparency_demonstration_1.png?alt=media&token=dde7538e-df6d-47f8-ae0b-4c0df81c4b8d'} alt={boxDetails.type} />
             <h2>{boxDetails.productName}</h2>
             <p><strong>Type:</strong> {boxDetails.type}</p>
@@ -102,7 +103,9 @@ function SingleResult() {
             <p><strong>Notes:</strong> {boxDetails.notes}</p>
             <p><strong>Evaluation Price:</strong> {boxDetails.EvaluationPrice}</p>
 
-            <button onClick={wantToSwitch}>Want to Switch</button>
+            <button className='Button' onClick={handleFindPlacesClick}>Find Safe Meeting Places</button>
+            <button className='Button' onClick={wantToSwitch}>Want to Switch</button>
+
         </div>
     );
 }

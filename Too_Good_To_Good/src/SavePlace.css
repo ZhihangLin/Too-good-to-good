@@ -3,6 +3,10 @@
     padding: 0;
     margin-top: 20px;
 }
+.h1_padding{
+    margin-top: 20px;
+    text-align: center;
+}
 
 .save-place-list li {
     background-color: #ffffff;
