@@ -82,11 +82,11 @@ function SavePlace() {
    
             console.log('Switch location set successfully!');
             alert('Switch location set successfully!');
-            history.push('/'); // Redirect to home or any other page
-        } catch (error) {
-            console.error('Error updating documents: ', error);
-            alert('Failed to update location in Firestore.');  // Alert the user about the error
-        }
+            history.push(`/switch-time/${location}/${currentBoxId}/${switchBoxId}`);
+            window.location.reload();
+    } catch (error) {
+        console.error('Error updating documents: ', error);
+    }
     };
 
 
