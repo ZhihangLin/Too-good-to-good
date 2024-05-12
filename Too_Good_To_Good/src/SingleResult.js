@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { db, storage } from './firebase';
 import { ref, getDownloadURL } from 'firebase/storage';
 import './SingleResult.css';
@@ -10,7 +10,7 @@ function SingleResult() {
     const { boxId } = useParams();
     const [boxDetails, setBoxDetails] = useState({});
     const [imageUrl, setImageUrl] = useState('');
-    const history = useHistory();
+
     const [{ basket }, dispatch] = useStateValue();
     const [user, setUser] = useState(null); // State to store current user
     const [boxes, setBoxes] = useState([]); // State to store boxes data
@@ -42,12 +42,6 @@ function SingleResult() {
         fetchBoxDetails();
     }, [boxId]);
 
-
-
-    const handleFindPlacesClick = () => {
-        history.push(`/save-place/${boxDetails.location}`);
-        window.location.reload();
-    };
 
    useEffect(() => {
       const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -108,8 +102,10 @@ function SingleResult() {
             <p><strong>Location:</strong> {boxDetails.location}</p>
             <p><strong>Notes:</strong> {boxDetails.notes}</p>
             <p><strong>Evaluation Price:</strong> {boxDetails.EvaluationPrice}</p>
+
             <button className='Button' onClick={handleFindPlacesClick}>Find Safe Meeting Places</button>
             <button className='Button' onClick={wantToSwitch}>Want to Switch</button>
+
         </div>
     );
 }

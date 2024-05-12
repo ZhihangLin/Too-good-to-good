@@ -3,6 +3,7 @@ import './App.css';
 import Home from'./Home';
 import Upload from'./Upload';
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import "react-datepicker/dist/react-datepicker.css";
 import Login from "./Login";
 import { auth } from "./firebase";
 import ConfirmSwitch from "./ConfirmSwitch"
@@ -17,6 +18,7 @@ import SearchResult from './SearchResult';
 import SingleResult from './SingleResult';
 import CompareBoxes from './CompareBoxes';
 import SavePlace from './SavePlace';
+import SwitchTime from './SwitchTime';
 
 
 
@@ -117,10 +119,16 @@ function App() {
            <SingleResult />
           </Route>
 
-          <Route path="/save-place/:location">
+          <Route path="/save-place/:location/:currentBoxId/:switchBoxId">
             <Header />
             <SavePlace />
           </Route>
+
+          <Route path="/switch-time/:location/:currentBoxId/:switchBoxId">
+            <Header />
+            <SwitchTime />
+          </Route>
+
 
         <Route path="/Compare">
           <Header />
