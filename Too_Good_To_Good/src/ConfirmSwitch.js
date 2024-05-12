@@ -3,10 +3,12 @@ import './ConfirmSwitch.css';
 import { useStateValue } from './StateProvider';
 import { db, storage } from './firebase';
 import { getDownloadURL, ref } from 'firebase/storage';
+import { useHistory } from 'react-router-dom';
 
 function ConfirmSwitch() {
   const [{ user }] = useStateValue();
   const [userBoxes, setUserBoxes] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     const fetchUserBoxes = async () => {
@@ -43,10 +45,19 @@ function ConfirmSwitch() {
     fetchUserBoxes();
   }, [user]);
 
-  const handleWantToSwitch = (subBoxId) => {
+  const handleWantToSwitch = (currentBoxId, subBoxId, subBoxLocation) => {
     // Handle what happens when "Want to Switch" button is clicked
-    console.log(`Want to switch sub-box with ID: ${subBoxId}`);
+    console.log(`Current Box ID: ${currentBoxId}, Want to switch with sub-box ID: ${subBoxId}`);
+
+    if(!subBoxId || !currentBoxId) {
+      console.error("Box IDs are missing!");
+      return;
+    }
+    // Navigate to SavePlace page with location as a parameter along with box IDs
+    history.push(`/save-place/${encodeURIComponent(subBoxLocation)}/${currentBoxId}/${subBoxId}`);
+    window.location.reload();
   };
+
 
   return (
     <div className="parentComponent">
@@ -70,7 +81,7 @@ function ConfirmSwitch() {
                   <p>Type: {subBox.type}</p>
                   <p>Location: {subBox.location}</p>
                   <p>Evaluation Price: {subBox.EvaluationPrice}</p>
-                  <button onClick={() => handleWantToSwitch(subBox.id)}>Want to Switch</button>
+                  <button onClick={() => handleWantToSwitch(userBox.id, subBox.id, subBox.location)}>Want to Switch</button>
                 </div>
               </div>
             ))}

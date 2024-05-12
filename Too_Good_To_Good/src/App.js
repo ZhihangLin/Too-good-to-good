@@ -113,10 +113,11 @@ function App() {
            <SingleResult />
           </Route>
 
-          <Route path="/save-place/:location">
+          <Route path="/save-place/:location/:currentBoxId/:switchBoxId">
             <Header />
             <SavePlace />
           </Route>
+
 
         <Route path="/Compare">
           <Header />
