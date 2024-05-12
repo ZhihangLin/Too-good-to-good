@@ -89,16 +89,18 @@
     height: auto; /* Adjust the height as needed */
 }
 
+
 .home__below {
+    
     position: absolute;
     top: 145%;
     left: 52%;
     transform: translate(-50%, -50%);
     z-index: 1;
-    color: #FFFFFF; /* Adjust the text color here */
-    width: 20%; /* Adjust the width as needed */
-    height: auto; /* Adjust the height as needed */
-    background-color: #007a33; /* Adjust button hover color */
+    color: #FFFFFF; 
+    width: 20%;
+    height: auto;
+    background-color: #007a33; 
 
 }
 

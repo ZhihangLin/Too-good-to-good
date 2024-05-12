@@ -51,7 +51,7 @@ function CreateLogin(){
 
     return(
         <div className='login'> 
-            <img className="login_logo" onClick={handleClicktohome} src={require('./Logo.png')} alt="" />
+            <img className="login_logo" onClick={handleClicktohome} src={require('./newlogo_login.png')} alt="" />
             <div className="login_container">
                 <h1>Create Your Login</h1>
                 <form>

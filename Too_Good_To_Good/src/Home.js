@@ -27,10 +27,7 @@ function Home() {
               alt=''/>
       
         <div className='home__container'>
-            {/* <img
-              className='home__image'
-              src='https://wp-media.familytoday.com/2013/07/featuredImageId3694.jpg' 
-              alt=''/> */}
+            
             <div className='home__content'>
               <h1>Experience a unique journey at Too Good To Good</h1>
               <p>Advance your unique experience with cost-free mystery to unlock new possibilities and elevate your journey.</p>

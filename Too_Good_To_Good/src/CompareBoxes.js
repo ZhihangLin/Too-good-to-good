@@ -188,12 +188,12 @@ function CompareBoxes() {
                 <p>Location: {box.location}</p>
                 <p>Evaluation Price: {box.EvaluationPrice}</p>
                 <input type="checkbox" checked={selectedAdditionalBoxes.has(box.id)} readOnly />
-                <button onClick={() => removeFromWishlist(box.id)}>Remove from Wishlist</button>
+                <button className='remove_button' onClick={() => removeFromWishlist(box.id)}>Remove from Wishlist</button>
               </div>
             </div>
           ))}
         </div>
-        <button onClick={confirmSwitch}>Confirm Switch</button>
+        <button className='switch_button' onClick={confirmSwitch}>Confirm Switch</button>
       </div>
     </div>
   );

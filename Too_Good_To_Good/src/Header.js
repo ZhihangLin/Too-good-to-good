@@ -9,6 +9,7 @@ import InboxIcon from '@mui/icons-material/Inbox';
 import { auth } from './firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from './firebase';
+import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 
 function Header() {
   const [{ basket, user }, dispatch] = useStateValue();
@@ -41,6 +42,12 @@ function Header() {
   const handleUserboxes = () => {
     // Use history.push to navigate to another page
     history.push('/userboxes');
+    window.location.reload();
+  };
+
+  const handleCompare = () => {
+    // Use history.push to navigate to another page
+    history.push('/Compare');
     window.location.reload();
   };
 
@@ -123,7 +130,7 @@ function Header() {
   return (
     <div className='header'>
     <Link to='/' onClick={handleLogo}>
-      <img className='header__logo' src={require('./headerlogo.png')} alt='Too Good To Go Logo' />
+      <img className='header__logo' src={require('./newlogo.png')} alt='Too Good To Go Logo' />
     </Link>
 
     <form onSubmit={handleSearch}>
@@ -194,11 +201,12 @@ function Header() {
             <BackupIcon style={{ color: 'white' }}/>
           </div>
 
-
-        <div className='header__option'>
+          <Link to='/userboxes'>
+        <div className='header__option' onClick={handleUserboxes}>
           <span className='header__optionLineOne'>Your</span>
           <span className='header__optionLineTwo'>Boxes</span>
         </div>
+        </Link>
 
 
         <Link to='/userboxes'>
@@ -207,6 +215,23 @@ function Header() {
             <span className='header__optionLineTwo header__boxCount'>{basket?.length}</span>
           </div>
         </Link>
+
+
+        <Link to='/Compare'>
+        <div className='header__option' onClick={handleCompare}>
+          <span className='header__optionLineOne'>Compare</span>
+          <span className='header__optionLineTwo'>Box</span>
+        </div>
+        </Link>
+
+
+        <Link to='/Compare'>
+          <div className='header__optionBox' onClick={handleCompare}>
+          <ChangeCircleIcon/>
+          </div>
+        </Link>
+
+        
       </div>
     </div>
   );

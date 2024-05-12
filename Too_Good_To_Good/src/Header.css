@@ -15,15 +15,15 @@ margin: 0; /* Override any default form margins */
 }
 
 .header__logo {
-  width: 150px; /* Set a fixed width */
-  height: 90px; /* Set a fixed height */
+  width: 125px; /* Set a fixed width */
+  height: 80px; /* Set a fixed height */
   object-fit: contain;
-  margin-left: 125px;
+  
   
 }
 
-
 .header__search {
+  margin-left: 25px;
   display: flex;
   flex: 1;
   align-items: center;
@@ -33,7 +33,7 @@ margin: 0; /* Override any default form margins */
 }
 
 .header__searchInPut {
-  margin-left: 175px;
+  margin-left: 100px;
   height: 20px; 
   padding: 10px;
   border: none;
@@ -42,7 +42,7 @@ margin: 0; /* Override any default form margins */
 }
 
 .header__searchIcon {
-  margin-right: 50px;
+  margin-right: 75px;
   padding: 10px;
   height: 20px !important;
   background-color: #3dad95;
@@ -64,6 +64,7 @@ margin: 0; /* Override any default form margins */
 
 .header__optionLineOne {
   font-size: 13px;
+  font-weight: 560;
   margin-left: 40px;
 }
 
