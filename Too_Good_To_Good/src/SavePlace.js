@@ -4,11 +4,16 @@ import { db } from './firebase';
 import { doc, updateDoc } from "firebase/firestore";
 import './SavePlace.css';
 
+
 function SavePlace() {
     const { location, currentBoxId, switchBoxId } = useParams();
     const [places, setPlaces] = useState([]);
     const [mapsLoaded, setMapsLoaded] = useState(false);
     const history = useHistory();
+    const [showModal, setShowModal] = useState(false);
+    const [selectedDate, setSelectedDate] = useState('');
+    const [selectedTime, setSelectedTime] = useState('12:00'); // Default time
+    const [showTimeModal, setShowTimeModal] = useState(false);
 
 
     useEffect(() => {
@@ -16,8 +21,9 @@ function SavePlace() {
             console.error("Invalid or undefined box IDs");
             alert("Invalid or undefined box IDs");
             history.push('/'); // Redirect if IDs are undefined
-            return; // Prevent further execution in this useEffect
+            return;
         }
+
 
         const script = document.createElement('script');
         script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBJsvtmHWIIgsHSyCxnSNuICClKjmvkiA0&libraries=places`;
@@ -28,7 +34,7 @@ function SavePlace() {
 
 
         return () => {
-          document.head.removeChild(script);
+            document.head.removeChild(script);
         };
     }, [currentBoxId, switchBoxId, history]);
 
@@ -55,7 +61,7 @@ function SavePlace() {
             };
             fetchPlaces();
         }
-    }, [location, mapsLoaded, currentBoxId, switchBoxId]);
+    }, [location, mapsLoaded]);
 
 
     const handleSelectPlace = async (place) => {
@@ -82,17 +88,55 @@ function SavePlace() {
    
             console.log('Switch location set successfully!');
             alert('Switch location set successfully!');
-            history.push(`/switch-time/${location}/${currentBoxId}/${switchBoxId}`);
-            window.location.reload();
+            setShowModal(true);
     } catch (error) {
         console.error('Error updating documents: ', error);
     }
     };
 
 
+    const handleDateChange = (e) => {
+        setSelectedDate(e.target.value);
+    };
+
+
+    const handleConfirmDate = async () => {
+        if (!selectedDate) {
+            alert('Please select a date.');
+            return;
+        }
+    
+        // Simply prepare to set the time, do not update Firestore yet
+        setShowModal(false); // Close the date modal
+        setShowTimeModal(true); // Open the time modal
+    };
+    
+    const handleConfirmTime = async () => {
+        const dateTime = `${selectedDate} ${selectedTime}`; // Combine date and time
+        try {
+            await updateDoc(doc(db, "boxes", currentBoxId), {
+                switchDate: dateTime, // Store combined date and time
+            });
+            await updateDoc(doc(db, "boxes", switchBoxId), {
+                switchDate: dateTime, // Store combined date and time
+            });
+    
+            alert('Switch date and time set successfully!');
+            setShowTimeModal(false); // Close the time modal
+            history.push('/'); // Navigate away after setting everything
+        } catch (error) {
+            console.error('Error updating documents: ', error);
+            alert('Failed to update switch date and time.');
+        }
+    };
+
+
+
+
+
     return (
         <div>
-            <h1 className='h1_padding'>Safe Meeting Places near {location}</h1>
+            <h1>Safe Meeting Places near {location}</h1>
             <ul className="save-place-list">
                 {places.map((place, index) => (
                     <li key={index} onClick={() => handleSelectPlace(place)}>
@@ -101,6 +145,26 @@ function SavePlace() {
                     </li>
                 ))}
             </ul>
+            {showModal && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <h2>Select a Date for Switching Boxes</h2>
+                        <input type="date" value={selectedDate} onChange={handleDateChange} />
+                        <button onClick={handleConfirmDate}>Confirm Date</button>
+                        <button onClick={() => setShowModal(false)}>Close</button>
+                    </div>
+                </div>
+            )}
+            {showTimeModal && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <h2>Select a Time for Switching Boxes</h2>
+                        <input type="time" value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)} />
+                        <button onClick={handleConfirmTime}>Confirm Time</button>
+                        <button onClick={() => setShowTimeModal(false)}>Close</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
