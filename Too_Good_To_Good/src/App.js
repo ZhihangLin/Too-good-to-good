@@ -18,7 +18,7 @@ import SearchResult from './SearchResult';
 import SingleResult from './SingleResult';
 import CompareBoxes from './CompareBoxes';
 import SavePlace from './SavePlace';
-import SwitchTime from './SwitchTime';
+
 
 
 
@@ -122,11 +122,6 @@ function App() {
           <Route path="/save-place/:location/:currentBoxId/:switchBoxId">
             <Header />
             <SavePlace />
-          </Route>
-
-          <Route path="/switch-time/:location/:currentBoxId/:switchBoxId">
-            <Header />
-            <SwitchTime />
           </Route>
 
 
