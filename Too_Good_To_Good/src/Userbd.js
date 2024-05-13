@@ -2,9 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { db, storage } from './firebase';
 import { ref, getDownloadURL } from 'firebase/storage';
 import './Userbd.css';
+import { useStateValue } from './StateProvider'; // Import useStateValue
+import { auth } from './firebase'; // Import auth
 
 function Userbd() {
     const [boxes, setBoxes] = useState([]);
+    const [{ basket }, dispatch] = useStateValue(); // Destructuring useStateValue to access dispatch function
+    const [user, setUser] = useState(null); // Define user state
+    const [boxDetails, setBoxDetails] = useState({}); // Define boxDetails state
 
     useEffect(() => {
         const fetchBoxes = async () => {
@@ -28,28 +33,58 @@ function Userbd() {
 
         fetchBoxes();
     }, []);
-    //把这个fucntion改成多加一个user到box information database
-    const handleValueChange = async (boxId, field, newValue) => {
+
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            setUser(user);
+        });
+        return () => unsubscribe();
+    }, []);
+
+    const wantToSwitch = async (boxId) => {
+        if (!user) {
+            // If user is not authenticated, handle it accordingly (e.g., redirect to login)
+            console.log("User not authenticated.");
+            return;
+        }
+
         try {
-            await db.collection('boxes').doc(boxId).update({ [field]: newValue });
-            // Update state to reflect the change
-            setBoxes(prevBoxes =>
-                prevBoxes.map(box =>
-                    box.id === boxId ? { ...box, [field]: newValue } : box
-                )
-            );
+            // Check if the user ID already exists in the subcollection
+            const switchRequestsRef = db.collection('boxes').doc(boxId).collection('switchRequests');
+            const existingRequests = await switchRequestsRef.where('userId', '==', user.uid).get();
+
+            if (existingRequests.empty) {
+                // If user ID doesn't exist, add it to the subcollection
+                await switchRequestsRef.add({
+                    userId: user.uid
+                });
+
+                console.log("User added to box:", boxId);
+            } else {
+                console.log("User already added to box:", boxId);
+            }
+
+            // Dispatch action to add the item into data layer
+            dispatch({
+                type: 'ADD_TO_WISHLIST',
+                item: {
+                    // Assuming these properties are available in box data
+                    type: boxDetails.type,
+                    image: boxDetails.image,
+                    price: boxDetails.price,
+                    location: boxDetails.location
+                },
+            });
+
         } catch (error) {
-            console.error(`Error updating ${field}:`, error);
+            console.error("Error adding user to box:", error);
         }
     };
 
     const handleButtonClick = async (boxId) => {
         console.log("Button clicked for box:", boxId);
-
+        wantToSwitch(boxId); // Call wantToSwitch function with boxId when button is clicked
     };
-   
-
-    
 
     return (
         <div className="boxesD">
@@ -67,7 +102,6 @@ function Userbd() {
                         />
                         <div className="boxDetail_">
                             {/* <h3>{box.productName}</h3> */}
-                            
                             <p>Type: {box.type}</p>
                             <p>Origin Price: {box.originPrice}</p>
                             <p>Location: {box.location}</p>
@@ -81,7 +115,7 @@ function Userbd() {
             ))}
         </div>
     );
-    
 }
 
 export default Userbd;
+

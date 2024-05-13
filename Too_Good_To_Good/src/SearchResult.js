@@ -8,35 +8,35 @@ function SearchResult() {
     const location = useLocation();
 
     useEffect(() => {
-      const query = new URLSearchParams(location.search).get('query');
+        const query = new URLSearchParams(location.search).get('query');
 
-      const fetchImagesAndDetails = async () => {
-          const snapshot = await db.collection('boxes').get();
-          const boxesDataWithImages = await Promise.all(snapshot.docs.map(async (doc) => {
-              const data = doc.data();
-              let imageUrl = '';
-              if (data.imageRef) {
-                  imageUrl = await getDownloadURL(ref(storage, data.imageRef));
-              }
-              return {
-                  id: doc.id,
-                  imageUrl,
-                  ...data
-              };
-          }));
+        const fetchImagesAndDetails = async () => {
+            const snapshot = await db.collection('boxes').get();
+            const boxesDataWithImages = await Promise.all(snapshot.docs.map(async (doc) => {
+                const data = doc.data();
+                let imageUrl = '';
+                if (data.imageRef) {
+                    imageUrl = await getDownloadURL(ref(storage, data.imageRef));
+                }
+                return {
+                    id: doc.id,
+                    imageUrl,
+                    ...data
+                };
+            }));
 
-          const filteredBoxes = boxesDataWithImages.filter(box =>
-              box.productName.toLowerCase().includes(query.toLowerCase()) ||
-              box.location.toLowerCase().includes(query.toLowerCase()) ||
-              box.type.toLowerCase().includes(query.toLowerCase())
-          );
+            const filteredBoxes = boxesDataWithImages.filter(box =>
+                box.productName.toLowerCase().includes(query.toLowerCase()) ||
+                box.location.toLowerCase().includes(query.toLowerCase()) ||
+                box.type.toLowerCase().includes(query.toLowerCase())
+            ).filter(box => box.EvaluationPrice !== 'not decide'); // Filter out boxes with EvaluationPrice as 'not decide'
 
-          setBoxesWithImages(filteredBoxes);
-      };
+            setBoxesWithImages(filteredBoxes);
+        };
 
-      if (query) {
-          fetchImagesAndDetails();
-      }
+        if (query) {
+            fetchImagesAndDetails();
+        }
     }, [location.search]);
 
     return (
