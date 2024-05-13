@@ -96,7 +96,7 @@ function SingleResult() {
             {boxDetails.EvaluationPrice !== "not decide" && ( // Render only when EvaluationPrice is not "not decide"
                 <>
                     <h2 className='h2_padding'>Your search result:</h2>
-                    <img src={imageUrl || 'https://firebasestorage.googleapis.com/v0/b/tgtg-af1a6.appspot.com/o/images%2Ftransparency_demonstration_1.png?alt=media&token=dde7538e-df6d-47f8-ae0b-4c0df81c4b8d'} alt={boxDetails.type} />
+                    <img src={'https://images-ext-1.discordapp.net/external/GuEfrENZrrYJocJMEA0jHxVd0HLEVfTeMokIXsSKkrE/%3Fid%3DOIP.iqldYf72fpKKy0NYd9wVkAHaJH%26pid%3DApi%26P%3D0%26h%3D180/https/tse4.explicit.bing.net/th?format=webp&width=219&height=270'} />
                     <h2>{boxDetails.productName}</h2>
                     <p><strong>Type:</strong> {boxDetails.type}</p>
                     <p><strong>Origin Price:</strong> {boxDetails.originPrice}</p>
