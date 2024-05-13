@@ -99,7 +99,6 @@ function SearchResult() {
                                 <p>Type: {box.type}</p>
                                 <p>Origin Price: {box.originPrice}</p>
                                 <p>Location: {box.location}</p>
-                                <p>Notes: {box.notes}</p>
                                 <p>Evaluation Price: {box.EvaluationPrice}</p>
                                 <button onClick={() => handleWantToSwitch(box.id)}>Want to Switch</button>
                             </div>

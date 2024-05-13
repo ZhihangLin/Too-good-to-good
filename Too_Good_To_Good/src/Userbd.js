@@ -105,7 +105,6 @@ function Userbd() {
                             <p>Type: {box.type}</p>
                             <p>Origin Price: {box.originPrice}</p>
                             <p>Location: {box.location}</p>
-                            <p>Notes: {box.notes}</p>
                             <p>Evaluation Price: {box.EvaluationPrice}</p>
                             <p>Belong to: {box.username}</p>
                             <button onClick={() => handleButtonClick(box.id)}>Request For Switch</button>

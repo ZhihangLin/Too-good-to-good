@@ -105,10 +105,7 @@ useEffect(() => {
                     <p><strong>Type:</strong> {boxDetails.type}</p>
                     <p><strong>Origin Price:</strong> {boxDetails.originPrice}</p>
                     <p><strong>Location:</strong> {boxDetails.location}</p>
-                    <p><strong>Notes:</strong> {boxDetails.notes}</p>
                     <p><strong>Evaluation Price:</strong> {boxDetails.EvaluationPrice}</p>
-
-                    <button className='Button' onClick={handleFindPlacesClick}>Find Safe Meeting Places</button>
                     <button className='Button' onClick={wantToSwitch}>Want to Switch</button>
                 </>
             )}
