@@ -124,6 +124,7 @@ function SavePlace() {
             alert('Switch date and time set successfully!');
             setShowTimeModal(false); // Close the time modal
             history.push('/'); // Navigate away after setting everything
+            window.location.reload();
         } catch (error) {
             console.error('Error updating documents: ', error);
             alert('Failed to update switch date and time.');

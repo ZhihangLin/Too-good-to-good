@@ -98,6 +98,11 @@ function Header() {
     window.location.reload();
   };
 
+  const ConfirmSwitchPage = () => {
+    history.push('/confirm');
+    window.location.reload();
+  }
+
   return (
     <div className='header'>
       <Link to='/' onClick={handleLogo}>
@@ -172,7 +177,7 @@ function Header() {
         </Link>
 
         <Link to='/userboxes'>
-          <div className='header__optionBox' onClick={handleUserboxes}>
+          <div className='header__optionBox' onClick={ConfirmSwitchPage}>
             <RedeemIcon />
             <span className='header__optionLineTwo header__boxCount'>{basket?.length}</span>
           </div>
