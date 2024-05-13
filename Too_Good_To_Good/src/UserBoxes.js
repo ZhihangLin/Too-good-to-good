@@ -38,8 +38,7 @@ function UserBoxes() {
                     if (data.switchLocation) {
                         setSwitchLocation(data.switchLocation);
                     }
-                    const switchDateFormatted = data.switchDate ? new Date(data.switchDate.seconds * 1000).toLocaleDateString("en-US") : 'No date set';
-                    return { id: doc.id, imageUrl, switchDateFormatted, ...data };
+                    return { id: doc.id, imageUrl, ...data };
                 }));
                 setUserBoxes(userBoxesData);
             } catch (error) {
@@ -140,7 +139,7 @@ function UserBoxes() {
                         <TextField
                             sx={{ mb: 2, width: '100%', backgroundColor: 'white'}}
                             label="Switch Date"
-                            value={box.switchDateFormatted}
+                            value={box.switchDate}
                             disabled
                             multiline
                         />
