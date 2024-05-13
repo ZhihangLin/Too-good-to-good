@@ -65,15 +65,33 @@ function SavePlace() {
 
 
     const handleSelectPlace = async (place) => {
+        console.log("Selected place:", place.name, place.vicinity);
+        console.log("Current Box ID:", currentBoxId);
+        console.log("Switch Box ID:", switchBoxId);
+   
+        if (!currentBoxId || !switchBoxId) {
+            console.error('Invalid box IDs');
+            alert('Invalid box IDs');  // Alert the user
+            return;
+        }
+   
         const currentBoxRef = doc(db, "boxes", currentBoxId);
         const switchBoxRef = doc(db, "boxes", switchBoxId);
-        await updateDoc(currentBoxRef, {
-            switchLocation: place.name + ', ' + place.vicinity
-        });
-        await updateDoc(switchBoxRef, {
-            switchLocation: place.name + ', ' + place.vicinity
-        });
-        setShowModal(true);
+   
+        try {
+            await updateDoc(currentBoxRef, {
+                switchLocation: place.name + ', ' + place.vicinity
+            });
+            await updateDoc(switchBoxRef, {
+                switchLocation: place.name + ', ' + place.vicinity
+            });
+   
+            console.log('Switch location set successfully!');
+            alert('Switch location set successfully!');
+            setShowModal(true);
+    } catch (error) {
+        console.error('Error updating documents: ', error);
+    }
     };
 
 
@@ -98,10 +116,9 @@ function SavePlace() {
         try {
             await updateDoc(doc(db, "boxes", currentBoxId), {
                 switchDate: dateTime, // Store combined date and time
-                switchLocation: places.find(place => place.name).name
             });
             await updateDoc(doc(db, "boxes", switchBoxId), {
-                switchDate: dateTime // Store combined date and time
+                switchDate: dateTime, // Store combined date and time
             });
     
             alert('Switch date and time set successfully!');
