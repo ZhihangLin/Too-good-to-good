@@ -103,7 +103,7 @@ function SingleResult() {
             <p><strong>Notes:</strong> {boxDetails.notes}</p>
             <p><strong>Evaluation Price:</strong> {boxDetails.EvaluationPrice}</p>
 
-            <button className='Button' onClick={handleFindPlacesClick}>Find Safe Meeting Places</button>
+
             <button className='Button' onClick={wantToSwitch}>Want to Switch</button>
 
         </div>
