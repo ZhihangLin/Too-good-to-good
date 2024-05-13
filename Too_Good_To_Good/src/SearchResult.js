@@ -2,10 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { db, storage } from './firebase';
 import { ref, getDownloadURL } from 'firebase/storage';
+import { useStateValue } from './StateProvider'; // Import useStateValue
+import { auth } from './firebase'; // Import auth
+import { useParams, useHistory } from 'react-router-dom';
 
 function SearchResult() {
     const [boxesWithImages, setBoxesWithImages] = useState([]);
     const location = useLocation();
+    const [{ basket }, dispatch] = useStateValue(); // Use data layer
+    const history = useHistory();
 
     useEffect(() => {
         const query = new URLSearchParams(location.search).get('query');
@@ -39,6 +44,49 @@ function SearchResult() {
         }
     }, [location.search]);
 
+    const handleWantToSwitch = async (boxId) => {
+        const user = auth.currentUser;
+        if (!user) {
+            console.log("User not authenticated.");
+            return;
+        }
+
+        try {
+            const switchRequestsRef = db.collection('boxes').doc(boxId).collection('switchRequests');
+            const existingRequests = await switchRequestsRef.where('userId', '==', user.uid).get();
+
+            if (existingRequests.empty) {
+                await switchRequestsRef.add({
+                    userId: user.uid
+                });
+
+                console.log("User added to box:", boxId);
+            } else {
+                console.log("User already added to box:", boxId);
+            }
+
+            // Dispatch action to add the item into data layer
+            const box = boxesWithImages.find(box => box.id === boxId);
+            dispatch({
+                type: 'ADD_TO_WISHLIST',
+                item: {
+                    type: box.type,
+                    image: box.imageUrl,
+                    price: box.originPrice,
+                    location: box.location
+                },
+            });
+
+        } catch (error) {
+            console.error("Error adding user to box:", error);
+        }
+    };
+
+    const handleFetchPlace = async (boxId) => {
+        history.push(`/save-place/${boxesWithImages.location}`);
+        window.location.reload();
+    };
+
     return (
         <div className="boxesDisplay">
             {boxesWithImages.length > 0 ? (
@@ -53,6 +101,7 @@ function SearchResult() {
                                 <p>Location: {box.location}</p>
                                 <p>Notes: {box.notes}</p>
                                 <p>Evaluation Price: {box.EvaluationPrice}</p>
+                                <button onClick={() => handleWantToSwitch(box.id)}>Want to Switch</button>
                             </div>
                         </div>
                     </Link>

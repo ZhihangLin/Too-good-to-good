@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { db, storage } from './firebase';
 import { ref, getDownloadURL } from 'firebase/storage';
 import './SingleResult.css';
@@ -10,47 +10,50 @@ function SingleResult() {
     const { boxId } = useParams();
     const [boxDetails, setBoxDetails] = useState({});
     const [imageUrl, setImageUrl] = useState('');
+    const history = useHistory();
     const [{ basket }, dispatch] = useStateValue();
     const [user, setUser] = useState(null); // State to store current user
 
     useEffect(() => {
-        const fetchBoxDetails = async () => {
-            const snapshot = await db.collection('boxes').get();
-            const boxesData = await Promise.all(snapshot.docs.map(async (doc) => {
-                const data = doc.data();
-                let imageUrl = '';
-                if (data.imageRef) {
-                    imageUrl = await getDownloadURL(ref(storage, data.imageRef));
-                }
-                return {
-                    id: doc.id,
-                    imageUrl,
-                    ...data
-                };
-            }));
-            // Find the box that matches the boxId
-            const foundBox = boxesData.find(box => box.id === boxId);
-            if (foundBox) {
-                setBoxDetails(foundBox);
-                setImageUrl(foundBox.imageUrl);
-            } else {
-                console.log('No such box!');
-            }
-        };
+      const fetchBoxDetails = async () => {
+          const snapshot = await db.collection('boxes').get();
+          const boxesData = await Promise.all(snapshot.docs.map(async (doc) => {
+              const data = doc.data();
+              let imageUrl = '';
+              if (data.imageRef) {
+                  imageUrl = await getDownloadURL(ref(storage, data.imageRef));
+              }
+              return {
+                  id: doc.id,
+                  imageUrl,
+                  ...data
+              };
+          }));
+          // Find the box that matches the boxId
+          const foundBox = boxesData.find(box => box.id === boxId);
+          if (foundBox) {
+              setBoxDetails(foundBox);
+              setImageUrl(foundBox.imageUrl);
+          } else {
+              console.log('No such box!');
+          }
+      };
 
-        fetchBoxDetails();
-    }, [boxId]);
+      fetchBoxDetails();
+  }, [boxId]);
+  
+  const handleFindPlacesClick = () => {
+    history.push(`/save-place/${boxDetails.location}`);
+    window.location.reload();
+};
 
-    useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged((user) => {
-            setUser(user);
-        });
-        return () => unsubscribe();
-    }, []);
+useEffect(() => {
+  const unsubscribe = auth.onAuthStateChanged((user) => {
+    setUser(user);
+  });
+  return () => unsubscribe();
+}, []);
 
-    const handleFindPlacesClick = () => {
-        // Implement handleFindPlacesClick functionality
-    };
 
     const wantToSwitch = async () => {
         if (!user) {
