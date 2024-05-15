@@ -1,4 +1,3 @@
-
 .userboxes {
     display: flex;
     flex-wrap: wrap;
@@ -67,4 +66,3 @@
     object-fit: contain;
     border-bottom: 1px solid #ccc;
 }
-
