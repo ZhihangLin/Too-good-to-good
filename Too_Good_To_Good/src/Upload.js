@@ -92,7 +92,7 @@ function Upload() {
     return (
         <div className="upload">
             <Link to='/'>
-                <img onClick={handleClick}className="upload_logo" src={require('./newlogo_login.png')} alt="Logo" />
+                <img onClick={handleClick} className="upload_logo" src={require('./newlogo_login.png')} alt="Logo" />
             </Link>
             <div className="login_container">
                 <h1 className="email_">Welcome, {user ? user.displayName : 'Guest'}</h1>

@@ -40,19 +40,24 @@ function SearchResult() {
     }, [location.search]);
 
     return (
-        <div className="boxesDisplay">
+        <div className="boxesD">
+            <img className='userbd__image'
+                src='https://wp-media.familytoday.com/2013/07/featuredImageId3694.jpg'
+                alt=''
+            />
             {boxesWithImages.length > 0 ? (
                 boxesWithImages.map((box) => (
                     <Link to={`/result/${box.id}`} key={box.id} style={{ textDecoration: 'none' }}>
                         <div className="box1">
                             <img src={box.imageUrl || 'placeholder-image-url'} alt={box.type} />
-                            <div className="boxDetails">
+                            <div className="boxDetail_">
                                 <h3>{box.productName}</h3>
                                 <p>Type: {box.type}</p>
                                 <p>Origin Price: {box.originPrice}</p>
                                 <p>Location: {box.location}</p>
                                 <p>Notes: {box.notes}</p>
                                 <p>Evaluation Price: {box.EvaluationPrice}</p>
+                                
                             </div>
                         </div>
                     </Link>

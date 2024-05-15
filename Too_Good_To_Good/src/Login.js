@@ -82,7 +82,6 @@ function Login() {
                     
                     </form>
                     
-                    {/* <button onClick={register} className='login_registerButton'>Create your Too good to go Account</button> */}
                 </div>
                 
             </div>

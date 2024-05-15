@@ -13,7 +13,7 @@
     overflow: visible;
     width: 300px;
     min-height: 600px;
-    background-color: rgb(201, 241, 201);
+    /* background-color: rgb(201, 241, 201); */
   }
   
   .box1 img {
