@@ -88,19 +88,27 @@ function SearchResult() {
     };
 
     return (
-        <div className="boxesDisplay">
+        <div className="boxesD">
+            <img className='userbd__image'
+                src='https://wp-media.familytoday.com/2013/07/featuredImageId3694.jpg'
+                alt=''
+            />
             {boxesWithImages.length > 0 ? (
                 boxesWithImages.map((box) => (
                     <Link to={`/result/${box.id}`} key={box.id} style={{ textDecoration: 'none' }}>
                         <div className="box1">
+
                             <img src={'https://images-ext-1.discordapp.net/external/GuEfrENZrrYJocJMEA0jHxVd0HLEVfTeMokIXsSKkrE/%3Fid%3DOIP.iqldYf72fpKKy0NYd9wVkAHaJH%26pid%3DApi%26P%3D0%26h%3D180/https/tse4.explicit.bing.net/th?format=webp&width=219&height=270'} />
                             <div className="boxDetails">
+
                                 <h3>{box.productName}</h3>
                                 <p>Type: {box.type}</p>
                                 <p>Origin Price: {box.originPrice}</p>
                                 <p>Location: {box.location}</p>
                                 <p>Evaluation Price: {box.EvaluationPrice}</p>
+
                                 <button onClick={() => handleWantToSwitch(box.id)}>Want to Switch</button>
+
                             </div>
                         </div>
                     </Link>
