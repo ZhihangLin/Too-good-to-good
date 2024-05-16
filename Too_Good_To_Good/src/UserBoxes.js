@@ -85,10 +85,10 @@ function UserBoxes() {
         <div className="boxesDisplay">
             
             {userBoxes.map((box) => (
-                <div key={box.id} className="box2">
+                <div key={box.id} className="box2_">
                     <img src={box.imageUrl || 'https://firebasestorage.googleapis.com/v0/b/tgtg-af1a6.appspot.com/o/images%2Ftransparency_demonstration_1.png?alt=media&token=dde7538e-df6d-47f8-ae0b-4c0df81c4b8d'} alt={box.type} />
                     <div className="boxDetails2">
-                        <h3 style={{ textAlign: 'center' }}>{box.productName}</h3>
+                        <h3 style={{ textAlign: 'center', marginBottom:'15px' }}>{box.productName}</h3>
                         <TextField
                             sx={{ mb: 2, width: '100%', backgroundColor: 'white'}}
                             label="Type"

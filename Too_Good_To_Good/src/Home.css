@@ -64,7 +64,7 @@
 .home__above {
     position: absolute;
     top: 85%;
-    left: 52%;
+    left: 49%;
     transform: translate(-50%, -50%);
     z-index: 1;
     color: #FFFFFF; /* Adjust the text color here */
@@ -84,19 +84,18 @@
     transform: translate(-50%, -50%);
     display: flex;
     justify-content: space-between; /* Ensures equal space between the boxes */
-    width: 80%; /* Adjust the width as needed */
+    width: 75%; /* Adjust the width as needed */
     max-width: 300px; /* Set a maximum width if desired */
     height: auto; /* Adjust the height as needed */
 }
 
 
 .home__below {
-    
     position: absolute;
     top: 145%;
-    left: 52%;
+    left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1;
+    
     color: #FFFFFF; 
     width: 20%;
     height: auto;

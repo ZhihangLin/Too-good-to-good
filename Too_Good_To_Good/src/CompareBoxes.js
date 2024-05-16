@@ -185,7 +185,7 @@ function CompareBoxes() {
   return (
     <div className="parentComponent">
       <div className="leftSide">
-        <h2>User Boxes</h2>
+        <h2 className='h2_ui'>User Boxes</h2>
         <div className="boxContainer">
           {userBoxes.map((box) => (
             <div key={box.id} className={`box ${selectedUserBoxes.has(box.id) ? 'selected' : ''}`} onClick={() => toggleSelectUserBox(box)}>
@@ -209,7 +209,7 @@ function CompareBoxes() {
         </div>
       </div>
       <div className="rightSide">
-        <h2>Wishlist</h2>
+        <h2 className='h2_ui'>Wishlist</h2>
         <div className="boxContainer">
           {additionalBoxes.map((box) => (
             <div key={box.id} className={`box ${selectedAdditionalBoxes.has(box.id) ? 'selected' : ''}`} onClick={() => toggleSelectAdditionalBox(box)}>
@@ -230,9 +230,9 @@ function CompareBoxes() {
                 
                 <div className='buttonContainer'>
                   <Button
-                    sx={{ backgroundColor: '#8bc34a', color: 'white',
+                    sx={{ backgroundColor: 'red', color: 'white',
                     '&:hover': {
-                     backgroundColor: '#79a43a',
+                     backgroundColor: 'darkred',
                     },
                     '& .MuiButton-startIcon': {
                       marginRight: '8px',
@@ -250,8 +250,9 @@ function CompareBoxes() {
           ))}
         </div>
         <div className='switchButtonContainer'>
+          
                   <Button
-                    sx={{ backgroundColor: '#007bff', color: 'white',
+                    sx={{ backgroundColor: '#007bff',marginLeft:'4px',marginTop: '25px', color: 'white',
                     '&:hover': {
                         backgroundColor: '#0056b3',
                     },
