@@ -5,6 +5,8 @@ import { ref, getDownloadURL } from 'firebase/storage';
 import { useStateValue } from './StateProvider'; // Import useStateValue
 import { auth } from './firebase'; // Import auth
 import { useParams, useHistory } from 'react-router-dom';
+import './SearchResult.css';
+
 
 function SearchResult() {
     const [boxesWithImages, setBoxesWithImages] = useState([]);
@@ -95,11 +97,13 @@ function SearchResult() {
             />
             {boxesWithImages.length > 0 ? (
                 boxesWithImages.map((box) => (
-                    <Link to={`/result/${box.id}`} key={box.id} style={{ textDecoration: 'none' }}>
+                    
                         <div className="box1">
+                            <Link to={`/result/${box.id}`} key={box.id} >
 
                             <img src={'https://images-ext-1.discordapp.net/external/GuEfrENZrrYJocJMEA0jHxVd0HLEVfTeMokIXsSKkrE/%3Fid%3DOIP.iqldYf72fpKKy0NYd9wVkAHaJH%26pid%3DApi%26P%3D0%26h%3D180/https/tse4.explicit.bing.net/th?format=webp&width=219&height=270'} />
-                            <div className="boxDetails">
+                            </Link>
+                            <div className="boxDetail_">
 
                                 <h3>{box.productName}</h3>
                                 <p>Type: {box.type}</p>
@@ -111,7 +115,7 @@ function SearchResult() {
 
                             </div>
                         </div>
-                    </Link>
+                   
                 ))
             ) : (
                 <p>No results found</p>

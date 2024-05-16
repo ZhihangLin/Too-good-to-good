@@ -12,8 +12,10 @@
   
   
   .leftSide, .rightSide {
-    padding: 20px;
+    
     flex: 1;
+    margin: 20px;
+
   }
   
   
@@ -21,17 +23,18 @@
   .boxContainer {
     display: flex;
     flex-wrap: wrap;
+    
   }
   
   .box {
-    width: 300px;
+    width: 250px;
     height: auto;
     padding: 10px;
-    margin: 10px;
+    margin: 5px;
     border: 1px solid #ccc;
   }
   
-  h2 {
+  .h2_ui {
     font-size: 24px;
     color: #4a7c59;
   }
@@ -56,7 +59,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    
   }
+ 
 
   .buttonContainer {
     display: flex;

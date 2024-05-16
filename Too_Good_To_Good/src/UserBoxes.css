@@ -10,7 +10,7 @@
     margin-left: 100px
 }
 
-.box2 {
+.box2_ {
     border: 1px solid #ccc;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     border-radius: 8px;
@@ -21,7 +21,7 @@
 
 }
 
-.box2 img {
+.box2_ img {
     width: 100%;
     object-fit: contain;
     border-bottom: 1px solid #ccc;
