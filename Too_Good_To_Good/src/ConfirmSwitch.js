@@ -6,14 +6,17 @@ import { getDownloadURL, ref } from 'firebase/storage';
 import { useHistory } from 'react-router-dom';
 import { doc, updateDoc, deleteDoc, collection, query, where, getDocs } from 'firebase/firestore';
 
+
 function ConfirmSwitch() {
     const [{ user }] = useStateValue();
     const [userBoxes, setUserBoxes] = useState([]);
     const history = useHistory();
 
+
     useEffect(() => {
         const fetchUserBoxes = async () => {
             if (!user) return;
+
 
             try {
                 const userBoxesRef = query(collection(db, 'boxes'), where('userId', '==', user.uid));
@@ -25,6 +28,7 @@ function ConfirmSwitch() {
                         imageUrl = await getDownloadURL(ref(storage, data.imageRef));
                     }
 
+
                     // Fetch subcollection documents
                     const subcollectionSnapshot = await getDocs(collection(doc.ref, 'SwitchBoxes'));
                     const subBoxes = await Promise.all(subcollectionSnapshot.docs.map(async (subDoc) => {
@@ -35,6 +39,7 @@ function ConfirmSwitch() {
                         return { id: subBoxDoc.id, ...subBox };
                     }));
 
+
                     return { id: doc.id, imageUrl, subBoxes, ...data };
                 }));
                 setUserBoxes(userBoxesData);
@@ -43,11 +48,14 @@ function ConfirmSwitch() {
             }
         };
 
+
         fetchUserBoxes();
     }, [user]);
 
+
     const handleWantToSwitch = (currentBoxId, subBoxId, subBoxLocation) => {
         console.log(`Current Box ID: ${currentBoxId}, Want to switch with sub-box ID: ${subBoxId}`);
+
 
         if (!subBoxId || !currentBoxId) {
             console.error("Box IDs are missing!");
@@ -57,6 +65,7 @@ function ConfirmSwitch() {
         history.push(`/save-place/${encodeURIComponent(subBoxLocation)}/${currentBoxId}/${subBoxId}`);
         window.location.reload();
     };
+
 
     const handleRemoveSwitch = async (currentBoxId, subBoxId) => {
         try {
@@ -70,12 +79,15 @@ function ConfirmSwitch() {
                 switchDate: ""
             });
 
+
             // Remove the other user's box from the SwitchBoxes subcollection
             const currentBoxSwitchBoxRef = query(collection(doc(db, 'boxes', currentBoxId), 'SwitchBoxes'), where('boxId', '==', subBoxId));
             const subBoxSwitchBoxRef = query(collection(doc(db, 'boxes', subBoxId), 'SwitchBoxes'), where('boxId', '==', currentBoxId));
 
+
             const currentBoxSwitchBoxSnapshot = await getDocs(currentBoxSwitchBoxRef);
             const subBoxSwitchBoxSnapshot = await getDocs(subBoxSwitchBoxRef);
+
 
             const batch = db.batch();
             currentBoxSwitchBoxSnapshot.forEach(doc => {
@@ -85,6 +97,7 @@ function ConfirmSwitch() {
                 batch.delete(doc.ref);
             });
             await batch.commit();
+
 
             // Remove the other user's box from local state
             setUserBoxes(prevUserBoxes => {
@@ -99,12 +112,14 @@ function ConfirmSwitch() {
                 });
             });
 
+
             alert('Switch location, time, and other user’s box removed successfully!');
         } catch (error) {
             console.error('Error removing switch data: ', error);
             alert('Failed to remove switch location, time, and other user’s box.');
         }
     };
+
 
     return (
         <div className="parentComponent">
@@ -139,5 +154,6 @@ function ConfirmSwitch() {
         </div>
     );
 }
+
 
 export default ConfirmSwitch;
