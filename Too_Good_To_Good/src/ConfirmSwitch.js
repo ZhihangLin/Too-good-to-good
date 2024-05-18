@@ -4,43 +4,39 @@ import { useStateValue } from './StateProvider';
 import { db, storage } from './firebase';
 import { getDownloadURL, ref } from 'firebase/storage';
 import { useHistory } from 'react-router-dom';
-import { doc, updateDoc, deleteDoc, collection, query, where, getDocs } from 'firebase/firestore';
-
+import { doc, updateDoc, deleteDoc, collection, query, where, getDocs, getDoc } from 'firebase/firestore';
+import { deleteField } from 'firebase/firestore'; // Correct import for deleteField
 
 function ConfirmSwitch() {
     const [{ user }] = useStateValue();
     const [userBoxes, setUserBoxes] = useState([]);
     const history = useHistory();
 
-
     useEffect(() => {
         const fetchUserBoxes = async () => {
             if (!user) return;
 
-
             try {
                 const userBoxesRef = query(collection(db, 'boxes'), where('userId', '==', user.uid));
                 const snapshot = await getDocs(userBoxesRef);
-                const userBoxesData = await Promise.all(snapshot.docs.map(async (doc) => {
-                    const data = doc.data();
+                const userBoxesData = await Promise.all(snapshot.docs.map(async (docSnap) => {
+                    const data = docSnap.data();
                     let imageUrl = '';
                     if (data.imageRef) {
                         imageUrl = await getDownloadURL(ref(storage, data.imageRef));
                     }
 
-
                     // Fetch subcollection documents
-                    const subcollectionSnapshot = await getDocs(collection(doc.ref, 'SwitchBoxes'));
-                    const subBoxes = await Promise.all(subcollectionSnapshot.docs.map(async (subDoc) => {
-                        const subBoxData = subDoc.data();
+                    const subcollectionSnapshot = await getDocs(collection(docSnap.ref, 'SwitchBoxes'));
+                    const subBoxes = await Promise.all(subcollectionSnapshot.docs.map(async (subDocSnap) => {
+                        const subBoxData = subDocSnap.data();
                         // Fetch details of each sub box
-                        const subBoxDoc = await getDocs(doc(db, 'boxes', subBoxData.boxId));
+                        const subBoxDoc = await getDoc(doc(db, 'boxes', subBoxData.boxId));
                         const subBox = subBoxDoc.data();
                         return { id: subBoxDoc.id, ...subBox };
                     }));
 
-
-                    return { id: doc.id, imageUrl, subBoxes, ...data };
+                    return { id: docSnap.id, imageUrl, subBoxes, ...data };
                 }));
                 setUserBoxes(userBoxesData);
             } catch (error) {
@@ -48,14 +44,11 @@ function ConfirmSwitch() {
             }
         };
 
-
         fetchUserBoxes();
     }, [user]);
 
-
     const handleWantToSwitch = (currentBoxId, subBoxId, subBoxLocation) => {
         console.log(`Current Box ID: ${currentBoxId}, Want to switch with sub-box ID: ${subBoxId}`);
-
 
         if (!subBoxId || !currentBoxId) {
             console.error("Box IDs are missing!");
@@ -66,38 +59,33 @@ function ConfirmSwitch() {
         window.location.reload();
     };
 
-
     const handleRemoveSwitch = async (currentBoxId, subBoxId) => {
         try {
-            // Clear switch location and time for both boxes in Firestore
+            // Remove switch location and time for both boxes in Firestore
             await updateDoc(doc(db, "boxes", currentBoxId), {
-                switchLocation: "",
-                switchDate: ""
+                switchLocation: deleteField(),
+                switchDate: deleteField()
             });
             await updateDoc(doc(db, "boxes", subBoxId), {
-                switchLocation: "",
-                switchDate: ""
+                switchLocation: deleteField(),
+                switchDate: deleteField()
             });
 
-
             // Remove the other user's box from the SwitchBoxes subcollection
-            const currentBoxSwitchBoxRef = query(collection(doc(db, 'boxes', currentBoxId), 'SwitchBoxes'), where('boxId', '==', subBoxId));
-            const subBoxSwitchBoxRef = query(collection(doc(db, 'boxes', subBoxId), 'SwitchBoxes'), where('boxId', '==', currentBoxId));
-
+            const currentBoxSwitchBoxRef = query(collection(db, 'boxes', currentBoxId, 'SwitchBoxes'), where('boxId', '==', subBoxId));
+            const subBoxSwitchBoxRef = query(collection(db, 'boxes', subBoxId, 'SwitchBoxes'), where('boxId', '==', currentBoxId));
 
             const currentBoxSwitchBoxSnapshot = await getDocs(currentBoxSwitchBoxRef);
             const subBoxSwitchBoxSnapshot = await getDocs(subBoxSwitchBoxRef);
 
-
             const batch = db.batch();
-            currentBoxSwitchBoxSnapshot.forEach(doc => {
-                batch.delete(doc.ref);
+            currentBoxSwitchBoxSnapshot.forEach(docSnap => {
+                batch.delete(docSnap.ref);
             });
-            subBoxSwitchBoxSnapshot.forEach(doc => {
-                batch.delete(doc.ref);
+            subBoxSwitchBoxSnapshot.forEach(docSnap => {
+                batch.delete(docSnap.ref);
             });
             await batch.commit();
-
 
             // Remove the other user's box from local state
             setUserBoxes(prevUserBoxes => {
@@ -112,7 +100,6 @@ function ConfirmSwitch() {
                 });
             });
 
-
             alert('Switch location, time, and other user’s box removed successfully!');
         } catch (error) {
             console.error('Error removing switch data: ', error);
@@ -120,6 +107,9 @@ function ConfirmSwitch() {
         }
     };
 
+    const hasSwitchDetails = (userBox, subBox) => {
+        return userBox.switchLocation && userBox.switchDate && subBox.switchLocation && subBox.switchDate;
+    };
 
     return (
         <div className="parentComponent">
@@ -145,6 +135,9 @@ function ConfirmSwitch() {
                                     <p>Evaluation Price: {subBox.EvaluationPrice}</p>
                                     <button onClick={() => handleWantToSwitch(userBox.id, subBox.id, subBox.location)}>Want to Switch</button>
                                     <button onClick={() => handleRemoveSwitch(userBox.id, subBox.id)}>Remove Switch</button>
+                                    {hasSwitchDetails(userBox, subBox) && (
+                                        <button onClick={() => console.log('Switch Details')}>Switch Detail</button>
+                                    )}
                                 </div>
                             </div>
                         ))}
@@ -154,6 +147,5 @@ function ConfirmSwitch() {
         </div>
     );
 }
-
 
 export default ConfirmSwitch;
