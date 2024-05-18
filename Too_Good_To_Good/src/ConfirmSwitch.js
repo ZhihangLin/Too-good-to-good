@@ -8,7 +8,7 @@ import { doc, updateDoc, deleteDoc, collection, query, where, getDocs, getDoc } 
 import { deleteField } from 'firebase/firestore'; // Correct import for deleteField
 
 function ConfirmSwitch() {
-    const [{ user }] = useStateValue();
+    const [{ user }, dispatch] = useStateValue(); // Use dispatch from StateProvider
     const [userBoxes, setUserBoxes] = useState([]);
     const history = useHistory();
 
@@ -39,13 +39,24 @@ function ConfirmSwitch() {
                     return { id: docSnap.id, imageUrl, subBoxes, ...data };
                 }));
                 setUserBoxes(userBoxesData);
+
+                // Calculate the counter and update the global state
+                const otherUserBoxCount = userBoxesData.reduce((count, userBox) => {
+                    return count + userBox.subBoxes.length;
+                }, 0);
+
+                localStorage.setItem('boxCounter', otherUserBoxCount);
+                dispatch({
+                    type: 'UPDATE_BOX_COUNTER',
+                    count: otherUserBoxCount,
+                });
             } catch (error) {
                 console.error('Error fetching user boxes:', error);
             }
         };
 
         fetchUserBoxes();
-    }, [user]);
+    }, [user, dispatch]);
 
     const handleWantToSwitch = (currentBoxId, subBoxId, subBoxLocation) => {
         console.log(`Current Box ID: ${currentBoxId}, Want to switch with sub-box ID: ${subBoxId}`);
@@ -100,11 +111,22 @@ function ConfirmSwitch() {
                 });
             });
 
+            // Update the counter
+            const otherUserBoxCount = userBoxes.reduce((count, userBox) => {
+                return count + userBox.subBoxes.length;
+            }, 0);
+            localStorage.setItem('boxCounter', otherUserBoxCount);
+            dispatch({
+                type: 'UPDATE_BOX_COUNTER',
+                count: otherUserBoxCount,
+            });
+
             alert('Switch location, time, and other user’s box removed successfully!');
         } catch (error) {
             console.error('Error removing switch data: ', error);
             alert('Failed to remove switch location, time, and other user’s box.');
         }
+        window.location.reload();
     };
 
     const hasSwitchDetails = (userBox, subBox) => {

@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 function CompareBoxes() {
-  const [{ user }] = useStateValue();
+  const [{ user }, dispatch] = useStateValue(); // Use dispatch from StateProvider
   const [userBoxes, setUserBoxes] = useState([]);
   const [selectedUserBoxes, setSelectedUserBoxes] = useState(new Set());
   const [selectedAdditionalBoxes, setSelectedAdditionalBoxes] = useState(new Set());
@@ -68,7 +68,6 @@ function CompareBoxes() {
 
     fetchAdditionalBoxes();
   }, [user]);
-  
 
   const removeFromWishlist = async (boxId) => {
     if (!user) {
@@ -125,61 +124,52 @@ function CompareBoxes() {
       console.log("User not authenticated.");
       return;
     }
-  
+
     try {
       const batch = db.batch();
-  
+
       selectedAdditionalBoxes.forEach(async (additionalBoxId) => {
         // Check if the additional box is already in the subcollection of selected user box
         const userBoxId = Array.from(selectedUserBoxes)[0];
         const switchRequestsRef = db.collection('boxes').doc(userBoxId).collection('SwitchBoxes');
         const existingSwitchRequest = await switchRequestsRef.where('boxId', '==', additionalBoxId).get();
-        
+
         if (existingSwitchRequest.empty) {
           await switchRequestsRef.add({ userId: user.uid, boxId: additionalBoxId });
         } else {
           console.log("Sending switch request already.");
         }
       });
-  
+
       selectedUserBoxes.forEach(async (userBoxId) => {
         // Check if the user box is already in the subcollection of selected additional boxes
         const additionalBoxId = Array.from(selectedAdditionalBoxes)[0];
         const switchRequestsRef = db.collection('boxes').doc(additionalBoxId).collection('SwitchBoxes');
         const existingSwitchRequest = await switchRequestsRef.where('boxId', '==', userBoxId).get();
-        
+
         if (existingSwitchRequest.empty) {
           await switchRequestsRef.add({ userId: user.uid, boxId: userBoxId });
         } else {
           console.log("Sending switch request already.");
         }
       });
-  
+
       await batch.commit();
       console.log("Boxes added to switched boxes.");
+
+      // Update the counter
+      const updatedBoxCount = selectedAdditionalBoxes.size;
+      const currentCounter = parseInt(localStorage.getItem('boxCounter')) || 0;
+      const newCounter = currentCounter + updatedBoxCount;
+      localStorage.setItem('boxCounter', newCounter);
+      dispatch({
+        type: 'UPDATE_BOX_COUNTER',
+        count: newCounter,
+      });
+
     } catch (error) {
       console.error("Error adding boxes to switched boxes:", error);
     }
-  };
-
-  const handleSelectUserBox = (box) => {
-    const updatedSelectedUserBoxes = new Set(selectedUserBoxes);
-    if (updatedSelectedUserBoxes.has(box.id)) {
-      updatedSelectedUserBoxes.delete(box.id);
-    } else {
-      updatedSelectedUserBoxes.add(box.id);
-    }
-    setSelectedUserBoxes(updatedSelectedUserBoxes);
-  };
-
-  const handleSelectAdditionalBox = (box) => {
-    const updatedSelectedAdditionalBoxes = new Set(selectedAdditionalBoxes);
-    if (updatedSelectedAdditionalBoxes.has(box.id)) {
-      updatedSelectedAdditionalBoxes.delete(box.id);
-    } else {
-      updatedSelectedAdditionalBoxes.add(box.id);
-    }
-    setSelectedAdditionalBoxes(updatedSelectedAdditionalBoxes);
   };
 
   return (
@@ -196,12 +186,12 @@ function CompareBoxes() {
                 <p>Location: {box.location}</p>
                 <p>Evaluation Price: {box.EvaluationPrice}</p>
                 <div className="checkboxContainer">
-                <Checkbox
-                  icon={<CheckBox />}
-                  checkedIcon={<CheckBox />}
-                  checked={selectedUserBoxes.has(box.id)}
-                  onChange={() => handleSelectUserBox(box)}
-                />
+                  <Checkbox
+                    icon={<CheckBox />}
+                    checkedIcon={<CheckBox />}
+                    checked={selectedUserBoxes.has(box.id)}
+                    onChange={() => toggleSelectUserBox(box)}
+                  />
                 </div>
               </div>
             </div>
@@ -220,50 +210,49 @@ function CompareBoxes() {
                 <p>Location: {box.location}</p>
                 <p>Evaluation Price: {box.EvaluationPrice}</p>
                 <div className="checkboxContainer1">
-                <Checkbox
-                  icon={<CheckBox />}
-                  checkedIcon={<CheckBox />}
-                  checked={selectedAdditionalBoxes.has(box.id)}
-                  onChange={() => handleSelectAdditionalBox(box)}
-                />
+                  <Checkbox
+                    icon={<CheckBox />}
+                    checkedIcon={<CheckBox />}
+                    checked={selectedAdditionalBoxes.has(box.id)}
+                    onChange={() => toggleSelectAdditionalBox(box)}
+                  />
                 </div>
-                
                 <div className='buttonContainer'>
                   <Button
-                    sx={{ backgroundColor: 'red', color: 'white',
-                    '&:hover': {
-                     backgroundColor: 'darkred',
-                    },
-                    '& .MuiButton-startIcon': {
-                      marginRight: '8px',
-                    },
+                    sx={{
+                      backgroundColor: 'red', color: 'white',
+                      '&:hover': {
+                        backgroundColor: 'darkred',
+                      },
+                      '& .MuiButton-startIcon': {
+                        marginRight: '8px',
+                      },
                     }}
                     startIcon={<DeleteIcon />}
                     onClick={() => removeFromWishlist(box.id)}
-                    >
+                  >
                     Remove
                   </Button>
                 </div>
-
               </div>
             </div>
           ))}
         </div>
         <div className='switchButtonContainer'>
-          
-                  <Button
-                    sx={{ backgroundColor: '#007bff',marginLeft:'4px',marginTop: '25px', color: 'white',
-                    '&:hover': {
-                        backgroundColor: '#0056b3',
-                    },
-                    '& .MuiButton-startIcon': {
-                        marginRight: '8px',
-                    },
-                    }}
-                    onClick={confirmSwitch}
-                    >
-                    Confirm Switch
-                  </Button>
+          <Button
+            sx={{
+              backgroundColor: '#007bff', marginLeft: '4px', marginTop: '25px', color: 'white',
+              '&:hover': {
+                backgroundColor: '#0056b3',
+              },
+              '& .MuiButton-startIcon': {
+                marginRight: '8px',
+              },
+            }}
+            onClick={confirmSwitch}
+          >
+            Confirm Switch
+          </Button>
         </div>
       </div>
     </div>

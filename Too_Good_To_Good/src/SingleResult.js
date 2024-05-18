@@ -79,15 +79,7 @@ useEffect(() => {
             }
 
             // Dispatch action to add the item into data layer
-            dispatch({
-                type: 'ADD_TO_WISHLIST',
-                item: {
-                    type: boxDetails.type,
-                    image: boxDetails.image, // Assuming boxDetails has an image field
-                    price: boxDetails.price, // Assuming boxDetails has a price field
-                    location: boxDetails.location
-                },
-            });
+            
 
         } catch (error) {
             console.error("Error adding user to box:", error);

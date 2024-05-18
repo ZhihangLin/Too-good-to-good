@@ -12,7 +12,7 @@ import { db } from './firebase';
 import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 
 function Header() {
-  const [{ basket, user }, dispatch] = useStateValue();
+  const [{ boxCounter, user }, dispatch] = useStateValue();
   const history = useHistory();
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -20,6 +20,14 @@ function Header() {
   useEffect(() => {
     setSearchResults([]); // Clear search results when searchQuery changes
   }, [searchQuery]);
+
+  useEffect(() => {
+    const storedBoxCounter = parseInt(localStorage.getItem('boxCounter')) || 0;
+    dispatch({
+      type: 'UPDATE_BOX_COUNTER',
+      count: storedBoxCounter,
+    });
+  }, [dispatch]);
 
   const handleClick = () => {
     history.push('/login');
@@ -179,7 +187,7 @@ function Header() {
         <Link to='/userboxes'>
           <div className='header__optionBox' onClick={ConfirmSwitchPage}>
             <RedeemIcon />
-            <span className='header__optionLineTwo header__boxCount'>{basket?.length}</span>
+            <span className='header__optionLineTwo header__boxCount'>{boxCounter}</span> {/* Updated to show boxCounter */}
           </div>
         </Link>
 

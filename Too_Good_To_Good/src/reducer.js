@@ -1,5 +1,5 @@
 export const initialState = {
-
+  bboxCounter: parseInt(localStorage.getItem('boxCounter')) || 0,
   basket: [],
   user: null
 };
@@ -16,6 +16,13 @@ const reducer = (state, action) => {
         ...state,
         basket: [...state.basket, action.item],
       };
+
+      case 'UPDATE_BOX_COUNTER':
+        localStorage.setItem('boxCounter', action.count);
+        return {
+          ...state,
+          boxCounter: action.count,
+        };
     
     case 'EMPTY_BASKET':
       return {
