@@ -109,11 +109,6 @@ function App() {
             <SearchResult />
           </Route>
 
-          <Route path='/ConfirmSwitch'>
-            <ConfirmSwitch />
-          </Route>
-
-
           <Route path="/result/:boxId">
             <Header />
            <SingleResult />

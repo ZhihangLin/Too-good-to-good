@@ -6,6 +6,7 @@ import { getDownloadURL, ref } from 'firebase/storage';
 import { useHistory } from 'react-router-dom';
 import { doc, updateDoc, deleteDoc, collection, query, where, getDocs, getDoc } from 'firebase/firestore';
 import { deleteField } from 'firebase/firestore'; // Correct import for deleteField
+import Button from '@mui/material/Button';
 
 function ConfirmSwitch() {
     const [{ user }, dispatch] = useStateValue(); // Use dispatch from StateProvider
@@ -150,15 +151,61 @@ function ConfirmSwitch() {
                         {userBox.subBoxes.map((subBox) => (
                             <div key={subBox.id} className="box">
                                 <img src={'https://images-ext-1.discordapp.net/external/GuEfrENZrrYJocJMEA0jHxVd0HLEVfTeMokIXsSKkrE/%3Fid%3DOIP.iqldYf72fpKKy0NYd9wVkAHaJH%26pid%3DApi%26P%3D0%26h%3D180/https/tse4.explicit.bing.net/th?format=webp&width=219&height=270'} />
-                                <div className="boxDetails">
+                                <div className="subBoxesDetails">
                                     <h3>{subBox.productName}</h3>
                                     <p>Type: {subBox.type}</p>
                                     <p>Location: {subBox.location}</p>
                                     <p>Evaluation Price: {subBox.EvaluationPrice}</p>
-                                    <button onClick={() => handleWantToSwitch(userBox.id, subBox.id, subBox.location)}>Want to Switch</button>
-                                    <button onClick={() => handleRemoveSwitch(userBox.id, subBox.id)}>Remove Switch</button>
+                                    <div className='wantToSwitchButtonContainer'>
+                                        <Button
+                                            sx={{
+                                            backgroundColor: '#007bff', marginLeft: '4px', marginTop: '4px', color: 'white',
+                                            '&:hover': {
+                                            backgroundColor: '#0056b3',
+                                            },
+                                            '& .MuiButton-startIcon': {
+                                            marginRight: '8px',
+                                            },
+                                            }}
+                                            onClick={() => handleWantToSwitch(userBox.id, subBox.id, subBox.location)}
+                                            >
+                                        Want to Switch
+                                        </Button>
+                                    </div>
+                                    <div className='removeSwitchButtonContainer'>
+                                        <Button
+                                            sx={{
+                                            backgroundColor: 'red', marginLeft: '4px', marginTop: '4px', color: 'white',
+                                            '&:hover': {
+                                            backgroundColor: 'darkred',
+                                            },
+                                            '& .MuiButton-startIcon': {
+                                            marginRight: '8px',
+                                            },
+                                            }}
+                                            onClick={() => handleRemoveSwitch(userBox.id, subBox.id)}
+                                            >
+                                            Remove Switch
+                                        </Button>
+                                    </div>
+
                                     {hasSwitchDetails(userBox, subBox) && (
-                                        <button onClick={() => console.log('Switch Details')}>Switch Detail</button>
+                                        <div className='switchDetailButtonContainer'>
+                                        <Button
+                                            sx={{
+                                            backgroundColor: '#007bff', marginLeft: '4px', marginTop: '25px', color: 'white',
+                                            '&:hover': {
+                                            backgroundColor: '#0056b3',
+                                            },
+                                            '& .MuiButton-startIcon': {
+                                            marginRight: '8px',
+                                            },
+                                            }}
+                                            onClick={() => console.log('Switch Details')}
+                                            >
+                                            Switch Detail
+                                        </Button>
+                                        </div>   
                                     )}
                                 </div>
                             </div>
