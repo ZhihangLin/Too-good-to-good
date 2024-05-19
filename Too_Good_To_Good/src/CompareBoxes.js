@@ -31,7 +31,9 @@ function CompareBoxes() {
           }
           return { id: doc.id, imageUrl, ...data };
         }));
-        setUserBoxes(userBoxesData);
+        // Filter out boxes with Evaluation Price 'not decide'
+        const filteredUserBoxes = userBoxesData.filter(box => box.EvaluationPrice !== 'not decide');
+        setUserBoxes(filteredUserBoxes);
       } catch (error) {
         console.error('Error fetching user boxes:', error);
       }
