@@ -10,47 +10,63 @@ function SwitchDetail() {
     const { currentBoxId, subBoxId } = useParams();
     const [currentBox, setCurrentBox] = useState(null);
     const [subBox, setSubBox] = useState(null);
-    const [message, setMessage] = useState("");
+    const [currentMessage, setCurrentMessage] = useState("");
+    const [subMessage, setSubMessage] = useState("");
     const [messages, setMessages] = useState({});
+    const [subBoxImageUrl, setSubBoxImageUrl] = useState('');
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchBoxDetails = async () => {
             try {
-                const currentBoxDoc = await db.collection('boxes').doc(currentBoxId).get();
+                const [currentBoxDoc, subBoxDoc] = await Promise.all([
+                    db.collection('boxes').doc(currentBoxId).get(),
+                    db.collection('boxes').doc(subBoxId).get()
+                ]);
+
                 const currentBoxData = currentBoxDoc.data();
+                const subBoxData = subBoxDoc.data();
+
                 if (currentBoxData.imageRef) {
                     currentBoxData.imageUrl = await getDownloadURL(ref(storage, currentBoxData.imageRef));
                 }
-                setCurrentBox({ id: currentBoxId, ...currentBoxData });
 
-                const subBoxDoc = await db.collection('boxes').doc(subBoxId).get();
-                const subBoxData = subBoxDoc.data();
-                if (subBoxData.imageRef) {
-                    subBoxData.imageUrl = await getDownloadURL(ref(storage, subBoxData.imageRef));
+                if (subBoxData.status === 'Finish Switch' && subBoxData.imageRef) {
+                    const imageUrl = await getDownloadURL(ref(storage, subBoxData.imageRef));
+                    setSubBoxImageUrl(imageUrl);
                 }
+
+                setCurrentBox({ id: currentBoxId, ...currentBoxData });
                 setSubBox({ id: subBoxId, ...subBoxData });
 
-                // Fetch messages for both boxes
                 const fetchMessages = async (boxId) => {
-                    const messagesSnapshot = await db.collection('boxes').doc(boxId).collection('Messages').get();
+                    const messagesSnapshot = await db.collection('boxes').doc(boxId).collection('Messages').orderBy('timestamp').get();
                     return messagesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 };
 
-                const currentBoxMessages = await fetchMessages(currentBoxId);
-                const subBoxMessages = await fetchMessages(subBoxId);
+                const [currentBoxMessages, subBoxMessages] = await Promise.all([
+                    fetchMessages(currentBoxId),
+                    fetchMessages(subBoxId)
+                ]);
+
                 setMessages({
                     [currentBoxId]: currentBoxMessages,
                     [subBoxId]: subBoxMessages
                 });
-            } catch (error) {
-                console.error('Error fetching box details:', error);
+
+                setLoading(false);
+            } catch (err) {
+                setError('Error fetching box details');
+                console.error('Error fetching box details:', err);
+                setLoading(false);
             }
         };
 
         fetchBoxDetails();
     }, [currentBoxId, subBoxId]);
 
-    const handleLeaveMessage = async (boxId) => {
+    const handleLeaveMessage = async (boxId, message, setMessage) => {
         if (!message) return;
 
         try {
@@ -60,8 +76,8 @@ function SwitchDetail() {
                 userId: user.uid
             });
             setMessage("");
-            // Fetch updated messages
-            const messagesSnapshot = await db.collection('boxes').doc(boxId).collection('Messages').get();
+
+            const messagesSnapshot = await db.collection('boxes').doc(boxId).collection('Messages').orderBy('timestamp').get();
             const updatedMessages = messagesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             setMessages(prevMessages => ({
                 ...prevMessages,
@@ -72,60 +88,70 @@ function SwitchDetail() {
         }
     };
 
+    const handleSwitchFinish = async (currentBoxId) => {
+        if (!currentBoxId) {
+            console.error("Current Box ID is missing!");
+            return;
+        }
+
+        try {
+            await db.collection('boxes').doc(currentBoxId).update({ status: 'Finish Switch' });
+            alert('Switch marked as finished successfully!');
+        } catch (error) {
+            console.error('Error marking switch as finished:', error);
+        }
+    };
+
+    const renderBoxDetail = (box, boxId, message, setMessage, isUserBox = false) => (
+        <div className="boxDetail">
+            {box ? (
+                <div>
+                    <img src={boxId === subBoxId && box.status !== 'Finish Switch' 
+                        ? 'https://images-ext-1.discordapp.net/external/GuEfrENZrrYJocJMEA0jHxVd0HLEVfTeMokIXsSKkrE/%3Fid%3DOIP.iqldYf72fpKKy0NYd9wVkAHaJH%26pid%3DApi%26P%3D0%26h%3D180/https/tse4.explicit.bing.net/th?format=webp&width=219&height=270' 
+                        : box.imageUrl || 'placeholder-image-url'} 
+                        alt={box.productName} 
+                    />
+                    <h3>{box.productName}</h3>
+                    <p>Type: {box.type}</p>
+                    <p>Location: {box.location}</p>
+                    <p>Evaluation Price: {box.EvaluationPrice}</p>
+                    <div className="messages">
+                        {messages[boxId] && messages[boxId].map(msg => (
+                            <p key={msg.id}>
+                                {msg.message} - {new Date(msg.timestamp.toDate()).toLocaleString()}
+                            </p>
+                        ))}
+                    </div>
+                    <input
+                        type="text"
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        placeholder="Leave a message"
+                    />
+                    <button onClick={() => handleLeaveMessage(boxId, message, setMessage)}>Leave Message</button>
+                    {isUserBox && <button onClick={() => handleSwitchFinish(boxId)}>Finish Switch</button>}
+                </div>
+            ) : (
+                <p>Loading...</p>
+            )}
+        </div>
+    );
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
+
     return (
-        <div className="switchDetail">
-            <div className="boxDetail">
-                {currentBox && (
-                    <div>
-                        <img src={currentBox.imageUrl || 'placeholder-image-url'} alt={currentBox.productName} />
-                        <h3>{currentBox.productName}</h3>
-                        <p>Type: {currentBox.type}</p>
-                        <p>Location: {currentBox.location}</p>
-                        <p>Evaluation Price: {currentBox.EvaluationPrice}</p>
-                        <div className="messages">
-                            {messages[currentBoxId] && messages[currentBoxId].map(msg => (
-                                <p key={msg.id}>
-                                    {msg.message} - {new Date(msg.timestamp.toDate()).toLocaleString()}
-                                </p>
-                            ))}
-                        </div>
-                        <input
-                            type="text"
-                            value={message}
-                            onChange={(e) => setMessage(e.target.value)}
-                            placeholder="Leave a message"
-                        />
-                        <button onClick={() => handleLeaveMessage(currentBoxId)}>Leave Message</button>
-                    </div>
-                )}
+        <div className="parentComponent">
+            <div className="userBoxContainer">
+                {renderBoxDetail(currentBox, currentBoxId, currentMessage, setCurrentMessage, true)}
             </div>
-            <div className="boxDetail">
-                {subBox && (
-                    <div>
-                        <img src={subBox.imageUrl || 'placeholder-image-url'} alt={subBox.productName} />
-                        <h3>{subBox.productName}</h3>
-                        <p>Type: {subBox.type}</p>
-                        <p>Location: {subBox.location}</p>
-                        <p>Evaluation Price: {subBox.EvaluationPrice}</p>
-                        <div className="messages">
-                            {messages[subBoxId] && messages[subBoxId].map(msg => (
-                                <p key={msg.id}>
-                                    {msg.message} - {new Date(msg.timestamp.toDate()).toLocaleString()}
-                                </p>
-                            ))}
-                        </div>
-                        <input
-                            type="text"
-                            value={message}
-                            onChange={(e) => setMessage(e.target.value)}
-                            placeholder="Leave a message"
-                        />
-                        <button onClick={() => handleLeaveMessage(subBoxId)}>Leave Message</button>
-                    </div>
-                )}
+            <div className="subBoxesContainer">
+                {renderBoxDetail(subBox, subBoxId, subMessage, setSubMessage)}
             </div>
         </div>
     );
 }
 
 export default SwitchDetail;
+
+  
