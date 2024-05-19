@@ -59,13 +59,67 @@ function ConfirmSwitch() {
         fetchUserBoxes();
     }, [user, dispatch]);
 
-    const handleWantToSwitch = (currentBoxId, subBoxId, subBoxLocation) => {
+    const handleWantToSwitch = async (currentBoxId, subBoxId, subBoxLocation) => {
         console.log(`Current Box ID: ${currentBoxId}, Want to switch with sub-box ID: ${subBoxId}`);
 
         if (!subBoxId || !currentBoxId) {
             console.error("Box IDs are missing!");
             return;
         }
+
+        try {
+            // Fetch all other boxes that want to switch with the current box except the one clicked
+            const switchBoxesRef = collection(db, 'boxes', currentBoxId, 'SwitchBoxes');
+            const switchBoxesSnapshot = await getDocs(switchBoxesRef);
+
+            const batch = db.batch();
+            switchBoxesSnapshot.forEach((docSnap) => {
+                const switchBoxData = docSnap.data();
+                const switchBoxId = switchBoxData.boxId;
+
+                if (switchBoxId !== subBoxId) {
+                    // Remove switch details (location and time) for these boxes
+                    batch.update(doc(db, 'boxes', switchBoxId), {
+                        switchLocation: deleteField(),
+                        switchDate: deleteField()
+                    });
+
+                    // Remove the document from the subcollection
+                    batch.delete(docSnap.ref);
+                }
+            });
+
+            await batch.commit();
+
+            // Update the local state
+            setUserBoxes((prevUserBoxes) =>
+                prevUserBoxes.map((userBox) => {
+                    if (userBox.id === currentBoxId) {
+                        return {
+                            ...userBox,
+                            subBoxes: userBox.subBoxes.filter((subBox) => subBox.id === subBoxId)
+                        };
+                    }
+                    return userBox;
+                })
+            );
+
+            // Update the counter
+            const otherUserBoxCount = userBoxes.reduce((count, userBox) => {
+                return count + userBox.subBoxes.length;
+            }, 0);
+            localStorage.setItem('boxCounter', otherUserBoxCount);
+            dispatch({
+                type: 'UPDATE_BOX_COUNTER',
+                count: otherUserBoxCount,
+            });
+
+            alert('All other boxes wanting to switch with this box have been removed successfully!');
+        } catch (error) {
+            console.error('Error removing switch data: ', error);
+            alert('Failed to remove other boxes wanting to switch.');
+        }
+
         // Navigate to SavePlace page with location as a parameter along with box IDs
         history.push(`/save-place/${encodeURIComponent(subBoxLocation)}/${currentBoxId}/${subBoxId}`);
         window.location.reload();
@@ -205,7 +259,7 @@ function ConfirmSwitch() {
                                             >
                                             Switch Detail
                                         </Button>
-                                        </div>   
+                                        </div>  
                                     )}
                                 </div>
                             </div>
