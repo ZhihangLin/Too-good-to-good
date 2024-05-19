@@ -1,0 +1,30 @@
+.parentComponent {
+  display: flex;
+  flex-wrap: wrap; 
+}
+
+.userBoxContainer {
+  width: 50%; 
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.userBox {
+  width: 100%; 
+  margin-bottom: 10px; 
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.subBoxesContainer {
+  width: 50%; 
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.subBox {
+  width: 100%; 
+  margin-bottom: 10px; 
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}

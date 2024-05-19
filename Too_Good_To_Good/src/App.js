@@ -18,6 +18,7 @@ import SearchResult from './SearchResult';
 import SingleResult from './SingleResult';
 import CompareBoxes from './CompareBoxes';
 import SavePlace from './SavePlace';
+import SwitchDetail from './SwitchDetail';
 
 
 
@@ -109,6 +110,11 @@ function App() {
             <SearchResult />
           </Route>
 
+          <Route path='/ConfirmSwitch'>
+            <ConfirmSwitch />
+          </Route>
+
+
           <Route path="/result/:boxId">
             <Header />
            <SingleResult />
@@ -124,6 +130,12 @@ function App() {
           <Header />
           <CompareBoxes />
          </Route>
+
+         <Route path="/SwitchDetail">
+          <Header />
+          <SwitchDetail />
+         </Route>
+
 
 
         <Route path='/'>
