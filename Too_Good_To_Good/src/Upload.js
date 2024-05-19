@@ -4,7 +4,6 @@ import { Link, useHistory } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-
 import { db, storage } from "./firebase";
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useStateValue } from "./StateProvider";
@@ -29,16 +28,21 @@ function Upload() {
     };
 
     const handleClick = () => {
-        // Use history.push to navigate to another page
         history.push('/');
         window.location.reload();
-      };
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Check if the user is logged in
+        if (!user) {
+            alert("Please log in to upload a box.");
+            return;
+        }
+
         // Regex to match the pattern 'City, Zipcode'
-        const locationRegex = /^[a-zA-Z\s]+,\s*\d{5}$/;
+        const locationRegex = /^[a-zA-Z\s]+, \d{5}$/;
 
         if (!locationRegex.test(location)) {
             setLocationError("Location must be in the format 'City, Zip Code' (e.g., 'Brooklyn, 11220').");
