@@ -184,6 +184,11 @@ function ConfirmSwitch() {
         window.location.reload();
     };
 
+    const handleSwitchDetail = (currentBoxId, subBoxId) => {
+        history.push(`/switch-detail/${currentBoxId}/${subBoxId}`);
+        window.location.reload();
+    };
+
     const hasSwitchDetails = (userBox, subBox) => {
         return userBox.switchLocation && userBox.switchDate && subBox.switchLocation && subBox.switchDate;
     };
@@ -255,7 +260,7 @@ function ConfirmSwitch() {
                                             marginRight: '8px',
                                             },
                                             }}
-                                            onClick={() => console.log('Switch Details')}
+                                            onClick={() => handleSwitchDetail(userBox.id, subBox.id)}
                                             >
                                             Switch Detail
                                         </Button>

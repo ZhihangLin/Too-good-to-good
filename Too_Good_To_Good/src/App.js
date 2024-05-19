@@ -131,7 +131,7 @@ function App() {
           <CompareBoxes />
          </Route>
 
-         <Route path="/SwitchDetail">
+         <Route path="/switch-detail/:currentBoxId/:subBoxId">
           <Header />
           <SwitchDetail />
          </Route>
