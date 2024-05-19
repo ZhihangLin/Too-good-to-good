@@ -17,6 +17,10 @@ function UserBoxes() {
     const [location, setLocation] = useState('');
     const [switchLocation, setSwitchLocation] = useState('');
     const [switchDate, setSwitchDate] = useState('');
+    const [locationErrors, setLocationErrors] = useState({});
+    const [priceErrors, setPriceErrors] = useState({});
+
+
 
     useEffect(() => {
         
@@ -49,22 +53,33 @@ function UserBoxes() {
         fetchUserBoxes();
     }, [user]); // Run useEffect whenever user changes
 
-    const handleValueChange = async (boxId, field, newValue) => {
-        try {
-            await db.collection('boxes').doc(boxId).update({ [field]: newValue });
-            // Update state to reflect the change
-            setUserBoxes(prevBoxes =>
-                prevBoxes.map(box =>
-                    box.id === boxId ? { ...box, [field]: newValue } : box
-                )
-            );
-        } catch (error) {
-            console.error(`Error updating ${field}:`, error);
-        }
+    const handleValueChange = (boxId, field, newValue) => {
+        setUserBoxes(prevBoxes =>
+            prevBoxes.map(box =>
+                box.id === boxId ? { ...box, [field]: newValue } : box
+            )
+        );
     };
 
-    const handleButtonClick = async (boxId) => {
-        console.log("Button clicked for box:", boxId);
+    
+    // Modify the handleButtonClick function to include location validation
+    const handleUpdateButtonClick = async (boxId) => {
+        const boxToUpdate = userBoxes.find(box => box.id === boxId);
+        if (boxToUpdate) {
+            if (validateLocation(boxToUpdate.location) && validatePrice(boxToUpdate.originPrice, boxId)) {
+                try {
+                    await db.collection('boxes').doc(boxId).update({
+                        type: boxToUpdate.type,
+                        originPrice: boxToUpdate.originPrice,
+                        location: boxToUpdate.location,
+                        notes: boxToUpdate.notes
+                    });
+                    console.log('Data updated successfully.');
+                } catch (error) {
+                    console.error('Error updating data:', error);
+                }
+            }
+        }
     };
 
     const handleDeleteBox = async (boxId) => {
@@ -79,11 +94,53 @@ function UserBoxes() {
         }
     };
 
+    // Function to validate the origin price to ensure it's a numeric value
+    const validatePrice = (value, boxId) => {
+        if (!isNaN(value) && value.trim() !== '') {
+            setPriceErrors(prev => ({ ...prev, [boxId]: '' }));
+            return true;
+        } else {
+            setPriceErrors(prev => ({ ...prev, [boxId]: 'Please enter a valid number.' }));
+            return false;
+        }
+    };
+    
+
+    // Modify the onChange handlers to include validation
+    const handlePriceChange = (boxId, value) => {
+        if (validatePrice(value, boxId)) {
+            handleValueChange(boxId, 'originPrice', value);
+        } else {
+            handleValueChange(boxId, 'originPrice', value); // Allow user to keep typing to fix the issue
+        }
+    };
+
+    // Function to validate location format
+    const validateLocation = (value, boxId) => {
+        const validCities = ["Queens", "Brooklyn", "Manhattan", "Bronx", "Staten Island"];
+        const parts = value.split(', ');
+        if (parts.length === 2 && validCities.includes(parts[0]) && /^\d{5}$/.test(parts[1])) {
+            setLocationErrors(prev => ({ ...prev, [boxId]: '' }));
+            return true;
+        } else {
+            setLocationErrors(prev => ({ ...prev, [boxId]: 'Invalid location. Format should be: City, ZIP Code (e.g., Queens, 12345)' }));
+            return false;
+        }
+    };
+
+
+    // Modify the onChange handler for location to include validation
+    const handleLocationChange = (boxId, value) => {
+        if (validateLocation(value, boxId)) {
+            handleValueChange(boxId, 'location', value);
+        } else {
+            handleValueChange(boxId, 'location', value); // Allow user to keep typing to fix the issue
+        }
+    };
+
+
     return (
-
-
-        <div className="boxesDisplay">
-            
+        <div className="boxesDisplay">   
             {userBoxes.map((box) => (
                 <div key={box.id} className="box2_">
                     <img src={box.imageUrl || 'https://firebasestorage.googleapis.com/v0/b/tgtg-af1a6.appspot.com/o/images%2Ftransparency_demonstration_1.png?alt=media&token=dde7538e-df6d-47f8-ae0b-4c0df81c4b8d'} alt={box.type} />
@@ -102,20 +159,20 @@ function UserBoxes() {
                             sx={{ mb: 2, width: '100%', backgroundColor: 'white' }}
                             label="Origin Price"
                             value={box.originPrice}
-                            onChange={e => handleValueChange(box.id, 'originPrice', e.target.value)}
-                            error={!!priceError}
-                            helperText={priceError}
+                            onChange={e => handlePriceChange(box.id, e.target.value)}
+                            error={!!priceErrors[box.id]}
+                            helperText={priceErrors[box.id] || ''}
                             multiline
                         />
 
                         {/* Location Field */}
                         <TextField
-                            sx={{ mb: 2, width: '100%', backgroundColor: 'white'}}
+                            sx={{ mb: 2, width: '100%', backgroundColor: 'white' }}
                             label="Location"
                             value={box.location}
-                            onChange={e => handleValueChange(box.id, 'location', e.target.value)}
-                            error={!!locationError}
-                            helperText={locationError}
+                            onChange={e => handleLocationChange(box.id, e.target.value)}
+                            error={!!locationErrors[box.id]}
+                            helperText={locationErrors[box.id] || ''}
                             multiline
                         />
 
@@ -155,8 +212,8 @@ function UserBoxes() {
                             },
                             }}
                             startIcon={<CloudUploadIcon/>}
-                            onClick={() => handleButtonClick(box.id)}
-                        >
+                            onClick={() => handleUpdateButtonClick(box.id)}
+                            >
                         Update
                         </Button>
 
