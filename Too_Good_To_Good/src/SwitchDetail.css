@@ -1,30 +1,24 @@
 .parentComponent {
   display: flex;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
 }
 
-.userBoxContainer {
+.userBoxContainer, .subBoxesContainer {
   width: 50%; 
   padding: 10px;
   box-sizing: border-box;
 }
 
-.userBox {
+.userBox, .subBox {
   width: 100%; 
   margin-bottom: 10px; 
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
 
-.subBoxesContainer {
-  width: 50%; 
-  padding: 10px;
-  box-sizing: border-box;
-}
-
-.subBox {
-  width: 100%; 
-  margin-bottom: 10px; 
-  border: 1px solid #ccc;
-  box-sizing: border-box;
+img {
+  max-width: 50%;  /* Adjust this value as needed */
+  height: auto;
+  display: block;  /* Ensures images don't cause horizontal overflow */
+  margin: 0 auto;  /* Centers the image horizontally if it's smaller than its container */
 }
