@@ -219,7 +219,7 @@ function CompareBoxes() {
                     onChange={() => toggleSelectAdditionalBox(box)}
                   />
                 </div>
-                <div className='buttonContainer'>
+                <div className='removeButtonContainer'>
                   <Button
                     sx={{
                       backgroundColor: 'red', color: 'white',

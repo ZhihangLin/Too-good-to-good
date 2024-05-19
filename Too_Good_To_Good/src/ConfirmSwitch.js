@@ -197,7 +197,7 @@ function ConfirmSwitch() {
         <div className="parentComponent">
             {userBoxes.map((userBox) => (
                 <div key={userBox.id} className="boxRow">
-                    <div className="box">
+                    <div className="userBox">
                         <img src={userBox.imageUrl || 'placeholder-image-url'} alt={userBox.productName} />
                         <div className="boxDetails">
                             <h3>{userBox.productName}</h3>
@@ -208,7 +208,7 @@ function ConfirmSwitch() {
                     </div>
                     <div className="subBoxes">
                         {userBox.subBoxes.map((subBox) => (
-                            <div key={subBox.id} className="box">
+                            <div key={subBox.id} className="subBoxes1">
                                 <img src={'https://images-ext-1.discordapp.net/external/GuEfrENZrrYJocJMEA0jHxVd0HLEVfTeMokIXsSKkrE/%3Fid%3DOIP.iqldYf72fpKKy0NYd9wVkAHaJH%26pid%3DApi%26P%3D0%26h%3D180/https/tse4.explicit.bing.net/th?format=webp&width=219&height=270'} />
                                 <div className="subBoxesDetails">
                                     <h3>{subBox.productName}</h3>
@@ -252,7 +252,7 @@ function ConfirmSwitch() {
                                         <div className='switchDetailButtonContainer'>
                                         <Button
                                             sx={{
-                                            backgroundColor: '#007bff', marginLeft: '4px', marginTop: '25px', color: 'white',
+                                            backgroundColor: '#007bff', marginLeft: '4px', marginTop: '4px', color: 'white',
                                             '&:hover': {
                                             backgroundColor: '#0056b3',
                                             },

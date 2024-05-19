@@ -4,6 +4,8 @@ import { useStateValue } from './StateProvider';
 import { useParams } from 'react-router-dom';
 import { db, storage } from './firebase';
 import { getDownloadURL, ref } from 'firebase/storage';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 function SwitchDetail() {
     const [{ user }] = useStateValue();
@@ -103,7 +105,7 @@ function SwitchDetail() {
     };
 
     const renderBoxDetail = (box, boxId, message, setMessage, isUserBox = false) => (
-        <div className="boxDetail">
+        <div className="boxDetail3">
             {box ? (
                 <div>
                     <img src={boxId === subBoxId && box.status !== 'Finish Switch' 
@@ -122,14 +124,44 @@ function SwitchDetail() {
                             </p>
                         ))}
                     </div>
-                    <input
-                        type="text"
+                    <TextField
+                        sx={{ mb: 2, width: '100%', backgroundColor: 'white', marginTop: '5px'}}
+                        label="Leave a message"
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
-                        placeholder="Leave a message"
+                        multiline
                     />
-                    <button onClick={() => handleLeaveMessage(boxId, message, setMessage)}>Leave Message</button>
-                    {isUserBox && <button onClick={() => handleSwitchFinish(boxId)}>Finish Switch</button>}
+                    <Button
+                        sx={{
+                            backgroundColor: '#007bff', 
+                            marginLeft: '4px', 
+                            marginTop: '4px', 
+                            color: 'white',
+                            '&:hover': {
+                                backgroundColor: '#0056b3',
+                            }
+                        }}
+                        onClick={() => handleLeaveMessage(boxId, message, setMessage)}
+                    >
+                        Leave Message
+                    </Button>
+
+                    {isUserBox && (
+                        <Button
+                            sx={{
+                                backgroundColor: '#007bff', 
+                                marginLeft: '4px', 
+                                marginTop: '4px', 
+                                color: 'white',
+                                '&:hover': {
+                                    backgroundColor: '#0056b3',
+                                }
+                            }}
+                            onClick={() => handleSwitchFinish(boxId)}
+                        >
+                            Finish Switch
+                        </Button>
+                    )}
                 </div>
             ) : (
                 <p>Loading...</p>
@@ -142,10 +174,10 @@ function SwitchDetail() {
 
     return (
         <div className="parentComponent">
-            <div className="userBoxContainer">
+            <div className="userBoxContainer1">
                 {renderBoxDetail(currentBox, currentBoxId, currentMessage, setCurrentMessage, true)}
             </div>
-            <div className="subBoxesContainer">
+            <div className="subBoxesContainer1">
                 {renderBoxDetail(subBox, subBoxId, subMessage, setSubMessage)}
             </div>
         </div>
@@ -153,5 +185,3 @@ function SwitchDetail() {
 }
 
 export default SwitchDetail;
-
-  
