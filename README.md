@@ -12,7 +12,7 @@ To run our project:
 4.open too-good-to-good folder in VS code
 type these command in VS code terminal: 
  ```bash
-npm install react-router-dom@5    
+npm install react-router-dom@5
 npm install react-currency-format --force
 npm install react-scripts --save-dev --force
 npm install firebase
