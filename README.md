@@ -12,7 +12,6 @@ To run our project:
 4.open too-good-to-good folder in VS code
 type these command in VS code terminal: 
  ```bash
-npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
 npm install react-router-dom@5    
 npm install react-currency-format --force
 npm install react-scripts --save-dev --force
@@ -20,6 +19,7 @@ npm install firebase
 npm install --force
 npm install axios --save --legacy-peer-deps
 npm install react-datepicker --legacy-peer-deps
+npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
 ```
 
 5. After download
