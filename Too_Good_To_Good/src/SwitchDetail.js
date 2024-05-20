@@ -108,9 +108,10 @@ function SwitchDetail() {
         <div className="boxDetail3">
             {box ? (
                 <div>
-                    <img src={boxId === subBoxId && box.status !== 'Finish Switch' 
-                        ? 'https://images-ext-1.discordapp.net/external/GuEfrENZrrYJocJMEA0jHxVd0HLEVfTeMokIXsSKkrE/%3Fid%3DOIP.iqldYf72fpKKy0NYd9wVkAHaJH%26pid%3DApi%26P%3D0%26h%3D180/https/tse4.explicit.bing.net/th?format=webp&width=219&height=270' 
-                        : box.imageUrl || 'placeholder-image-url'} 
+                    <img 
+                        src={boxId === subBoxId && box.status !== 'Finish Switch' 
+                            ? 'https://images-ext-1.discordapp.net/external/GuEfrENZrrYJocJMEA0jHxVd0HLEVfTeMokIXsSKkrE/%3Fid%3DOIP.iqldYf72fpKKy0NYd9wVkAHaJH%26pid%3DApi%26P%3D0%26h%3D180/https/tse4.explicit.bing.net/th?format=webp&width=219&height=270' 
+                            : box.imageUrl || 'placeholder-image-url'} 
                         alt={box.productName} 
                     />
                     <h3>{box.productName}</h3>
@@ -124,43 +125,44 @@ function SwitchDetail() {
                             </p>
                         ))}
                     </div>
-                    <TextField
-                        sx={{ mb: 2, width: '100%', backgroundColor: 'white', marginTop: '5px'}}
-                        label="Leave a message"
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        multiline
-                    />
-                    <Button
-                        sx={{
-                            backgroundColor: '#007bff', 
-                            marginLeft: '4px', 
-                            marginTop: '4px', 
-                            color: 'white',
-                            '&:hover': {
-                                backgroundColor: '#0056b3',
-                            }
-                        }}
-                        onClick={() => handleLeaveMessage(boxId, message, setMessage)}
-                    >
-                        Leave Message
-                    </Button>
-
                     {isUserBox && (
-                        <Button
-                            sx={{
-                                backgroundColor: '#007bff', 
-                                marginLeft: '4px', 
-                                marginTop: '4px', 
-                                color: 'white',
-                                '&:hover': {
-                                    backgroundColor: '#0056b3',
-                                }
-                            }}
-                            onClick={() => handleSwitchFinish(boxId)}
-                        >
-                            Finish Switch
-                        </Button>
+                        <>
+                            <TextField
+                                sx={{ mb: 2, width: '100%', backgroundColor: 'white', marginTop: '5px'}}
+                                label="Leave a message"
+                                value={message}
+                                onChange={(e) => setMessage(e.target.value)}
+                                multiline
+                            />
+                            <Button
+                                sx={{
+                                    backgroundColor: '#007bff', 
+                                    marginLeft: '4px', 
+                                    marginTop: '4px', 
+                                    color: 'white',
+                                    '&:hover': {
+                                        backgroundColor: '#0056b3',
+                                    }
+                                }}
+                                onClick={() => handleLeaveMessage(boxId, message, setMessage)}
+                            >
+                                Leave Message
+                            </Button>
+                            <Button
+                                sx={{
+                                    backgroundColor: '#007bff', 
+                                    marginLeft: '4px', 
+                                    marginTop: '4px', 
+                                    color: 'white',
+                                    '&:hover': {
+                                        backgroundColor: '#0056b3',
+                                    }
+                                }}
+                                onClick={() => handleSwitchFinish(boxId)}
+                            >
+                                Finish Switch
+                            </Button>
+                        </>
                     )}
                 </div>
             ) : (
