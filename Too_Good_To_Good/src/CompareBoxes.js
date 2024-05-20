@@ -130,19 +130,6 @@ function CompareBoxes() {
     try {
       const batch = db.batch();
 
-      selectedAdditionalBoxes.forEach(async (additionalBoxId) => {
-        // Check if the additional box is already in the subcollection of selected user box
-        const userBoxId = Array.from(selectedUserBoxes)[0];
-        const switchRequestsRef = db.collection('boxes').doc(userBoxId).collection('SwitchBoxes');
-        const existingSwitchRequest = await switchRequestsRef.where('boxId', '==', additionalBoxId).get();
-
-        if (existingSwitchRequest.empty) {
-          await switchRequestsRef.add({ userId: user.uid, boxId: additionalBoxId });
-        } else {
-          console.log("Sending switch request already.");
-        }
-      });
-
       selectedUserBoxes.forEach(async (userBoxId) => {
         // Check if the user box is already in the subcollection of selected additional boxes
         const additionalBoxId = Array.from(selectedAdditionalBoxes)[0];
@@ -156,6 +143,7 @@ function CompareBoxes() {
         }
       });
 
+      
       await batch.commit();
       console.log("Boxes added to switched boxes.");
 
@@ -164,10 +152,7 @@ function CompareBoxes() {
       const currentCounter = parseInt(localStorage.getItem('boxCounter')) || 0;
       const newCounter = currentCounter + updatedBoxCount;
       localStorage.setItem('boxCounter', newCounter);
-      dispatch({
-        type: 'UPDATE_BOX_COUNTER',
-        count: newCounter,
-      });
+
 
     } catch (error) {
       console.error("Error adding boxes to switched boxes:", error);

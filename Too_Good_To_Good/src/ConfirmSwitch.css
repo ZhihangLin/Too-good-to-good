@@ -1,68 +1,33 @@
 .parentComponent {
-    display: flex;
-    flex-wrap: wrap; 
-    font-family: 'Roboto', sans-serif;
-    font-size: 14px;
-    color: #333;
-  }
-  
-  .userBoxContainer {
-    width: 50%; 
-    padding: 10px;
-    box-sizing: border-box;
-  }
-  
-  .userBox1 {
-    width: auto;
-    height: auto;
-    padding: 10px;
-    margin: 5px;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    border-radius: 8px;
-    overflow: visible;
-    background-color: rgb(201, 241, 201);
-  }
-
-  .boxDetails1 {
-    text-align: center;
-  }
-  
-  .subBoxes1 {
-    width: auto;
-    height: auto;
-    padding: 10px;
-    margin: 5px;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    border-radius: 8px;
-    overflow: visible;
-    background-color: rgb(201, 241, 201);
-  }
-  
-  .subBoxesDetails {
-    text-align: center;
-  }
-
-  .userBox img {
-    width: 70%;
-    object-fit: contain;
-    border-bottom: 1px solid #ccc;
-  }
-  
-  .subBoxes img {
-    width: 70%;
-    object-fit: contain;
-    border-bottom: 1px solid #ccc;
-    display: block;
-    margin: 0 auto;
-  }
-
-.boxDetails h3, .subBoxesDetails h3 {
-    font-size: 22px;
-    font-weight: bold;
+  display: flex;
+  flex-wrap: wrap; 
 }
 
-.boxDetails p, .subBoxesDetails p {
-    font-size: 16px;
+.userBoxContainer {
+  width: 50%; 
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.userBox {
+  width: 100%; 
+  margin-bottom: 10px; 
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.subBoxesContainer {
+  width: 50%; 
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.subBox {
+  width: 250px;
+  height: auto;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #ccc;
 }
