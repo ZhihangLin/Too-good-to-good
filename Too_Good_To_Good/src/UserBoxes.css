@@ -1,0 +1,68 @@
+.userboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+.load{
+    align-items: center;
+    margin-left: 100px
+}
+
+.box2_ {
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: visible;
+    width: 300px;
+    min-height: 600px;
+    background-color: rgb(201, 241, 201);
+
+}
+
+.box2_ img {
+    width: 100%;
+    object-fit: contain;
+    border-bottom: 1px solid #ccc;
+    margin-top: 0;
+}
+
+.boxDetails2 {
+    padding: 15px;
+}
+
+.boxDetails2 h3 {
+    margin-top: 0;
+}
+
+.boxDetails2 p {
+    margin: 10px 0;
+}
+
+.boxDetails2 input[type="text"],
+.boxDetails2 input[type="number"] {
+    width: calc(100% - 20px);
+    padding: 5px 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.boxDetails2 button {
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+
+
+.box2 img {
+    width: 100%;
+    object-fit: contain;
+    border-bottom: 1px solid #ccc;
+}

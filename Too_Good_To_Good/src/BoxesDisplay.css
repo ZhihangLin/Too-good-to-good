@@ -1,0 +1,68 @@
+.boxesDisplay {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.box1 {
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: visible;
+    width: 300px;
+    min-height: 600px;
+    background-color: rgb(201, 241, 201);
+
+}
+
+.box1 img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-bottom: 1px solid #ccc;
+    margin-top: 0;
+}
+
+.boxDetails1 {
+    padding: 15px;
+}
+
+.boxDetails1 h3 {
+    margin-top: 0;
+}
+
+.boxDetails1 p {
+    margin: 10px 0;
+}
+
+.boxDetails1 input[type="text"],
+.boxDetails1 input[type="number"] {
+    width: calc(100% - 20px);
+    padding: 5px 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.boxDetails1 button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.boxDetails1 button:hover {
+    background-color: #0056b3;
+}
+
+.box1 img {
+    width: 100%;
+    object-fit: contain;
+    border-bottom: 1px solid #ccc;
+}

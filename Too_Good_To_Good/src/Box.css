@@ -2,15 +2,36 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     margin: 10px;
     padding: 20px;
     width: 100%;
     max-height: 400px;
-    min-width: 100px;
+    min-width: 300px;
     background-color: rgb(201, 241, 201);
     z-index: 1;
+    border-radius: 8px;
+    transition: transform 0.2s;
+}
 
+.box:hover {
+    transform: scale(1.02); 
+}
+
+.box > botton{
+    background-color: #d9e8cb;
+    border: 1px solid;
+    border-color: #7a9362;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+
+.box > button:hover {
+    background-color: rgb(201, 241, 201);
 }
 
 .box > img {
@@ -18,17 +39,11 @@
     width: 100%;
     object-fit: contain;
     margin-bottom: 15px;
+    border-radius: 4px;
 }
 
-.box__info {
-    height: 100px;
-    margin-bottom: px;
-}
-
-.box__price {
-    margin-top: 5px;
-}
-
-.box_location {
-    margin-top: px;
+.box__type, .box__location, .box__price {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 10px;
 }

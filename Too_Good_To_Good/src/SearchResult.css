@@ -1,0 +1,45 @@
+.boxesDisplay {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.box1 {
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: visible;
+  width: 250px;
+  min-height: 550px;
+}
+
+.box1 img {
+  width: 100%;
+  object-fit: contain;
+  border-bottom: 1px solid #ccc;
+}
+
+.boxDetails {
+  padding: 15px;
+}
+
+.boxDetails h3 {
+  margin-top: 0;
+}
+
+.boxDetails p {
+  margin: 10px 0;
+}
+
+
+
+.switch_button {
+  margin-top: 10px;
+  background-color: #4CAF50;
+  color: #000;
+}
+.switch_button:hover {
+  background-color: #45a049;
+}

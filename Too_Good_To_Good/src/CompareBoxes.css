@@ -1,0 +1,87 @@
+.parentComponent {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* Distribute items along the main axis */
+}
+
+body, input, button {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern and clean font */
+  color: #333; /* Dark grey for better readability */
+}
+
+
+.leftSide, .rightSide {
+  
+  flex: 1;
+  margin: 20px;
+
+}
+
+.boxDetails {
+  width: 300px;
+    height: auto;
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: visible;
+    background-color: rgb(201, 241, 201);
+}
+
+.boxContainer {
+  display: flex;
+  flex-wrap: wrap;
+  
+}
+
+.box {
+  width: 250px;
+  height: auto;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #ccc;
+}
+
+.h2_ui {
+  font-size: 24px;
+  color: #4a7c59;
+}
+
+.boxDetails h3 {
+  text-align: center;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkboxContainer1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.removeButtonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.switchButtonContainer {
+  margin-top: 50px;
+}

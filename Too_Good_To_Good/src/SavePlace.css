@@ -1,0 +1,54 @@
+.save-place-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+.h1_padding{
+    margin-top: 20px;
+    text-align: center;
+}
+
+.save-place-list li {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    margin-bottom: 10px; 
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.12); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    flex-direction: column; 
+    height: 100px; 
+}
+
+.save-place-list strong {
+    font-size: 18px; 
+    color: #333; 
+    margin-bottom: 5px; 
+}
+
+.save-place-list p {
+    font-size: 16px; 
+    color: #666; 
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Ensure it's above other content */
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}

@@ -7,7 +7,7 @@
   }
   
   .upload_logo {
-    margin-top: 10px;
+    margin-top: 100px;
     margin-bottom: 10px;
     object-fit: contain;
     width: 300px;
@@ -15,3 +15,23 @@
     margin-left: auto;
   }
   
+  .email_{
+    font-size: 25px;
+  }
+
+
+
+  button.login_signInButton {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button.login_signInButton:hover {
+    background-color: #45a049;
+}

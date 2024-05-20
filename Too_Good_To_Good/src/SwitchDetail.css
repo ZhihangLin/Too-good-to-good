@@ -1,0 +1,56 @@
+.parentComponent {
+    display: flex;
+    flex-wrap: wrap;
+    font-family: 'Roboto', sans-serif; /* Example of setting a font family */
+    font-size: 14px; /* Default font size */
+    color: #333; /* Default text color */
+  }
+  
+  .userBoxContainer1, .subBoxesContainer1 {
+    width: 50%; 
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .userBox, .subBox {
+    width: 100%; 
+    margin-bottom: 10px; 
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  
+  img {
+    max-width: 100%;  /* Adjust this value as needed */
+    height: auto;
+    display: block;  /* Ensures images don't cause horizontal overflow */
+    margin: 0 auto;  /* Centers the image horizontally if it's smaller than its container */
+  }
+
+  .boxDetail3 {
+    width: 300px;
+    height: auto;
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: visible;
+    background-color: rgb(201, 241, 201);
+  }
+
+  .boxDetail3 h3 {
+    text-align: center;
+  }
+
+  .messages p {
+    font-family: 'Arial', sans-serif; /* Choose a font-family that fits your design */
+    font-size: 16px; /* Adjust the size as needed */
+    color: #333; /* This is a darker shade of gray for better readability */
+    font-weight: bold; /* Makes the text bold */
+    background-color: #f0f0f0; /* Light gray background for the messages */
+    border-radius: 8px; /* Rounded corners for the message boxes */
+    padding: 8px; /* Padding inside the message boxes */
+    margin: 4px 0; /* Space between messages */
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for a 3D effect */
+}
+ 
