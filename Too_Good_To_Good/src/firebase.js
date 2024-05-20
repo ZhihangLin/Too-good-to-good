@@ -2,6 +2,8 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import {getStorage } from "firebase/storage";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBzLK6CZjo7zs78rdmv3FRVCt73wTOTXfI",
@@ -23,8 +25,9 @@ const db = firebaseApp.firestore();
 const auth = firebase.auth();
 
  const storage = getStorage(firebaseApp);
+ const provider = new GoogleAuthProvider();
+//  provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 
 
 
-
-export { db, auth, storage };
+export { db, auth, storage, provider };
