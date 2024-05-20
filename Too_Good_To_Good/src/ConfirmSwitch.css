@@ -12,7 +12,23 @@
     box-sizing: border-box;
   }
   
-  .userBox {
+  .userBox1 {
+    width: auto;
+    height: auto;
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: visible;
+    background-color: rgb(201, 241, 201);
+  }
+
+  .boxDetails1 {
+    text-align: center;
+  }
+  
+  .subBoxes1 {
     width: auto;
     height: auto;
     padding: 10px;
@@ -24,24 +40,12 @@
     background-color: rgb(201, 241, 201);
   }
   
-  .subBoxes1 {
-    width: 300px;
-    height: auto;
-    padding: 10px;
-    margin: 5px;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    border-radius: 8px;
-    overflow: visible;
-    background-color: rgb(201, 241, 201);
-  }
-  
-  .subBoxesDetails h3 {
+  .subBoxesDetails {
     text-align: center;
   }
 
   .userBox img {
-    width: 100%;
+    width: 70%;
     object-fit: contain;
     border-bottom: 1px solid #ccc;
   }

@@ -197,9 +197,9 @@ function ConfirmSwitch() {
         <div className="parentComponent">
             {userBoxes.map((userBox) => (
                 <div key={userBox.id} className="boxRow">
-                    <div className="userBox">
+                    <div className="userBox1">
                         <img src={userBox.imageUrl || 'placeholder-image-url'} alt={userBox.productName} />
-                        <div className="boxDetails">
+                        <div className="boxDetails1">
                             <h3>{userBox.productName}</h3>
                             <p>Type: {userBox.type}</p>
                             <p>Location: {userBox.location}</p>
