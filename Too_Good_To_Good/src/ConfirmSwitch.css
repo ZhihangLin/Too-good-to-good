@@ -66,3 +66,11 @@
 .boxDetails p, .subBoxesDetails p {
     font-size: 16px;
 }
+.photo_change {
+  width: 350px;
+  height: 200px;
+  object-fit: cover; /* Ensures the image covers the 200x200 area while maintaining aspect ratio */
+  border-bottom: 1px solid #ccc;
+  display: block;
+  margin: 0 auto 10px auto;
+}

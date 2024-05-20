@@ -198,7 +198,7 @@ function ConfirmSwitch() {
             {userBoxes.map((userBox) => (
                 <div key={userBox.id} className="boxRow">
                     <div className="userBox1">
-                        <img src={userBox.imageUrl || 'placeholder-image-url'} alt={userBox.productName} />
+                        <img className="photo_change" src={userBox.imageUrl || 'placeholder-image-url'} alt={userBox.productName} />
                         <div className="boxDetails1">
                             <h3>{userBox.productName}</h3>
                             <p>Type: {userBox.type}</p>
@@ -209,7 +209,7 @@ function ConfirmSwitch() {
                     <div className="subBoxes">
                         {userBox.subBoxes.map((subBox) => (
                             <div key={subBox.id} className="subBoxes1">
-                                <img src={'https://images-ext-1.discordapp.net/external/GuEfrENZrrYJocJMEA0jHxVd0HLEVfTeMokIXsSKkrE/%3Fid%3DOIP.iqldYf72fpKKy0NYd9wVkAHaJH%26pid%3DApi%26P%3D0%26h%3D180/https/tse4.explicit.bing.net/th?format=webp&width=219&height=270'} />
+                                <img className="photo_change" src={'https://images-ext-1.discordapp.net/external/GuEfrENZrrYJocJMEA0jHxVd0HLEVfTeMokIXsSKkrE/%3Fid%3DOIP.iqldYf72fpKKy0NYd9wVkAHaJH%26pid%3DApi%26P%3D0%26h%3D180/https/tse4.explicit.bing.net/th?format=webp&width=219&height=270'} />
                                 <div className="subBoxesDetails">
                                     <h3>{subBox.productName}</h3>
                                     <p>Type: {subBox.type}</p>
