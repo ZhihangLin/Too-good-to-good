@@ -80,10 +80,8 @@ function App() {
           <Upload />
          </Route>
 
-        <Route path="/boxes">
-          <Header />
-          <BoxesDisplay />
-        </Route>
+        
+    
            <Route path="/confirm">
           <Header />
           <ConfirmSwitch />
